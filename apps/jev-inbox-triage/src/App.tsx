@@ -255,11 +255,11 @@ export default function App() {
             <KeyRound />
             <AlertTitle>No API key set — showing sample heuristics</AlertTitle>
             <AlertDescription>
-              For live Jev answers, export <code>OPENROUTER_API_KEY</code>{' '}
-              (Jev via OpenRouter, no TypeSafe waitlist needed) or{' '}
-              <code>TYPESAFE_API_KEY</code>, then restart{' '}
-              <code>bun run dev</code>. OpenRouter takes precedence if both
-              are set.
+              For live Jev answers, put <code>OPENROUTER_API_KEY</code> (Jev
+              via OpenRouter, no TypeSafe waitlist needed) or{' '}
+              <code>TYPESAFE_API_KEY</code> in <code>.env</code> — or export
+              it — then restart <code>bun run dev</code>. OpenRouter takes
+              precedence if both are set.
             </AlertDescription>
           </Alert>
         )}

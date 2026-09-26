@@ -17,8 +17,10 @@ Open http://localhost:5173, click **Load samples**, then **Triage 5 messages**.
 
 ## Environment
 
-Copy `.env.example` to `.env` (Bun loads it automatically for `bun run dev`)
-or export the variables in your shell. You need at most one key:
+Copy `.env.example` to `.env` — the dev server loads it automatically on
+startup (via Vite's `loadEnv` in `vite.config.ts`; no `VITE_` prefix, so keys
+stay server-only). Alternatively export the variables in your shell, which
+takes precedence over `.env`. You need at most one key:
 
 | Variable             | Notes                                                                 |
 | -------------------- | --------------------------------------------------------------------- |

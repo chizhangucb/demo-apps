@@ -1,6 +1,6 @@
 import tailwindcss from '@tailwindcss/vite'
 import react from '@vitejs/plugin-react'
-import { defineConfig, type Connect, type Plugin } from 'vite'
+import { defineConfig, loadEnv, type Connect, type Plugin } from 'vite'
 import { getStatus, triageMessages } from './server/triage.ts'
 
 function readBody(req: Connect.IncomingMessage): Promise<string> {
@@ -48,11 +48,23 @@ function triageApi(): Plugin {
 }
 
 // https://vite.dev/config/
-export default defineConfig({
-  plugins: [react(), tailwindcss(), triageApi()],
-  resolve: {
-    alias: {
-      '@': new URL('./src', import.meta.url).pathname,
+export default defineConfig(({ mode }) => {
+  // `bun run dev` spawns Vite as a child process without injecting `.env`
+  // (Bun only auto-loads it for its own runtime), so load the server-only
+  // keys here. Empty prefix on purpose: these must NOT be VITE_-prefixed,
+  // which also keeps them out of the client bundle. Shell exports win.
+  const fileEnv = loadEnv(mode, new URL('.', import.meta.url).pathname, '')
+  for (const key of ['OPENROUTER_API_KEY', 'TYPESAFE_API_KEY']) {
+    // Guard: process.env[key] = undefined would coerce to the string "undefined".
+    if (!process.env[key] && fileEnv[key]) process.env[key] = fileEnv[key]
+  }
+
+  return {
+    plugins: [react(), tailwindcss(), triageApi()],
+    resolve: {
+      alias: {
+        '@': new URL('./src', import.meta.url).pathname,
+      },
     },
-  },
+  }
 })
