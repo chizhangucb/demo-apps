@@ -26,8 +26,14 @@ export interface TriageResult {
   humanReview: { probability: number }
 }
 
+/**
+ * Where answers come from, in precedence order:
+ * OpenRouter key → TypeSafe key → local sample heuristics.
+ */
+export type Provider = 'openrouter' | 'typesafe' | 'sample'
+
 export interface TriagePayload {
-  source: 'live' | 'sample'
+  provider: Provider
   model: string
   results: TriageResult[]
 }

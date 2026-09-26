@@ -10,14 +10,50 @@ import {
   DEPARTMENTS,
   URGENCY_RUBRIC,
   type Department,
+  type Provider,
   type TriagePayload,
   type TriageResult,
 } from '../shared/schema.ts'
 
-const hasKey = () => Boolean(process.env.TYPESAFE_API_KEY?.trim())
+// Jev is reachable two ways: directly via TypeSafe (waitlisted API key) or via
+// OpenRouter, which proxies System One at the same API shape — so the official
+// SDK works for both, only apiKey/baseURL differ.
+// https://openrouter.ai/docs/guides/community/typesafe-sdk
+const OPENROUTER_BASE_URL = 'https://openrouter.ai/api'
 
-export function getStatus() {
-  return { hasKey: hasKey() }
+interface ResolvedProvider {
+  provider: Provider
+  makeClient?: () => TypeSafeClient
+  label: string
+}
+
+/** Key precedence: OPENROUTER_API_KEY → TYPESAFE_API_KEY → sample heuristics. */
+function resolveProvider(): ResolvedProvider {
+  const openrouterKey = process.env.OPENROUTER_API_KEY?.trim()
+  if (openrouterKey) {
+    return {
+      provider: 'openrouter',
+      label: 'OpenRouter',
+      makeClient: () =>
+        new TypeSafeClient({
+          apiKey: openrouterKey,
+          baseURL: OPENROUTER_BASE_URL,
+        }),
+    }
+  }
+  const typesafeKey = process.env.TYPESAFE_API_KEY?.trim()
+  if (typesafeKey) {
+    return {
+      provider: 'typesafe',
+      label: 'TypeSafe',
+      makeClient: () => new TypeSafeClient(),
+    }
+  }
+  return { provider: 'sample', label: 'sample heuristics' }
+}
+
+export function getStatus(): { provider: Provider } {
+  return { provider: resolveProvider().provider }
 }
 
 const QUESTIONS = {
@@ -40,15 +76,16 @@ export async function triageMessages(
 ): Promise<TriagePayload> {
   const trimmed = messages.map((m) => m.trim()).filter(Boolean)
   if (trimmed.length === 0) throw new Error('No messages to triage')
-  if (!hasKey()) {
+  const { provider, label, makeClient } = resolveProvider()
+  if (!makeClient) {
     return {
-      source: 'sample',
+      provider: 'sample',
       model: 'sample-heuristics',
       results: trimmed.map(sampleTriage),
     }
   }
 
-  const client = new TypeSafeClient()
+  const client = makeClient()
   let model = client.defaultModel
   const results = await Promise.all(
     trimmed.map(async (message) => {
@@ -75,21 +112,21 @@ export async function triageMessages(
         } satisfies TriageResult
       } catch (err) {
         if (err instanceof APIError) {
-          throw new Error(`TypeSafe API error (HTTP ${err.status}): ${err.message}`)
+          throw new Error(`${label} API error (HTTP ${err.status}): ${err.message}`)
         }
         if (err instanceof TypeSafeError) {
-          throw new Error(`TypeSafe client error: ${err.message}`)
+          throw new Error(`${label} client error: ${err.message}`)
         }
         throw err
       }
     }),
   )
-  return { source: 'live', model, results }
+  return { provider, model, results }
 }
 
 // --- Sample mode -----------------------------------------------------------
-// Deterministic keyword heuristics used only when TYPESAFE_API_KEY is unset,
-// so the UI stays demoable without exposing or requiring a key.
+// Deterministic keyword heuristics used only when neither OPENROUTER_API_KEY
+// nor TYPESAFE_API_KEY is set, so the UI stays demoable without a key.
 
 const KEYWORDS: Record<Department, string[]> = {
   billing: ['charge', 'charged', 'invoice', 'refund', 'payment', 'card', 'subscription', 'billed', 'price'],

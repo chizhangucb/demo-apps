@@ -23,6 +23,7 @@ import {
   DEPARTMENTS,
   URGENCY_RUBRIC,
   type Department,
+  type Provider,
   type TriagePayload,
   type TriageResult,
 } from '../shared/schema'
@@ -187,13 +188,13 @@ export default function App() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [payload, setPayload] = useState<TriagePayload | null>(null)
-  const [hasKey, setHasKey] = useState<boolean | null>(null)
+  const [provider, setProvider] = useState<Provider | null>(null)
 
   useEffect(() => {
     fetch('/api/status')
       .then((r) => r.json())
-      .then((s: { hasKey: boolean }) => setHasKey(s.hasKey))
-      .catch(() => setHasKey(null))
+      .then((s: { provider: Provider }) => setProvider(s.provider))
+      .catch(() => setProvider(null))
   }, [])
 
   const messages = useMemo(() => parseMessages(text), [text])
@@ -225,6 +226,21 @@ export default function App() {
           <h1 className="flex items-center gap-2 text-2xl font-semibold tracking-tight">
             <Inbox className="size-6" />
             Jev Inbox Triage
+            {provider === 'openrouter' && (
+              <Badge className="bg-emerald-600 text-white hover:bg-emerald-600">
+                live · OpenRouter
+              </Badge>
+            )}
+            {provider === 'typesafe' && (
+              <Badge className="bg-emerald-600 text-white hover:bg-emerald-600">
+                live · TypeSafe
+              </Badge>
+            )}
+            {provider === 'sample' && (
+              <Badge variant="outline" className="text-amber-600">
+                sample mode
+              </Badge>
+            )}
           </h1>
           <p className="text-sm text-muted-foreground">
             Paste support messages. Jev (TypeSafe System One) picks a
@@ -234,14 +250,16 @@ export default function App() {
           </p>
         </header>
 
-        {hasKey === false && (
+        {provider === 'sample' && (
           <Alert>
             <KeyRound />
-            <AlertTitle>TYPESAFE_API_KEY is not set</AlertTitle>
+            <AlertTitle>No API key set — showing sample heuristics</AlertTitle>
             <AlertDescription>
-              Results below use built-in sample heuristics so you can explore
-              the UI. Export <code>TYPESAFE_API_KEY</code> and restart{' '}
-              <code>bun run dev</code> for live Jev answers.
+              For live Jev answers, export <code>OPENROUTER_API_KEY</code>{' '}
+              (Jev via OpenRouter, no TypeSafe waitlist needed) or{' '}
+              <code>TYPESAFE_API_KEY</code>, then restart{' '}
+              <code>bun run dev</code>. OpenRouter takes precedence if both
+              are set.
             </AlertDescription>
           </Alert>
         )}
@@ -312,9 +330,14 @@ export default function App() {
                 {payload.results.length === 1 ? '' : 's'} · model{' '}
                 <code>{payload.model}</code>
               </h2>
-              {payload.source === 'sample' && (
+              {payload.provider === 'sample' ? (
                 <Badge variant="outline" className="text-amber-600">
                   sample data
+                </Badge>
+              ) : (
+                <Badge className="bg-emerald-600 text-white hover:bg-emerald-600">
+                  live via{' '}
+                  {payload.provider === 'openrouter' ? 'OpenRouter' : 'TypeSafe'}
                 </Badge>
               )}
             </div>

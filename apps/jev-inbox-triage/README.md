@@ -17,15 +17,30 @@ Open http://localhost:5173, click **Load samples**, then **Triage 5 messages**.
 
 ## Environment
 
-| Variable           | Required | Notes                                                          |
-| ------------------ | -------- | -------------------------------------------------------------- |
-| `TYPESAFE_API_KEY` | for live | TypeSafe AI API key read by `@typesafe-ai/sdk` on the server.  |
+Copy `.env.example` to `.env` (Bun loads it automatically for `bun run dev`)
+or export the variables in your shell. You need at most one key:
 
-Without the key the app stays usable: a banner explains the key is missing and
-results come from clearly-labeled local sample heuristics instead of Jev. Set
-the key and restart `bun run dev` for live answers. The key never reaches the
-browser — the SDK runs inside a Vite dev-server middleware (`server/triage.ts`
-wired in `vite.config.ts`) behind `POST /api/triage`.
+| Variable             | Notes                                                                 |
+| -------------------- | --------------------------------------------------------------------- |
+| `OPENROUTER_API_KEY` | Live Jev via OpenRouter — no TypeSafe waitlist needed. Preferred.     |
+| `TYPESAFE_API_KEY`   | Live Jev via the TypeSafe API directly (key is currently waitlisted). |
+
+Precedence: `OPENROUTER_API_KEY` → `TYPESAFE_API_KEY` → sample heuristics.
+
+- **OpenRouter (recommended):** grab a key at
+  [openrouter.ai/keys](https://openrouter.ai/keys). OpenRouter proxies
+  TypeSafe System One at the same API shape, so the app keeps using the
+  official `@typesafe-ai/sdk` and just points it at
+  `https://openrouter.ai/api` with your OpenRouter key. Bare model ids like
+  `jev-latest` are mapped by OpenRouter. See the
+  [OpenRouter TypeSafe SDK guide](https://openrouter.ai/docs/guides/community/typesafe-sdk).
+- **Neither key:** the app stays usable — a banner explains no key is set and
+  results come from clearly-labeled local sample heuristics instead of Jev.
+
+The header badge shows which mode is active: `live · OpenRouter`,
+`live · TypeSafe`, or `sample mode`. Keys never reach the browser — the SDK
+runs inside a Vite dev-server middleware (`server/triage.ts` wired in
+`vite.config.ts`) behind `POST /api/triage`.
 
 ## What Jev is doing
 
