@@ -1,7 +1,7 @@
 import tailwindcss from '@tailwindcss/vite'
 import react from '@vitejs/plugin-react'
 import { defineConfig, loadEnv, type Connect, type Plugin } from 'vite'
-import { getStatus, triageMessages } from './server/triage.ts'
+import { getStatus, triageMessages } from './server/triage.js'
 
 function readBody(req: Connect.IncomingMessage): Promise<string> {
   return new Promise((resolve, reject) => {

@@ -1,9 +1,4 @@
 {
-  "files": [],
-  "references": [
-    { "path": "./tsconfig.app.json" },
-    { "path": "./tsconfig.node.json" }
-  ],
   "compilerOptions": {
     "target": "ES2022",
     "lib": ["ES2022"],
@@ -11,8 +6,10 @@
     "moduleResolution": "bundler",
     "types": ["node"],
     "skipLibCheck": true,
-    "paths": {
-      "@/*": ["./src/*"]
-    }
-  }
+    "strict": true,
+    "noEmit": true,
+    "verbatimModuleSyntax": true,
+    "isolatedModules": true
+  },
+  "include": ["./**/*.ts", "../server/**/*.ts", "../shared/**/*.ts"]
 }
