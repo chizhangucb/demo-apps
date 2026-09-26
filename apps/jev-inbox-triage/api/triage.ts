@@ -1,7 +1,7 @@
 // Vercel serverless function (Node runtime, web-standard handler).
 // Reuses the same logic as the Vite dev middleware in ../vite.config.ts.
 // Non-POST methods get an automatic 405 because only POST is exported.
-import { triageMessages } from '../server/triage.ts'
+import { triageMessages } from '../server/triage.js'
 
 export async function POST(request: Request): Promise<Response> {
   try {

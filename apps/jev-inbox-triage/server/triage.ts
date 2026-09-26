@@ -13,7 +13,7 @@ import {
   type Provider,
   type TriagePayload,
   type TriageResult,
-} from '../shared/schema.ts'
+} from '../shared/schema.js'
 
 // Jev is reachable two ways: directly via TypeSafe (waitlisted API key) or via
 // OpenRouter, which proxies System One at the same API shape — so the official
