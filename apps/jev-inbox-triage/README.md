@@ -44,6 +44,52 @@ The header badge shows which mode is active: `live · OpenRouter`,
 runs inside a Vite dev-server middleware (`server/triage.ts` wired in
 `vite.config.ts`) behind `POST /api/triage`.
 
+## Deploy to Vercel
+
+The Vite dev middleware only exists locally, so production uses **Vercel
+serverless functions** in `api/` that import the exact same `server/triage.ts`
+logic:
+
+| Route              | File            | Handler                                        |
+| ------------------ | --------------- | ---------------------------------------------- |
+| `GET /api/status`  | `api/status.ts` | web-standard `GET(): Response`                 |
+| `POST /api/triage` | `api/triage.ts` | web-standard `POST(request: Request)`          |
+
+They use Vercel's Node runtime with [web-standard method handlers](https://vercel.com/docs/functions/functions-api-reference)
+(exporting `GET`/`POST` gives automatic 405s for other methods), so there are
+no extra dependencies and no `@vercel/node` types. The frontend already calls
+relative `/api/*` URLs, so everything stays same-origin — no CORS setup.
+
+`vercel.json` (in this app directory) pins the rest:
+
+- `installCommand: bun install` / `buildCommand: bun run build` — Vercel
+  supports Bun natively and also auto-detects it from `bun.lock`.
+- `framework: vite`, `outputDirectory: dist`.
+- SPA fallback rewrite `/((?!api/).*) → /index.html` that leaves `/api/*`
+  to the serverless functions.
+
+### One-time setup
+
+1. In [Vercel](https://vercel.com/new), import the `demo-apps` GitHub repo.
+2. Set **Root Directory** to `apps/jev-inbox-triage` (Project → Settings →
+   Build & Development if you missed it during import). This is a monorepo:
+   one Vercel project per demo app is fine for now.
+3. In **Project → Settings → Environment Variables**, add
+   `OPENROUTER_API_KEY` (preferred) and/or `TYPESAFE_API_KEY` for both
+   **Production** and **Preview**. Key precedence is the same as local:
+   `OPENROUTER_API_KEY` → `TYPESAFE_API_KEY` → sample heuristics.
+4. Deploy (or redeploy after adding/changing env vars — env changes only
+   apply to new deployments).
+
+Without any key the deployed app still works in clearly-labeled sample mode;
+with a key the header badge flips to `live · OpenRouter` / `live · TypeSafe`.
+Keys stay server-side in the functions and never reach the browser. Any
+client-side route falls back to `index.html`, while `/api/*` keeps hitting
+the functions.
+
+Local `bun run dev` is unchanged — the Vite middleware still serves `/api/*`
+in dev, and `api/*.ts` is only used by Vercel.
+
 ## What Jev is doing
 
 One `systemOne` call per message with three questions:
