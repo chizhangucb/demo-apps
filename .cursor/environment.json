@@ -1,0 +1,17 @@
+{
+  "name": "demo-apps monorepo",
+  "install": "bash .cursor/install.sh",
+  "terminals": [
+    {
+      "name": "jev-inbox-triage dev",
+      "description": "Vite dev server for apps/jev-inbox-triage on http://localhost:5173 (POST /api/triage runs Jev via @typesafe-ai/sdk; falls back to labeled sample heuristics when TYPESAFE_API_KEY is unset).",
+      "command": "export PATH=\"$HOME/.bun/bin:$PATH\" && cd apps/jev-inbox-triage && bun run dev --host 0.0.0.0"
+    }
+  ],
+  "ports": [
+    {
+      "name": "jev-inbox-triage web",
+      "port": 5173
+    }
+  ]
+}
