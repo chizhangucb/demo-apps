@@ -32,9 +32,9 @@ You build one small single-user tech demo in the chizhangucb/demo-apps repo, the
 The bookmark pick and the plan for this run are in the <routine-fire-payload> block. Then:
 1. Save the plan from the payload verbatim to apps/<slug>/PLAN.md. Do not re-plan; Grok already did. If no slug is given, derive one from the bookmark title.
 2. Build the demo under apps/<slug>/ per AGENTS.md.
-3. Proof: commit at least one screenshot under apps/<slug>/.demo/, and upload at least one short video as a GitHub release asset (gh release upload).
+3. Proof: upload at least one screenshot and at least one short video as GitHub release assets (gh release, tag demo-<slug>), and link them in the PR. Commit no media.
 4. Move the pick into "built" in tracking/seen-bookmarks.json.
-5. Open one PR from claude/demo-<slug> to main: embed the screenshot, link the video, one-paragraph summary.
+5. Open one PR from claude/demo-<slug> to main: link the screenshot and video, one-paragraph summary.
 ```
 
 ### Cloud environment setup script
@@ -91,12 +91,13 @@ This creates a dashboard-visible cloud session and prints `{ok, session_id, url}
 
 What Cursor actually did: its VM shipped Chrome for computer-use, the agent captured a screenshot (.webp) + video (.mp4) into `/opt/cursor/artifacts/`, Cursor auto-uploaded them to its own artifact host, and the PR body linked those URLs (see PRs #1/#2: `cursor.com/agents/<id>/artifacts/...`). Nothing was committed to the repo and nothing used GitHub's attachment upload.
 
-The routine runs unattended, so use only capture paths that need no human approval:
+Mirror Cursor: it never committed media, it hosted the screenshot + video on its own platform and listed those URLs in the PR body as links (not inline thumbnails). We do the same with GitHub as the host, so nothing lands in the repo.
 
-- Screenshot: capture via headless Chromium (`chromedriver` preinstalled; or Playwright), commit under `apps/<slug>/.demo/` (small PNG, renders inline in the PR).
-- Video: capture with Playwright + ffmpeg, upload as a GitHub release asset (`gh release upload`) and link in the PR. Keep it out of git so the monorepo stays lean.
+The routine is unattended, so use only paths that need no human approval:
+- Capture via headless Chromium (`chromedriver` preinstalled; or Playwright), plus ffmpeg for the video.
+- Upload both the screenshot and the video as GitHub release assets (`gh release`), e.g. to a per-demo tag `demo-<slug>`. Link them in the PR body. Commit no media.
 
-`gh` is preinstalled and reads `GH_TOKEN`, so the PR opens over the API, no browser.
+`gh` is preinstalled and reads `GH_TOKEN`, so the PR opens over the API, no browser. Release-asset URLs are click-through links, like Cursor's were. Inline-rendered images would need GitHub's attachment CDN, a browser-only upload an unattended session can't do, so we link instead.
 
 On artifacts: Claude Code does have an artifact host (a self-contained HTML/Markdown page at a stable claude.ai URL), and a nicer "demo walkthrough" page is possible. But publishing a NEW artifact goes through permission mode, and an unattended routine has no one to approve it, so don't depend on it for the required proof. Add it later if it publishes cleanly unattended.
 

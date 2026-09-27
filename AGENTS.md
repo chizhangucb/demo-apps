@@ -15,6 +15,6 @@ A build runs unattended in a Claude Code cloud session from a plan handed to it 
 1. Save the given plan verbatim to `apps/<slug>/PLAN.md`. It is already planned; do not re-plan.
 2. Build under `apps/<slug>/` only. Never touch another app; never create a new GitHub repo.
 3. Bun for everything. Before the first install, write `bunfig.toml` with `[install] minimumReleaseAge = 259200`. Scaffold with `bunx create-*`; add shadcn/ui for UI.
-4. Run the app. Capture proof: commit at least one screenshot under `apps/<slug>/.demo/`, and upload at least one short video as a GitHub release asset (`gh release upload`). Keep video out of git.
+4. Run the app. Capture proof: upload at least one screenshot and at least one short video as GitHub release assets (`gh release`, tag `demo-<slug>`). Commit no media.
 5. Move the pick to `built` in `tracking/seen-bookmarks.json`.
-6. Open one PR, `claude/demo-<slug>` → `main`: embed the screenshot, link the video, one-paragraph summary.
+6. Open one PR, `claude/demo-<slug>` → `main`: link the screenshot and video, one-paragraph summary.
