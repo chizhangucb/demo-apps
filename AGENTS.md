@@ -10,7 +10,7 @@ Sticky repo of small single-user tech demos. Each pick becomes one self-containe
 
 ## Build
 
-A build runs unattended from a plan handed to the build agent (see `docs/CLOUD_BUILD.md` for the current builder and how it is triggered). Steps:
+A build runs unattended from a plan handed to the build agent by an external trigger (the builder and its wiring live outside this repo). Steps:
 
 1. Save the given plan verbatim to `apps/<slug>/PLAN.md`. It is already planned; do not re-plan.
 2. Build under `apps/<slug>/` only. Never touch another app; never create a new GitHub repo.
