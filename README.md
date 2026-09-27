@@ -11,3 +11,4 @@ Each demo is deployed as its own Vercel project with **Root Directory** set to `
 | App | Public URL | Notes |
 | --- | --- | --- |
 | Jev Inbox Triage (`apps/jev-inbox-triage`) | https://jev-inbox-triage.vercel.app | Vercel; live Jev via server-side `OPENROUTER_API_KEY` |
+| Claude Commerce Retail (`apps/claude-commerce-retail`) | https://claude-commerce-retail.vercel.app | Vercel; mock mode until `ANTHROPIC_API_KEY` is set (server-side) |
