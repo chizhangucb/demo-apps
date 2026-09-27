@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "CI/CD · push to production",
+    "quality_profile": "showcase",
+    "views": [
+      { "id": "build", "label": "Build", "focus": ["dev", "repo", "ci", "secrets", "registry"], "note": "A push triggers lint, test and an OCI build using short-lived OIDC credentials." },
+      { "id": "release", "label": "Release", "focus": ["registry", "cd", "staging", "prod"], "note": "GitOps controller syncs staging, then promotes the same digest to prod." },
+      { "id": "guard", "label": "Guardrails", "focus": ["secrets", "ci", "registry", "scan", "prod", "monitor"], "note": "No static keys, every image scanned, SLO alerts watch the rollout." }
+    ]
+  },
+  "components": [
+    { "id": "dev", "type": "external", "label": "Developer", "sublabel": "git push", "pos": [40, 200], "size": [150, 64] },
+    { "id": "repo", "type": "cloud", "label": "GitHub", "sublabel": "main + PRs", "pos": [250, 200], "size": [150, 64] },
+    { "id": "ci", "type": "backend", "label": "CI Runner", "sublabel": "lint · test · build", "pos": [460, 200], "size": [150, 64] },
+    { "id": "secrets", "type": "security", "label": "Secrets", "sublabel": "OIDC-federated", "pos": [460, 40], "size": [150, 64] },
+    { "id": "registry", "type": "database", "label": "Registry", "sublabel": "OCI images", "pos": [670, 200], "size": [150, 64] },
+    { "id": "scan", "type": "security", "label": "Image Scan", "sublabel": "SBOM + CVEs", "pos": [670, 380], "size": [150, 64] },
+    { "id": "cd", "type": "backend", "label": "Deploy Controller", "sublabel": "Argo CD", "pos": [900, 200], "size": [160, 64] },
+    { "id": "staging", "type": "cloud", "label": "Staging", "sublabel": "k8s namespace", "pos": [905, 380], "size": [150, 64] },
+    { "id": "prod", "type": "cloud", "label": "Production", "sublabel": "k8s · 3 AZ", "tag": "canary 10%", "pos": [1130, 200], "size": [150, 64] },
+    { "id": "monitor", "type": "external", "label": "Monitoring", "sublabel": "SLO alerts", "pos": [1130, 380], "size": [150, 64] }
+  ],
+  "boundaries": [
+    { "kind": "region", "label": "Kubernetes cluster", "wraps": ["cd", "staging", "prod"] }
+  ],
+  "connections": [
+    { "from": "dev", "to": "repo", "label": "push", "variant": "emphasis" },
+    { "from": "repo", "to": "ci", "label": "webhook" },
+    { "from": "secrets", "to": "ci", "label": "short-lived creds", "variant": "security" },
+    { "from": "ci", "to": "registry", "label": "image", "variant": "emphasis" },
+    { "from": "registry", "to": "scan", "label": "scan", "variant": "dashed" },
+    { "from": "registry", "to": "cd", "label": "digest" },
+    { "from": "cd", "to": "staging", "label": "sync" },
+    { "from": "cd", "to": "prod", "label": "promote", "variant": "emphasis" },
+    { "from": "prod", "to": "monitor", "label": "metrics", "variant": "dashed" }
+  ],
+  "cards": [
+    { "dot": "emerald", "title": "Build once", "items": ["One immutable image per commit", "Same digest runs in staging and prod"] },
+    { "dot": "amber", "title": "Release", "items": ["GitOps sync, canary 10% first", "Rollback = revert the manifest"] },
+    { "dot": "rose", "title": "Guardrails", "items": ["No long-lived CI secrets", "Scan gate blocks critical CVEs"] }
+  ]
+}

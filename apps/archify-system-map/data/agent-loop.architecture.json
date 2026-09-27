@@ -1,0 +1,213 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "Agent tool-call loop",
+    "animation": "trace",
+    "quality_profile": "showcase",
+    "views": [
+      {
+        "id": "think",
+        "label": "Plan",
+        "focus": [
+          "ui",
+          "orch",
+          "llm"
+        ],
+        "note": "The orchestrator sends the transcript + tool schemas; the model answers or asks for a tool."
+      },
+      {
+        "id": "act",
+        "label": "Act",
+        "focus": [
+          "llm",
+          "router",
+          "search",
+          "code",
+          "memory"
+        ],
+        "note": "tool_use blocks are schema-validated and dispatched to sandboxed tools."
+      },
+      {
+        "id": "observe",
+        "label": "Observe",
+        "focus": [
+          "router",
+          "orch",
+          "guard"
+        ],
+        "note": "tool_result goes back into the loop; risky actions pause for approval."
+      }
+    ]
+  },
+  "components": [
+    {
+      "id": "user",
+      "type": "external",
+      "label": "User",
+      "sublabel": "chat",
+      "pos": [40, 220],
+      "size": [140, 64]
+    },
+    {
+      "id": "ui",
+      "type": "frontend",
+      "label": "Chat UI",
+      "sublabel": "streaming SSE",
+      "pos": [240, 220],
+      "size": [150, 64]
+    },
+    {
+      "id": "orch",
+      "type": "backend",
+      "label": "Agent Orchestrator",
+      "sublabel": "plan → act → observe",
+      "pos": [460, 220],
+      "size": [180, 64]
+    },
+    {
+      "id": "llm",
+      "type": "cloud",
+      "label": "LLM API",
+      "sublabel": "messages + tools",
+      "pos": [750, 50],
+      "size": [160, 64]
+    },
+    {
+      "id": "router",
+      "type": "backend",
+      "label": "Tool Router",
+      "sublabel": "schema-validated",
+      "pos": [750, 220],
+      "size": [160, 64]
+    },
+    {
+      "id": "search",
+      "type": "external",
+      "label": "Web Search",
+      "sublabel": "tool",
+      "pos": [1010, 110],
+      "size": [150, 60]
+    },
+    {
+      "id": "code",
+      "type": "backend",
+      "label": "Code Sandbox",
+      "sublabel": "tool · gVisor",
+      "pos": [1010, 222],
+      "size": [150, 60]
+    },
+    {
+      "id": "memory",
+      "type": "database",
+      "label": "Memory",
+      "sublabel": "pgvector",
+      "pos": [1010, 334],
+      "size": [150, 60]
+    },
+    {
+      "id": "guard",
+      "type": "security",
+      "label": "Guardrails",
+      "sublabel": "policy + approval",
+      "pos": [460, 400],
+      "size": [180, 64]
+    }
+  ],
+  "boundaries": [
+    {
+      "kind": "region",
+      "label": "Agent runtime",
+      "wraps": [
+        "orch",
+        "router",
+        "guard"
+      ]
+    },
+    {
+      "kind": "security-group",
+      "label": "Tool sandbox",
+      "wraps": [
+        "search",
+        "code",
+        "memory"
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "from": "user",
+      "to": "ui",
+      "variant": "emphasis"
+    },
+    {
+      "from": "ui",
+      "to": "orch",
+      "label": "turn"
+    },
+    {
+      "from": "orch",
+      "to": "llm",
+      "label": "1 · prompt + tools",
+      "fromSide": "top",
+      "toSide": "left",
+      "variant": "emphasis"
+    },
+    {
+      "from": "llm",
+      "to": "router",
+      "label": "2 · tool_use"
+    },
+    {
+      "from": "router",
+      "to": "search"
+    },
+    {
+      "from": "router",
+      "to": "code"
+    },
+    {
+      "from": "router",
+      "to": "memory"
+    },
+    {
+      "from": "router",
+      "to": "orch",
+      "label": "3 · tool_result",
+      "fromSide": "left",
+      "toSide": "right"
+    },
+    {
+      "from": "orch",
+      "to": "guard",
+      "label": "risky?",
+      "variant": "security"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Loop",
+      "items": [
+        "Model decides: answer or call a tool",
+        "Results append to the transcript"
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "Tools",
+      "items": [
+        "JSON-schema inputs, typed outputs",
+        "Each tool runs in its own sandbox"
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "Safety",
+      "items": [
+        "Policy check before side effects",
+        "Human approval for destructive actions"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "Web app · Redis cache-miss path",
+    "animation": "trace",
+    "quality_profile": "showcase",
+    "views": [
+      { "id": "hit", "label": "Cache hit", "focus": ["browser", "cdn", "lb", "api", "redis"], "note": "Hot keys return from Redis in ~1 ms; Postgres never sees the read." },
+      { "id": "miss", "label": "Cache miss", "focus": ["api", "redis", "pg"], "note": "Miss → SELECT from the primary → SET key with a 300 s TTL → respond." },
+      { "id": "auth", "label": "Auth check", "focus": ["lb", "auth", "api"], "note": "Every request carries a JWT verified at the edge of the VPC." }
+    ]
+  },
+  "components": [
+    { "id": "browser", "type": "frontend", "label": "Browser", "sublabel": "React SPA", "pos": [40, 220], "size": [150, 64] },
+    { "id": "cdn", "type": "cloud", "label": "CDN", "sublabel": "edge cache", "pos": [250, 220], "size": [150, 64] },
+    { "id": "lb", "type": "cloud", "label": "Load Balancer", "sublabel": "HTTPS :443", "pos": [460, 220], "size": [150, 64] },
+    { "id": "api", "type": "backend", "label": "API Service", "sublabel": "Node · :8080", "pos": [690, 220], "size": [150, 64] },
+    { "id": "redis", "type": "database", "label": "Redis", "sublabel": "cache :6379", "tag": "TTL 300s", "pos": [690, 60], "size": [150, 64] },
+    { "id": "pg", "type": "database", "label": "PostgreSQL", "sublabel": "primary :5432", "pos": [990, 220], "size": [150, 64] },
+    { "id": "replica", "type": "database", "label": "Read replica", "sublabel": "async stream", "pos": [990, 390], "size": [150, 64] },
+    { "id": "auth", "type": "security", "label": "Auth", "sublabel": "OIDC / JWT", "pos": [460, 390], "size": [150, 64] }
+  ],
+  "boundaries": [
+    { "kind": "region", "label": "VPC · us-east-1", "wraps": ["lb", "api", "redis", "pg", "replica", "auth"] },
+    { "kind": "security-group", "label": "sg-data", "wraps": ["pg", "replica"] }
+  ],
+  "connections": [
+    { "from": "browser", "to": "cdn", "label": "HTTPS", "variant": "emphasis" },
+    { "from": "cdn", "to": "lb" },
+    { "from": "lb", "to": "api", "label": "/api/*" },
+    { "from": "api", "to": "redis", "label": "GET → SET on miss", "fromSide": "top", "toSide": "bottom" },
+    { "from": "api", "to": "pg", "label": "miss → SELECT", "variant": "emphasis" },
+    { "from": "pg", "to": "replica", "label": "WAL", "variant": "dashed" },
+    { "from": "lb", "to": "auth", "label": "verify JWT", "variant": "security" }
+  ],
+  "cards": [
+    { "dot": "cyan", "title": "Read path", "items": ["CDN absorbs static + cacheable GETs", "API checks Redis before touching SQL"] },
+    { "dot": "violet", "title": "Data", "items": ["Postgres primary is the source of truth", "Replica streams WAL for reporting reads"] },
+    { "dot": "rose", "title": "Security", "items": ["JWT verified at the load balancer", "Data tier isolated in sg-data"] }
+  ]
+}

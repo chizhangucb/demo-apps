@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "Product analytics pipeline",
+    "quality_profile": "showcase",
+    "views": [
+      { "id": "ingest", "label": "Ingest", "focus": ["apps", "collector", "pii", "kafka"], "note": "SDK events are batched, PII-scrubbed and appended to a Kafka topic." },
+      { "id": "stream", "label": "Stream", "focus": ["kafka", "stream", "wh", "lake"], "note": "Flink sessionizes in near real time; raw events also land in the lake." },
+      { "id": "serve", "label": "Serve", "focus": ["wh", "dbt", "bi"], "note": "dbt builds marts on top of the warehouse; dashboards only read marts." }
+    ]
+  },
+  "components": [
+    { "id": "apps", "type": "frontend", "label": "Web + Mobile", "sublabel": "event SDK", "pos": [40, 200], "size": [150, 64] },
+    { "id": "collector", "type": "backend", "label": "Collector", "sublabel": "HTTP ingest", "pos": [250, 200], "size": [150, 64] },
+    { "id": "pii", "type": "security", "label": "PII Scrubber", "sublabel": "hash + drop", "pos": [250, 40], "size": [150, 64] },
+    { "id": "kafka", "type": "messagebus", "label": "Kafka", "sublabel": "events topic", "pos": [480, 200], "size": [150, 64] },
+    { "id": "stream", "type": "backend", "label": "Stream Processor", "sublabel": "Flink · sessionize", "pos": [700, 200], "size": [160, 64] },
+    { "id": "lake", "type": "cloud", "label": "Data Lake", "sublabel": "S3 · parquet", "pos": [480, 380], "size": [150, 64] },
+    { "id": "wh", "type": "database", "label": "Warehouse", "sublabel": "BigQuery", "pos": [930, 200], "size": [150, 64] },
+    { "id": "dbt", "type": "backend", "label": "dbt Models", "sublabel": "hourly marts", "pos": [930, 380], "size": [150, 64] },
+    { "id": "bi", "type": "frontend", "label": "BI Dashboards", "sublabel": "Metabase", "pos": [1150, 200], "size": [150, 64] }
+  ],
+  "boundaries": [
+    { "kind": "region", "label": "Analytics project", "wraps": ["kafka", "stream", "lake", "wh", "dbt"] }
+  ],
+  "connections": [
+    { "from": "apps", "to": "collector", "label": "events", "variant": "emphasis" },
+    { "from": "pii", "to": "collector", "label": "policy", "variant": "security" },
+    { "from": "collector", "to": "kafka", "label": "append" },
+    { "from": "kafka", "to": "stream", "variant": "emphasis" },
+    { "from": "kafka", "to": "lake", "label": "raw archive", "variant": "dashed" },
+    { "from": "stream", "to": "wh", "label": "sessions", "variant": "emphasis" },
+    { "from": "wh", "to": "dbt", "label": "transform" },
+    { "from": "dbt", "to": "bi", "label": "marts" }
+  ],
+  "cards": [
+    { "dot": "orange", "title": "Ingest", "items": ["At-least-once delivery into Kafka", "PII removed before persistence"] },
+    { "dot": "violet", "title": "Storage", "items": ["Lake keeps raw parquet for replay", "Warehouse holds modeled tables"] },
+    { "dot": "cyan", "title": "Consumption", "items": ["Dashboards read dbt marts only", "Hourly refresh, daily backfill"] }
+  ]
+}
