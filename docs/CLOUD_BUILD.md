@@ -4,7 +4,7 @@ How Grok hands a demo build to Claude Code instead of Cursor Cloud. Builds run a
 
 Grok's job is unchanged: pick the weekday X bookmark, plan it per `skills/project-planning`. Only the build handoff changes: instead of Cursor's `createAgent` API, Grok fires a Claude Code cloud session over the API.
 
-Two ways to fire it. Option A is the closest analog to the old Cursor call (Grok just POSTs the plan). Option B is even lighter if Grok runs from a repo checkout.
+Two ways to fire it. Option A is the fit for this setup: Grok runs 100% in the cloud and fires the build with a single authenticated POST, exactly like its old Cursor `createAgent` call. Option B (`claude --cloud`) is a CLI that needs a persistent launcher machine with the CLI installed, logged in, and holding a repo checkout. An all-cloud Grok has no such machine, so B is documented only as a fallback for anyone who does.
 
 ## Option A (recommended): routine + API trigger
 
@@ -70,9 +70,9 @@ Response gives `claude_code_session_url`; Grok reports that link and waits for t
 
 Note: routines are in research preview, so the endpoint/beta header may change. There is a per-account daily routine run cap.
 
-## Option B (lighter): claude --cloud from a repo checkout
+## Option B (fallback): claude --cloud from a repo checkout
 
-If Grok runs from a `chizhangucb/demo-apps` checkout on the mini with the `claude` CLI signed into the Max account (`claude auth login`), it can skip the routine entirely:
+Only relevant if you have a persistent machine to launch from (not the case for an all-cloud Grok). `claude --cloud` is a CLI command: it runs on whatever machine invokes it, and that machine needs the `claude` CLI installed, signed into Max (`claude auth login`, one-time), and holding a `chizhangucb/demo-apps` checkout, because the command reads that directory's git remote + branch to tell the new cloud VM what to clone. The build itself still runs in Anthropic's cloud; the launcher is just the trigger. If you have such a machine:
 
 ```bash
 cd /path/to/demo-apps && git pull
@@ -91,7 +91,12 @@ This creates a dashboard-visible cloud session and prints `{ok, session_id, url}
 
 What Cursor actually did: its VM shipped Chrome for computer-use, the agent captured a screenshot (.webp) + video (.mp4) into `/opt/cursor/artifacts/`, Cursor auto-uploaded them to its own artifact host, and the PR body linked those URLs (see PRs #1/#2: `cursor.com/agents/<id>/artifacts/...`). Nothing was committed to the repo and nothing used GitHub's attachment upload.
 
-Claude Code cloud has no computer-use and no equivalent artifact host for arbitrary media. So the session captures via headless Chromium (`chromedriver` is preinstalled; or Playwright) + ffmpeg, then EITHER commits the media under `apps/<slug>/.demo/` (renders inline in the PR) OR uploads the video as a GitHub release asset (`gh release upload`) and links it. `gh` is preinstalled and reads `GH_TOKEN`, so the PR is opened over the API, no browser.
+Claude Code has an artifact host, but it is not a raw-file host: an artifact is a single self-contained HTML/Markdown page published to a stable claude.ai URL (shareable via public link on Pro/Max), with images embedded as data URIs inside a 16 MiB page and external media blocked by CSP. A cloud session/routine can publish one (they are claude.ai-authenticated). So:
+
+- Screenshot / visual proof: capture via headless Chromium (`chromedriver` preinstalled; or Playwright), then either commit under `apps/<slug>/.demo/` (renders inline in the PR) OR publish an interactive "demo walkthrough" artifact (screenshots + annotations) and link its claude.ai URL in the PR. The artifact route is arguably richer than Cursor's flat image links.
+- Video: not a natural fit for an artifact (no file serving, 16 MiB page cap). Capture with Playwright + ffmpeg and either commit under `apps/<slug>/.demo/` or `gh release upload` it and link it.
+
+`gh` is preinstalled and reads `GH_TOKEN`, so the PR is opened over the API, no browser.
 
 ## Gotchas
 
