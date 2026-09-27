@@ -43,12 +43,13 @@ Set this as the environment's setup script (Settings -> the environment -> setup
 
 ```bash
 set -euo pipefail
+# Setup scripts run as root, so no sudo.
 # Bun
 curl -fsSL https://bun.sh/install | bash
 ln -sf "$HOME/.bun/bin/bun" /usr/local/bin/bun
 ln -sf "$HOME/.bun/bin/bunx" /usr/local/bin/bunx
-# Capture deps
-sudo apt-get update && sudo apt-get install -y ffmpeg
+# Capture deps (ffmpeg for video; Playwright brings its own chromium)
+apt-get update && apt-get install -y ffmpeg
 bunx --bun playwright install --with-deps chromium
 ```
 
