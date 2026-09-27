@@ -14,6 +14,13 @@
       "url": "https://x.com/CompleteSkeptic/status/2099925682726002904",
       "slug": "jev-inbox-triage",
       "date": "2026-09-26"
+    },
+    {
+      "id": "smoke-pomodoro",
+      "title": "Pomodoro timer (smoke test, no bookmark)",
+      "url": null,
+      "slug": "smoke-pomodoro",
+      "date": "2026-09-27"
     }
   ]
 }
