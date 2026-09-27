@@ -1,0 +1,46 @@
+name: Claude demo build
+
+# Triggered when Grok (or anyone) opens an issue / comments with "@claude"
+# describing a demo to build. Runs claude-code-action on the Max subscription
+# (CLAUDE_CODE_OAUTH_TOKEN), pinned to Fable, and opens a PR with the demo.
+on:
+  issues:
+    types: [opened]
+  issue_comment:
+    types: [created]
+
+# Only spend a run when the text actually tags @claude.
+jobs:
+  build:
+    if: |
+      (github.event_name == 'issues' && contains(github.event.issue.body, '@claude')) ||
+      (github.event_name == 'issue_comment' && contains(github.event.comment.body, '@claude'))
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      issues: write
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      # Bun runtime so Claude can scaffold and run the demo in-run.
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      # Playwright + ffmpeg so Claude can capture the required screenshot + video.
+      - name: Install capture deps
+        run: |
+          sudo apt-get update && sudo apt-get install -y ffmpeg
+          bunx --bun playwright install --with-deps chromium || true
+
+      - name: Claude demo build
+        uses: anthropics/claude-code-action@v1
+        with:
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          # Fable for cheap/fast demo builds; --max-turns high enough to scaffold,
+          # run, capture, and open a PR unattended.
+          claude_args: "--model claude-fable-5-1 --max-turns 60"
