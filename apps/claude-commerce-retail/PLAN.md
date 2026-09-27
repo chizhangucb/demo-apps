@@ -56,3 +56,16 @@ Source bookmark: https://x.com/ClaudeDevs/status/2095233745167282602
 - Persistent orders history
 - Multi-retailer comparison
 - Cloudflare deploy path
+
+
+---
+
+## Build instruction (Claude Code routine)
+
+Build this demo end-to-end under `apps/claude-commerce-retail/` in the existing GitHub repo **chizhangucb/demo-apps** (do NOT create a new repo). Follow root `AGENTS.md` and this PLAN.md verbatim.
+
+Required outcomes:
+1. Implement the MVP in `apps/claude-commerce-retail/` only (Bun + Vite + React + shadcn; `bunfig.toml` with minimumReleaseAge before install; `bun install && bun run dev`).
+2. Open one PR to `main` on branch `demo-claude-commerce-retail` with a one-paragraph summary plus links to at least one screenshot and one short video (hosted off-repo; commit no media).
+3. Update `tracking/seen-bookmarks.json`: move pick id `2095233745167282602` (slug `claude-commerce-retail`) from `proposed` to `built`.
+4. Prefer Vercel shareable host when `ANTHROPIC_API_KEY` is needed; include `.env.example` and `vercel.json`. Attribute Apache-2.0 reference to https://github.com/anthropics/commerce-agents and the bookmark https://x.com/ClaudeDevs/status/2095233745167282602.
