@@ -47,7 +47,7 @@ export default defineConfig(({ mode }) => {
   // keys here. Empty prefix on purpose: these must NOT be VITE_-prefixed,
   // which also keeps them out of the client bundle. Shell exports win.
   const fileEnv = loadEnv(mode, new URL('.', import.meta.url).pathname, '')
-  for (const key of ['ANTHROPIC_API_KEY', 'ANTHROPIC_MODEL']) {
+  for (const key of ['ANTHROPIC_API_KEY', 'ANTHROPIC_WORKSPACE_ID', 'ANTHROPIC_MODEL', 'ANTHROPIC_EFFORT']) {
     if (!process.env[key] && fileEnv[key]) process.env[key] = fileEnv[key]
   }
 

@@ -17,7 +17,8 @@ Open the URL Vite prints (default http://localhost:5173).
 
 | Var | Required | Notes |
 | --- | --- | --- |
-| `ANTHROPIC_API_KEY` | For the live agent | Read server-side only. Copy `.env.example` to `.env`, or export it in your shell. |
+| `ANTHROPIC_API_KEY` | For the live agent | Read server-side only. Copy `.env.example` to `.env`, or export it in your shell. Prefer a **workspace-scoped** key so no workspace header is needed. |
+| `ANTHROPIC_WORKSPACE_ID` | If the key is not workspace-scoped | Sent as `anthropic-workspace-id` on every Messages call. Find it in Claude Console → Settings → Workspaces (`wrkspc_…`). |
 | `ANTHROPIC_MODEL` | No | Defaults to `claude-sonnet-5`. |
 | `ANTHROPIC_EFFORT` | No | Defaults to `medium` (`low` / `medium` / `high`). |
 
@@ -37,7 +38,7 @@ With no key, the header shows **Mock mode**. Replies then come from a keyword-ro
 
 ## Deploy (Vercel)
 
-Create a Vercel project with **Root Directory** set to `apps/claude-commerce-retail`, then set `ANTHROPIC_API_KEY` in the project env. `vercel.json` builds with Bun and serves the SPA plus `/api/*`.
+Create a Vercel project with **Root Directory** set to `apps/claude-commerce-retail`, then set `ANTHROPIC_API_KEY` in the project env (and `ANTHROPIC_WORKSPACE_ID` if the key is not workspace-scoped). `vercel.json` builds with Bun and serves the SPA plus `/api/*`.
 
 ## Out of scope
 
