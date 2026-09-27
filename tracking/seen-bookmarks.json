@@ -1,14 +1,13 @@
 {
-  "proposed": [
+  "proposed": [],
+  "built": [
     {
       "id": "2092801435398553622",
       "title": "Archify — agent skill for verifiable interactive architecture diagrams",
       "url": "https://x.com/ungetsuli/status/2092801435398553622",
       "slug": "archify-system-map",
       "date": "2026-09-27"
-    }
-  ],
-  "built": [
+    },
     {
       "id": "2099925682726002904",
       "title": "Jev (TypeSafe System One) — decision-layer AI model",
