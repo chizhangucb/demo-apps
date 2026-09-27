@@ -20,6 +20,9 @@ One saved routine, fired by an authenticated POST. Dashboard-visible, model pinn
    - Environment: one whose setup script installs Bun + Playwright + ffmpeg (see below)
    - Prompt: paste the routine prompt below
    - Trigger: add ONLY an API trigger (no schedule, no GitHub trigger), Generate token, copy the URL and token once
+   - Connectors: remove all (a demo build needs none, and connectors get write access without asking)
+   - Behavior: leave Auto-fix off (review demo PRs yourself)
+   - Notifications: optional
 3. Store the token in Grok's secret store (never in this repo).
 
 This routine is not a scheduler or a second orchestrator. It is a saved build configuration with a callable endpoint: the "build worker" Grok hands a plan to, the same role Cursor's `createAgent` played. Grok stays the only scheduled brain (its 9am weekday run picks the bookmark, gets approval, writes PLAN.md), then fires this routine on demand. Because the routine has no schedule of its own, it never runs unless Grok calls it.
