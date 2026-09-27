@@ -3,6 +3,7 @@ name: Claude demo build
 # Triggered when Grok (or anyone) opens an issue / comments with "@claude"
 # describing a demo to build. Runs claude-code-action on the Max subscription
 # (CLAUDE_CODE_OAUTH_TOKEN), pinned to Fable, and opens a PR with the demo.
+# The build contract Claude follows lives in AGENTS.md (read natively).
 on:
   issues:
     types: [opened]

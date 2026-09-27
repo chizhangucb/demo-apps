@@ -12,16 +12,8 @@ labels: demo-build
 - Bookmark title:
 - Slug (`apps/<slug>/`):
 
-**One-sentence goal**
+**Plan**
+Paste the plan produced via `skills/project-planning` (goal, single-user MVP, out of scope, stack). That skill defines the structure; this issue is just the envelope that carries it and fires the build.
 
-
-**Single-user MVP**
--
-
-**Explicitly out of scope**
--
-
-**Stack hints (optional)**
--
-
-Follow `CLAUDE.md` and `AGENTS.md`. Build under `apps/<slug>/` only, capture a screenshot + video, update tracking, and open a PR from `claude/demo-<slug>`.
+---
+Build contract lives in `AGENTS.md` (build under `apps/<slug>/` only, capture a screenshot + video, update tracking, open a PR from `claude/demo-<slug>`).
