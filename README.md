@@ -12,3 +12,4 @@ Each demo is deployed as its own Vercel project with **Root Directory** set to `
 | --- | --- | --- | --- |
 | Jev Inbox Triage | `apps/jev-inbox-triage` | https://jev-inbox-triage.vercel.app | Vercel; live Jev via server-side `OPENROUTER_API_KEY` |
 | Claude Commerce Retail | `apps/claude-commerce-retail` | https://claude-commerce-retail.vercel.app | Vercel; live Claude (Sonnet 5, medium effort) via server-side `ANTHROPIC_API_KEY` + `ANTHROPIC_WORKSPACE_ID` — not mock |
+| Archify System Map | `apps/archify-system-map` | https://archify-system-map.vercel.app | Vercel; sample IR + offline sketch work without a key; Generate/Refine live via server-side `ANTHROPIC_API_KEY` + `ANTHROPIC_WORKSPACE_ID` |
