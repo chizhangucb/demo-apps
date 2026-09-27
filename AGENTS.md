@@ -1,37 +1,20 @@
 # Tech demos monorepo
 
-One sticky repo for small single-user tech demos.
+Sticky repo of small single-user tech demos. Each pick becomes one self-contained app under `apps/<slug>/`.
 
 ## Layout
 
-- `apps/<slug>/` — one self-contained demo app per pick (`bun install && bun run dev`)
-- `tracking/seen-bookmarks.json` — bookmarks already proposed or built
-- `skills/project-planning/` — vendored planning skill used before a cloud agent build
+- `apps/<slug>/` — one demo app per pick; runs with `bun install && bun run dev`
+- `tracking/seen-bookmarks.json` — picks already proposed or built
+- `skills/project-planning/` — the planning skill; defines PLAN.md structure
 
-## Rules
+## Build
 
-- Never create a new GitHub repository per demo; always add under `apps/<slug>/`
-- Bun as runtime, package manager, and script runner
-- Every Bun app root must include `bunfig.toml` with `[install] minimumReleaseAge = 259200` before install
-- Prefer official scaffolds via `bunx create-*`, then shadcn/ui when there is UI
-- Cloud agent builds use model `claude-fable-5-1` (Fable 5.1) unless the owner asks otherwise
-- Every demo PR must include at least one screenshot AND at least one video of the running app
-- Vercel (hosting): deploy each demo as its own Vercel project with Root Directory `apps/<slug>/`; add the public URL to the Live demos table in `README.md` once live. Not required for the MVP PR.
+A build runs unattended in a Claude Code cloud session from a plan handed to it (see `docs/CLOUD_BUILD.md` for how it is triggered). Steps:
 
-## Cloud builds
-
-Builds run as a **Claude Code cloud session** (visible at claude.ai/code), on Fable (`claude-fable-5-1`), billed to the owner's Claude Max subscription. Not Cursor Cloud.
-
-- Grok picks the X bookmark and writes the plan per `skills/project-planning/SKILL.md`, then fires the build over the API (no browser): either a routine API trigger (`POST .../fire`) or `claude --cloud`. The plan arrives as the session's task.
-- The cloud environment installs Bun + Playwright + ffmpeg via its setup script, so the session can scaffold, run, and capture the demo.
-- See the owner's runbook (`docs/CLOUD_BUILD.md`) for the trigger wiring and one-time setup.
-
-### Contract for a build
-
-Do the whole build unattended from the plan you are given:
-
-1. Write the plan to `apps/<slug>/PLAN.md` first (same structure `skills/project-planning` defines).
-2. Build under `apps/<slug>/` only. Never create a new repo, never touch other apps. Bun for everything; `bunfig.toml` with `[install] minimumReleaseAge = 259200` before the first install. Prefer official scaffolds (`bunx create-*`), then shadcn/ui for UI.
-3. Run the app, then capture proof: commit at least one screenshot under `apps/<slug>/.demo/`, and upload at least one short video as a GitHub release asset (`gh release upload`). Keep the video out of git so the monorepo stays lean.
-4. Update tracking: move the pick into `built` in `tracking/seen-bookmarks.json`.
-5. Open a PR from branch `claude/demo-<slug>` to `main`, embedding the screenshot and linking the release-asset video, plus a one-paragraph summary.
+1. Save the given plan verbatim to `apps/<slug>/PLAN.md`. It is already planned; do not re-plan.
+2. Build under `apps/<slug>/` only. Never touch another app; never create a new GitHub repo.
+3. Bun for everything. Before the first install, write `bunfig.toml` with `[install] minimumReleaseAge = 259200`. Scaffold with `bunx create-*`; add shadcn/ui for UI.
+4. Run the app. Capture proof: commit at least one screenshot under `apps/<slug>/.demo/`, and upload at least one short video as a GitHub release asset (`gh release upload`). Keep video out of git.
+5. Move the pick to `built` in `tracking/seen-bookmarks.json`.
+6. Open one PR, `claude/demo-<slug>` → `main`: embed the screenshot, link the video, one-paragraph summary.

@@ -32,7 +32,7 @@ You build one small single-user tech demo in the chizhangucb/demo-apps repo, the
 The bookmark pick and the plan for this run are in the <routine-fire-payload> block. Then:
 1. Save the plan from the payload verbatim to apps/<slug>/PLAN.md. Do not re-plan; Grok already did. If no slug is given, derive one from the bookmark title.
 2. Build the demo under apps/<slug>/ per AGENTS.md.
-3. Proof: commit one screenshot under apps/<slug>/.demo/, and upload one short video as a GitHub release asset (gh release upload).
+3. Proof: commit at least one screenshot under apps/<slug>/.demo/, and upload at least one short video as a GitHub release asset (gh release upload).
 4. Move the pick into "built" in tracking/seen-bookmarks.json.
 5. Open one PR from claude/demo-<slug> to main: embed the screenshot, link the video, one-paragraph summary.
 ```
