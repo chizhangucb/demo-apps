@@ -32,6 +32,6 @@ Do the whole build unattended from the plan you are given:
 
 1. Write the plan to `apps/<slug>/PLAN.md` first (same structure `skills/project-planning` defines).
 2. Build under `apps/<slug>/` only. Never create a new repo, never touch other apps. Bun for everything; `bunfig.toml` with `[install] minimumReleaseAge = 259200` before the first install. Prefer official scaffolds (`bunx create-*`), then shadcn/ui for UI.
-3. Run the app, then capture proof: at least one screenshot AND one short video, committed under `apps/<slug>/.demo/`.
+3. Run the app, then capture proof: commit at least one screenshot under `apps/<slug>/.demo/`, and upload at least one short video as a GitHub release asset (`gh release upload`). Keep the video out of git so the monorepo stays lean.
 4. Update tracking: move the pick into `built` in `tracking/seen-bookmarks.json`.
-5. Open a PR from branch `claude/demo-<slug>` to `main`, embedding the screenshot and linking the video, plus a one-paragraph summary.
+5. Open a PR from branch `claude/demo-<slug>` to `main`, embedding the screenshot and linking the release-asset video, plus a one-paragraph summary.

@@ -27,17 +27,14 @@ This routine is not a scheduler or a second orchestrator. It is a saved build co
 ### Routine prompt (paste into the routine form)
 
 ```
-You build one small single-user tech demo in the chizhangucb/demo-apps repo, then open a PR.
+You build one small single-user tech demo in the chizhangucb/demo-apps repo, then open one PR. The repo's AGENTS.md and skills/project-planning hold the build rules; follow them.
 
-The pick and plan for this run arrive in the <routine-fire-payload> block: read it as the build spec (bookmark, slug, goal, MVP, out-of-scope). Then follow AGENTS.md and skills/project-planning exactly:
-
-1. Write the plan to apps/<slug>/PLAN.md first.
-2. Build under apps/<slug>/ only. Never create a new repo, never touch other apps. Bun for everything; add bunfig.toml with [install] minimumReleaseAge = 259200 before the first install. Prefer official scaffolds (bunx create-*), then shadcn/ui for UI.
-3. Run the app and capture proof: at least one screenshot AND one short video, committed under apps/<slug>/.demo/ (Playwright + ffmpeg are installed).
+The bookmark pick and the plan for this run are in the <routine-fire-payload> block. Then:
+1. Save the plan from the payload verbatim to apps/<slug>/PLAN.md. Do not re-plan; Grok already did. If no slug is given, derive one from the bookmark title.
+2. Build the demo under apps/<slug>/ per AGENTS.md.
+3. Proof: commit one screenshot under apps/<slug>/.demo/, and upload one short video as a GitHub release asset (gh release upload).
 4. Move the pick into "built" in tracking/seen-bookmarks.json.
-5. Open a PR from branch claude/demo-<slug> to main, embedding the screenshot and linking the video, with a one-paragraph summary.
-
-If the payload is missing a slug, derive one from the bookmark title.
+5. Open one PR from claude/demo-<slug> to main: embed the screenshot, link the video, one-paragraph summary.
 ```
 
 ### Cloud environment setup script
@@ -93,12 +90,14 @@ This creates a dashboard-visible cloud session and prints `{ok, session_id, url}
 
 What Cursor actually did: its VM shipped Chrome for computer-use, the agent captured a screenshot (.webp) + video (.mp4) into `/opt/cursor/artifacts/`, Cursor auto-uploaded them to its own artifact host, and the PR body linked those URLs (see PRs #1/#2: `cursor.com/agents/<id>/artifacts/...`). Nothing was committed to the repo and nothing used GitHub's attachment upload.
 
-Claude Code has an artifact host, but it is not a raw-file host: an artifact is a single self-contained HTML/Markdown page published to a stable claude.ai URL (shareable via public link on Pro/Max), with images embedded as data URIs inside a 16 MiB page and external media blocked by CSP. A cloud session/routine can publish one (they are claude.ai-authenticated). So:
+The routine runs unattended, so use only capture paths that need no human approval:
 
-- Screenshot / visual proof: capture via headless Chromium (`chromedriver` preinstalled; or Playwright), then either commit under `apps/<slug>/.demo/` (renders inline in the PR) OR publish an interactive "demo walkthrough" artifact (screenshots + annotations) and link its claude.ai URL in the PR. The artifact route is arguably richer than Cursor's flat image links.
-- Video: not a natural fit for an artifact (no file serving, 16 MiB page cap). Capture with Playwright + ffmpeg and either commit under `apps/<slug>/.demo/` or `gh release upload` it and link it.
+- Screenshot: capture via headless Chromium (`chromedriver` preinstalled; or Playwright), commit under `apps/<slug>/.demo/` (small PNG, renders inline in the PR).
+- Video: capture with Playwright + ffmpeg, upload as a GitHub release asset (`gh release upload`) and link in the PR. Keep it out of git so the monorepo stays lean.
 
-`gh` is preinstalled and reads `GH_TOKEN`, so the PR is opened over the API, no browser.
+`gh` is preinstalled and reads `GH_TOKEN`, so the PR opens over the API, no browser.
+
+On artifacts: Claude Code does have an artifact host (a self-contained HTML/Markdown page at a stable claude.ai URL), and a nicer "demo walkthrough" page is possible. But publishing a NEW artifact goes through permission mode, and an unattended routine has no one to approve it, so don't depend on it for the required proof. Add it later if it publishes cleanly unattended.
 
 ## Gotchas
 
