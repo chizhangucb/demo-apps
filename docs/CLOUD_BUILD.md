@@ -37,9 +37,15 @@ The bookmark pick and the plan for this run are in the <routine-fire-payload> bl
 5. Open one PR from claude/demo-<slug> to main: link the screenshot artifact and the video, one-paragraph summary.
 ```
 
-### Cloud environment setup script
+### Cloud environment
 
-Set this as the environment's setup script (Settings -> the environment -> setup script). It is cached between runs.
+Create an environment (`Demo Env`) with:
+
+- **Network access: Full.** Trusted's default allowlist blocks `bun.sh` and Playwright's browser CDN (so the setup script 403s) and blocks the unpredictable third-party APIs the demos call (so the app won't run for capture). Full is the pragmatic choice; Custom (default list + `bun.sh` + Playwright CDN + each demo's API) is tighter but per-demo maintenance.
+- **Environment variables: none.** They are visible to anyone using the environment, so never put secrets here. A demo that needs a key to run gets it as an **API credential** (kept outside the sandbox), or runs in its keyless/sample mode.
+- **Setup script:** below. It is cached between runs.
+
+Then select `Demo Env` as the routine's environment.
 
 ```bash
 set -euo pipefail
