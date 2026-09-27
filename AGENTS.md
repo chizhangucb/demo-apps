@@ -20,17 +20,18 @@ One sticky repo for small single-user tech demos.
 
 ## Cloud builds
 
-Builds run on Claude Code, not Cursor Cloud, billed to the owner's Claude Max subscription.
+Builds run as a **Claude Code cloud session** (visible at claude.ai/code), on Fable (`claude-fable-5-1`), billed to the owner's Claude Max subscription. Not Cursor Cloud.
 
-- Trigger: open an issue mentioning `@claude` with the plan in the body (the Demo build template is the envelope; a human can also open one from the GitHub UI). The `Claude demo build` workflow (`.github/workflows/claude-demo-build.yml`) runs `anthropics/claude-code-action` on Fable and opens the PR.
-- Auth is the repo secret `CLAUDE_CODE_OAUTH_TOKEN` (from `claude setup-token`), so runs bill to Max, not API credits.
+- Grok picks the X bookmark and writes the plan per `skills/project-planning/SKILL.md`, then fires the build over the API (no browser): either a routine API trigger (`POST .../fire`) or `claude --cloud`. The plan arrives as the session's task.
+- The cloud environment installs Bun + Playwright + ffmpeg via its setup script, so the session can scaffold, run, and capture the demo.
+- See the owner's runbook (`docs/CLOUD_BUILD.md`) for the trigger wiring and one-time setup.
 
-### Contract for a triggered build
+### Contract for a build
 
-The triggering issue is the spec. Grok picks the X bookmark and writes the plan per `skills/project-planning/SKILL.md`; that plan is the issue body. On trigger, do the whole build unattended:
+Do the whole build unattended from the plan you are given:
 
-1. Write the plan to `apps/<slug>/PLAN.md` first (same structure the planning skill defines).
+1. Write the plan to `apps/<slug>/PLAN.md` first (same structure `skills/project-planning` defines).
 2. Build under `apps/<slug>/` only. Never create a new repo, never touch other apps. Bun for everything; `bunfig.toml` with `[install] minimumReleaseAge = 259200` before the first install. Prefer official scaffolds (`bunx create-*`), then shadcn/ui for UI.
-3. Run the app, then capture proof: at least one screenshot AND one short video (Playwright + ffmpeg are installed in the runner).
+3. Run the app, then capture proof: at least one screenshot AND one short video, committed under `apps/<slug>/.demo/`.
 4. Update tracking: move the pick into `built` in `tracking/seen-bookmarks.json`.
-5. Open a PR from branch `claude/demo-<slug>` to `main`, with the screenshot and video in the PR, plus a one-paragraph summary.
+5. Open a PR from branch `claude/demo-<slug>` to `main`, embedding the screenshot and linking the video, plus a one-paragraph summary.
