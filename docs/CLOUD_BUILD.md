@@ -89,4 +89,12 @@ This creates a dashboard-visible cloud session and prints `{ok, session_id, url}
 
 ## Media capture (vs Cursor)
 
-Cursor's default cloud VM shipped Chrome for computer-use; its agent drove that to screenshot + record and attached the media to the PR. A Claude Code cloud environment is configurable, so we install Playwright (screenshot + native video) and ffmpeg via the setup script, and commit the media under `apps/<slug>/.demo/` referenced inline in the PR (programmatic PR attachment like a human drag-drop is not available in an unattended session).
+What Cursor actually did: its VM shipped Chrome for computer-use, the agent captured a screenshot (.webp) + video (.mp4) into `/opt/cursor/artifacts/`, Cursor auto-uploaded them to its own artifact host, and the PR body linked those URLs (see PRs #1/#2: `cursor.com/agents/<id>/artifacts/...`). Nothing was committed to the repo and nothing used GitHub's attachment upload.
+
+Claude Code cloud has no computer-use and no equivalent artifact host for arbitrary media. So the session captures via headless Chromium (`chromedriver` is preinstalled; or Playwright) + ffmpeg, then EITHER commits the media under `apps/<slug>/.demo/` (renders inline in the PR) OR uploads the video as a GitHub release asset (`gh release upload`) and links it. `gh` is preinstalled and reads `GH_TOKEN`, so the PR is opened over the API, no browser.
+
+## Gotchas
+
+- **Bun + proxy**: Anthropic-hosted cloud envs route all egress through a security proxy, and Bun has known package-fetch issues with it. This repo is Bun-based, so validate `bun install` on the first cloud run before trusting the daily cadence; fall back to a setup-script install or npm if it misbehaves.
+- **Network allowlist**: the Default env's Trusted network allows Ubuntu apt + npm/pypi + nodejs.org. Installing chromium via apt is fine; if you use Playwright's own browser download it may need its CDN added to the env's allowed domains.
+- **Preinstalled**: `gh`, `chromedriver`, Node 20/21/22, Python, Ruby, Postgres/Redis (not running). Add anything else via the setup script.
