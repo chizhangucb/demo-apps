@@ -53,4 +53,5 @@ export interface ChatResponse {
 export interface StatusResponse {
   mode: 'claude' | 'mock'
   model: string | null
+  effort?: 'low' | 'medium' | 'high' | null
 }

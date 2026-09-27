@@ -18,7 +18,8 @@ Open the URL Vite prints (default http://localhost:5173).
 | Var | Required | Notes |
 | --- | --- | --- |
 | `ANTHROPIC_API_KEY` | For the live agent | Read server-side only. Copy `.env.example` to `.env`, or export it in your shell. |
-| `ANTHROPIC_MODEL` | No | Defaults to `claude-opus-5`. |
+| `ANTHROPIC_MODEL` | No | Defaults to `claude-sonnet-5`. |
+| `ANTHROPIC_EFFORT` | No | Defaults to `medium` (`low` / `medium` / `high`). |
 
 With no key, the header shows **Mock mode**. Replies then come from a keyword-routed canned flow that calls the same four tool handlers, so the UI, tool chips, product cards and cart all still work.
 
@@ -30,7 +31,7 @@ With no key, the header shows **Mock mode**. Replies then come from a keyword-ro
   - **policy**: look up policy text by topic
   - **inventory**: check stock for a SKU, or for one size of it
   - **cart_suggest**: check proposed adds against the catalog and stock. The UI turns accepted ones into "Add" buttons.
-- `server/agent.ts` runs a manual tool-use loop on the Messages API (`@anthropic-ai/sdk`, adaptive thinking, low effort, cached system prompt, server-side refusal fallback). It caps the loop at 6 tool rounds. The client's cart is sent with the latest user turn.
+- `server/agent.ts` runs a manual tool-use loop on the Messages API (`@anthropic-ai/sdk`, adaptive thinking, medium effort (env-overridable), cached system prompt, server-side refusal fallback). It caps the loop at 6 tool rounds. The client's cart is sent with the latest user turn.
 - The agent is served at `/api/chat` and `/api/status`. In dev, Vite middleware (`vite.config.ts`) serves them; on Vercel, serverless functions (`api/*.ts`) do. Both use the same server code, and the key never reaches the browser.
 - `src/App.tsx` is the storefront: the chat transcript with tool-call chips, product cards with size pickers, suggested-cart rows, starter prompt chips, and a cart sidebar showing the subtotal and progress toward free shipping.
 

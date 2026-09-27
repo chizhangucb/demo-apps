@@ -14,7 +14,8 @@ import type {
 } from '../shared/types.js'
 import { browse, runTool, toolDefs, totalStock } from './tools.js'
 
-const MODEL = process.env.ANTHROPIC_MODEL || 'claude-opus-5'
+const MODEL = process.env.ANTHROPIC_MODEL || 'claude-sonnet-5'
+const EFFORT = (process.env.ANTHROPIC_EFFORT as 'low' | 'medium' | 'high' | undefined) || 'medium'
 const MAX_TOOL_ROUNDS = 6
 
 const SYSTEM = `You are the shopping assistant for "Northwind Goods", a small online retail store.
@@ -28,7 +29,9 @@ Help one shopper find products, answer policy questions, and build a cart.
 - Keep replies short and friendly (2–4 sentences). Product cards and cart buttons are shown by the UI, so don't repeat every detail.`
 
 export function getStatus(): StatusResponse {
-  return process.env.ANTHROPIC_API_KEY ? { mode: 'claude', model: MODEL } : { mode: 'mock', model: null }
+  return process.env.ANTHROPIC_API_KEY
+    ? { mode: 'claude', model: MODEL, effort: EFFORT }
+    : { mode: 'mock', model: null, effort: null }
 }
 
 function describeCart(cart: CartLine[]): string {
@@ -66,7 +69,7 @@ async function chatWithClaude({ messages, cart }: ChatRequest): Promise<ChatResp
       system: [{ type: 'text', text: SYSTEM, cache_control: { type: 'ephemeral' } }],
       tools: toolDefs,
       thinking: { type: 'adaptive' },
-      output_config: { effort: 'low' },
+      output_config: { effort: EFFORT },
       // Server-side refusal fallback, routed by refusal category.
       betas: ['server-side-fallback-2026-07-01'],
       fallbacks: 'default',
