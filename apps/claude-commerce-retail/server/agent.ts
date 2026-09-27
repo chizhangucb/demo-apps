@@ -49,8 +49,29 @@ export async function chat(req: ChatRequest): Promise<ChatResponse> {
   return process.env.ANTHROPIC_API_KEY ? chatWithClaude(req) : chatMock(req)
 }
 
+function createClient(): Anthropic {
+  // Multi-workspace / identity-linked keys require anthropic-workspace-id on every
+  // request. Workspace-scoped keys can omit it. See Anthropic auth docs.
+  const workspaceId = process.env.ANTHROPIC_WORKSPACE_ID?.trim()
+  return new Anthropic(
+    workspaceId ? { defaultHeaders: { 'anthropic-workspace-id': workspaceId } } : undefined,
+  )
+}
+
+function rethrowClaudeError(err: unknown): never {
+  const msg = err instanceof Error ? err.message : String(err)
+  if (/workspace-id|not scoped to a workspace|identity-linked API key/i.test(msg)) {
+    throw new Error(
+      'Anthropic rejected the request: this API key is not scoped to a workspace. ' +
+        'Set ANTHROPIC_WORKSPACE_ID (Claude Console → Settings → Workspaces) on the server, ' +
+        'or create a workspace-scoped API key at console.anthropic.com/settings/keys.',
+    )
+  }
+  throw err instanceof Error ? err : new Error(msg)
+}
+
 async function chatWithClaude({ messages, cart }: ChatRequest): Promise<ChatResponse> {
-  const client = new Anthropic()
+  const client = createClient()
   const history: Anthropic.Beta.BetaMessageParam[] = messages.map((m) => ({ role: m.role, content: m.content }))
   // Cart state rides along on the latest user turn so the system prompt stays cacheable.
   const last = history[history.length - 1]
@@ -62,62 +83,66 @@ async function chatWithClaude({ messages, cart }: ChatRequest): Promise<ChatResp
   let products: Product[] = []
   let suggestions: CartSuggestion[] = []
 
-  for (let round = 0; round <= MAX_TOOL_ROUNDS; round++) {
-    const response = await client.beta.messages.create({
-      model: MODEL,
-      max_tokens: 16000,
-      system: [{ type: 'text', text: SYSTEM, cache_control: { type: 'ephemeral' } }],
-      tools: toolDefs,
-      thinking: { type: 'adaptive' },
-      output_config: { effort: EFFORT },
-      // Server-side refusal fallback, routed by refusal category.
-      betas: ['server-side-fallback-2026-07-01'],
-      fallbacks: 'default',
-      messages: history,
-    })
+  try {
+    for (let round = 0; round <= MAX_TOOL_ROUNDS; round++) {
+      const response = await client.beta.messages.create({
+        model: MODEL,
+        max_tokens: 16000,
+        system: [{ type: 'text', text: SYSTEM, cache_control: { type: 'ephemeral' } }],
+        tools: toolDefs,
+        thinking: { type: 'adaptive' },
+        output_config: { effort: EFFORT },
+        // Server-side refusal fallback, routed by refusal category.
+        betas: ['server-side-fallback-2026-07-01'],
+        fallbacks: 'default',
+        messages: history,
+      })
 
-    if (response.stop_reason === 'refusal') {
-      return { mode: 'claude', text: "Sorry, I can't help with that one.", toolCalls, products, suggestions }
-    }
-
-    const toolUses = response.content.filter((b): b is Anthropic.Beta.BetaToolUseBlock => b.type === 'tool_use')
-    if (response.stop_reason !== 'tool_use' || toolUses.length === 0 || round === MAX_TOOL_ROUNDS) {
-      const text = response.content
-        .filter((b): b is Anthropic.Beta.BetaTextBlock => b.type === 'text')
-        .map((b) => b.text)
-        .join('\n')
-        .trim()
-      return {
-        mode: 'claude',
-        text: text || 'Here is what I found.',
-        toolCalls,
-        products: dedupe(products, (p) => p.sku),
-        suggestions: dedupe(suggestions, (s) => `${s.sku}:${s.size}`),
+      if (response.stop_reason === 'refusal') {
+        return { mode: 'claude', text: "Sorry, I can't help with that one.", toolCalls, products, suggestions }
       }
-    }
 
-    history.push({ role: 'assistant', content: response.content })
-    const results: Anthropic.Beta.BetaToolResultBlockParam[] = toolUses.map((use) => {
-      const input = (use.input ?? {}) as Record<string, unknown>
-      try {
-        const run = runTool(use.name as ToolName, input)
-        toolCalls.push({ name: use.name as ToolName, input, summary: run.summary })
-        products = products.concat(run.products)
-        suggestions = suggestions.concat(run.suggestions)
-        return { type: 'tool_result', tool_use_id: use.id, content: JSON.stringify(run.result) }
-      } catch (err) {
+      const toolUses = response.content.filter((b): b is Anthropic.Beta.BetaToolUseBlock => b.type === 'tool_use')
+      if (response.stop_reason !== 'tool_use' || toolUses.length === 0 || round === MAX_TOOL_ROUNDS) {
+        const text = response.content
+          .filter((b): b is Anthropic.Beta.BetaTextBlock => b.type === 'text')
+          .map((b) => b.text)
+          .join('\n')
+          .trim()
         return {
-          type: 'tool_result',
-          tool_use_id: use.id,
-          is_error: true,
-          content: err instanceof Error ? err.message : 'Tool failed',
+          mode: 'claude',
+          text: text || 'Here is what I found.',
+          toolCalls,
+          products: dedupe(products, (p) => p.sku),
+          suggestions: dedupe(suggestions, (s) => `${s.sku}:${s.size}`),
         }
       }
-    })
-    // All tool results go back in a single user message.
-    history.push({ role: 'user', content: results })
+
+      history.push({ role: 'assistant', content: response.content })
+      const results: Anthropic.Beta.BetaToolResultBlockParam[] = toolUses.map((use) => {
+        const input = (use.input ?? {}) as Record<string, unknown>
+        try {
+          const run = runTool(use.name as ToolName, input)
+          toolCalls.push({ name: use.name as ToolName, input, summary: run.summary })
+          products = products.concat(run.products)
+          suggestions = suggestions.concat(run.suggestions)
+          return { type: 'tool_result', tool_use_id: use.id, content: JSON.stringify(run.result) }
+        } catch (err) {
+          return {
+            type: 'tool_result',
+            tool_use_id: use.id,
+            is_error: true,
+            content: err instanceof Error ? err.message : 'Tool failed',
+          }
+        }
+      })
+      // All tool results go back in a single user message.
+      history.push({ role: 'user', content: results })
+    }
+    throw new Error('unreachable')
+  } catch (err) {
+    rethrowClaudeError(err)
   }
-  throw new Error('unreachable')
 }
 
 // ---------------------------------------------------------------------------
