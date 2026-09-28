@@ -1,0 +1,173 @@
+[
+  {
+    "id": "t-2fa",
+    "title": "New phone, lost 2FA",
+    "path": "resolve",
+    "customer": "maya@northwind.io",
+    "ticket": "Hi — I got a new phone and my authenticator app didn't transfer. How do I move 2FA to the new device? I still have my backup codes printed somewhere.",
+    "script": {
+      "hits": [
+        {
+          "id": "kb-2fa-reset",
+          "score": 0.92
+        },
+        {
+          "id": "kb-password",
+          "score": 0.31
+        }
+      ],
+      "judge": {
+        "probabilities": {
+          "resolve": 0.88,
+          "investigate": 0.08,
+          "escalate": 0.04
+        },
+        "confidence": 0.86
+      }
+    }
+  },
+  {
+    "id": "t-double-charge",
+    "title": "Charged twice this month",
+    "path": "investigate → resolve",
+    "customer": "devon@lumen.studio",
+    "ticket": "My card was charged $49 twice on Sept 3 for the Team plan. Can you refund the duplicate?",
+    "script": {
+      "hits": [
+        {
+          "id": "kb-refunds",
+          "score": 0.81
+        },
+        {
+          "id": "kb-seats",
+          "score": 0.22
+        }
+      ],
+      "judge": {
+        "probabilities": {
+          "resolve": 0.14,
+          "investigate": 0.79,
+          "escalate": 0.07
+        },
+        "confidence": 0.74
+      },
+      "investigation": {
+        "tool_calls": [
+          {
+            "tool": "account.lookup",
+            "args": "devon@lumen.studio",
+            "result": "Team plan · 6 seats · card •••• 4242 · customer since 2024-02"
+          },
+          {
+            "tool": "billing.ledger",
+            "args": "2026-09-01..2026-09-30",
+            "result": "ch_91A $49.00 captured 09-03 10:02 · ch_91B $49.00 captured 09-03 10:02 (same invoice inv_7730)"
+          }
+        ],
+        "summary": "Two identical $49 captures against invoice inv_7730 one second apart — a retry double-capture. Under the $100 auto-refund policy.",
+        "findings": [
+          "Duplicate capture ch_91B on inv_7730",
+          "Amount $49 < $100 auto-refund limit",
+          "No prior refunds on this account"
+        ],
+        "needs_human": false,
+        "reply": "Thanks Devon — you're right, our payment retry captured $49 twice on Sept 3. I've refunded the duplicate charge (ch_91B); it should appear on your card within 5–10 business days."
+      }
+    }
+  },
+  {
+    "id": "t-export-500",
+    "title": "CSV export failing (500)",
+    "path": "investigate → escalate",
+    "customer": "ops@kestrel.health",
+    "ticket": "CSV export has been failing with a 500 since yesterday. We need the patient-visit export for an audit on Friday. Several of my teammates see the same thing.",
+    "script": {
+      "hits": [
+        {
+          "id": "kb-csv-export",
+          "score": 0.77
+        }
+      ],
+      "judge": {
+        "probabilities": {
+          "resolve": 0.09,
+          "investigate": 0.71,
+          "escalate": 0.2
+        },
+        "confidence": 0.68
+      },
+      "investigation": {
+        "tool_calls": [
+          {
+            "tool": "logs.search",
+            "args": "org=kestrel route=/export status=500 last 24h",
+            "result": "212 errors · ExportWorkerTimeout on shard eu-2 · first seen 2026-09-27 14:10 UTC"
+          },
+          {
+            "tool": "status.incidents",
+            "args": "open",
+            "result": "No open incident for eu-2 export workers"
+          }
+        ],
+        "summary": "Export workers on shard eu-2 have been timing out for 24h with no incident declared; several users affected and a regulated (health) customer with an audit deadline.",
+        "findings": [
+          "212 ExportWorkerTimeout errors on eu-2 in 24h",
+          "No incident declared yet",
+          "Health-data customer, audit on Friday"
+        ],
+        "needs_human": true,
+        "reply": "Thanks for flagging this — we can see export failures on our side and have escalated to our on-call engineers. We'll update you as soon as exports are restored, well ahead of your Friday audit."
+      }
+    }
+  },
+  {
+    "id": "t-gdpr",
+    "title": "GDPR deletion + legal threat",
+    "path": "escalate",
+    "customer": "r.okafor@protonmail.com",
+    "ticket": "Delete ALL of my personal data under GDPR Article 17 immediately. If this isn't confirmed in writing within 72 hours my lawyer will be in touch.",
+    "script": {
+      "hits": [
+        {
+          "id": "kb-data-deletion",
+          "score": 0.88
+        }
+      ],
+      "judge": {
+        "probabilities": {
+          "resolve": 0.03,
+          "investigate": 0.06,
+          "escalate": 0.91
+        },
+        "confidence": 0.9
+      }
+    }
+  },
+  {
+    "id": "t-vague",
+    "title": "“Something's off”",
+    "path": "unsure → escalate",
+    "customer": "sam@fernwood.co",
+    "ticket": "Something is off with our workspace since the weekend. Not sure if it's the plan or the connection. Can someone take a look?",
+    "script": {
+      "hits": [
+        {
+          "id": "kb-seats",
+          "score": 0.34
+        },
+        {
+          "id": "kb-csv-export",
+          "score": 0.12
+        }
+      ],
+      "judge": {
+        "probabilities": {
+          "resolve": 0.3,
+          "investigate": 0.42,
+          "escalate": 0.28
+        },
+        "confidence": 0.21
+      }
+    }
+  }
+]

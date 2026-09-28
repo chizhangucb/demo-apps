@@ -1,14 +1,13 @@
 {
-  "proposed": [
+  "proposed": [],
+  "built": [
     {
       "id": "2101029313906987422",
       "title": "AgentRun \u2014 workflow DSL/harness for repetitive agent work (powered by Jev)",
       "url": "https://x.com/MiguelriosEN/status/2101029313906987422",
       "slug": "agentrun-support-triage",
       "date": "2026-09-28"
-    }
-  ],
-  "built": [
+    },
     {
       "id": "2092801435398553622",
       "title": "Archify \u2014 agent skill for verifiable interactive architecture diagrams",
