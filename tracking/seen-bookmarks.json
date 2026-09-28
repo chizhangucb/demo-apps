@@ -1,23 +1,31 @@
 {
-  "proposed": [],
+  "proposed": [
+    {
+      "id": "2101029313906987422",
+      "title": "AgentRun \u2014 workflow DSL/harness for repetitive agent work (powered by Jev)",
+      "url": "https://x.com/MiguelriosEN/status/2101029313906987422",
+      "slug": "agentrun-support-triage",
+      "date": "2026-09-28"
+    }
+  ],
   "built": [
     {
       "id": "2092801435398553622",
-      "title": "Archify — agent skill for verifiable interactive architecture diagrams",
+      "title": "Archify \u2014 agent skill for verifiable interactive architecture diagrams",
       "url": "https://x.com/ungetsuli/status/2092801435398553622",
       "slug": "archify-system-map",
       "date": "2026-09-27"
     },
     {
       "id": "2099925682726002904",
-      "title": "Jev (TypeSafe System One) — decision-layer AI model",
+      "title": "Jev (TypeSafe System One) \u2014 decision-layer AI model",
       "url": "https://x.com/CompleteSkeptic/status/2099925682726002904",
       "slug": "jev-inbox-triage",
       "date": "2026-09-26"
     },
     {
       "id": "2095233745167282602",
-      "title": "Claude Commerce Agents — open-source shopping/merchant agent blueprint",
+      "title": "Claude Commerce Agents \u2014 open-source shopping/merchant agent blueprint",
       "url": "https://x.com/ClaudeDevs/status/2095233745167282602",
       "slug": "claude-commerce-retail",
       "date": "2026-09-26"
