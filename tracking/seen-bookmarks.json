@@ -1,14 +1,13 @@
 {
-  "proposed": [
+  "proposed": [],
+  "built": [
     {
       "id": "2082263717916586117",
       "title": "Codex Security CLI \u2014 OpenAI open-source security scan/fix SDK",
       "url": "https://x.com/OpenAI/status/2082263717916586117",
       "slug": "codex-security-scan",
       "date": "2026-09-29"
-    }
-  ],
-  "built": [
+    },
     {
       "id": "2101029313906987422",
       "title": "AgentRun \u2014 workflow DSL/harness for repetitive agent work (powered by Jev)",

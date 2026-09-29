@@ -1,0 +1,7 @@
+{
+  "name": "vuln-notes",
+  "private": true,
+  "description": "INTENTIONALLY VULNERABLE sample for the codex-security-scan demo. Do not deploy.",
+  "type": "commonjs",
+  "main": "src/server.js"
+}
