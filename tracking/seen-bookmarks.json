@@ -1,5 +1,13 @@
 {
-  "proposed": [],
+  "proposed": [
+    {
+      "id": "2074208949205881033",
+      "title": "Claude Agent Loops \u2014 turn/goal/time/proactive loop patterns",
+      "url": "https://x.com/ClaudeDevs/status/2074208949205881033",
+      "slug": "claude-agent-loops",
+      "date": "2026-09-30"
+    }
+  ],
   "built": [
     {
       "id": "2082263717916586117",
