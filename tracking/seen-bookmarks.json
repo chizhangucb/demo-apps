@@ -1,5 +1,13 @@
 {
-  "proposed": [],
+  "proposed": [
+    {
+      "id": "2100262432413528336",
+      "title": "Hermes Agent \u2014 Nous Research self-improving agent harness (skills + memory loop)",
+      "url": "https://x.com/JacquelineSYC19/status/2100262432413528336",
+      "slug": "hermes-skill-loop",
+      "date": "2026-10-01"
+    }
+  ],
   "built": [
     {
       "id": "2074208949205881033",
