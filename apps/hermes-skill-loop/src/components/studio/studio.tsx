@@ -46,8 +46,15 @@ async function post<T>(body: unknown): Promise<T> {
     headers: { "content-type": "application/json" },
     body: JSON.stringify(body),
   });
-  const data = await res.json();
-  if (!res.ok) throw new Error(data.error ?? `HTTP ${res.status}`);
+  // Platform error pages (timeouts, 5xx) come back as HTML, not JSON — never let parsing throw opaquely.
+  const text = await res.text();
+  let data: { error?: string } | null = null;
+  try {
+    data = JSON.parse(text);
+  } catch {
+    // fall through with data = null
+  }
+  if (!res.ok || !data) throw new Error(data?.error ?? `Request failed (HTTP ${res.status})`);
   return data as T;
 }
 
@@ -82,15 +89,23 @@ export function Studio({ liveAvailable, model }: { liveAvailable: boolean; model
   const [library, setLibrary] = useState<Skill[]>([]);
   const [error, setError] = useState<string | null>(null);
   const runId = useRef(0);
-  const learnEnd = useRef<HTMLDivElement>(null);
-  const reuseEnd = useRef<HTMLDivElement>(null);
+  const learnBox = useRef<HTMLDivElement>(null);
+  const reuseBox = useRef<HTMLDivElement>(null);
 
   const busy = learnPhase === "running" || extractPhase === "running" || reusePhase === "running";
   const delay = fast ? 160 : 520;
   const activeSkillStep = reusePhase === "running" ? reuseSteps.at(-1)?.skillStep : undefined;
 
-  useEffect(() => learnEnd.current?.scrollIntoView({ block: "nearest", behavior: "smooth" }), [learnSteps.length]);
-  useEffect(() => reuseEnd.current?.scrollIntoView({ block: "nearest", behavior: "smooth" }), [reuseSteps.length]);
+  // Keep each timeline pinned to its newest step by scrolling only its own box. Page-level smooth
+  // scrollIntoView on every replayed step fought the layout and could take down the tab.
+  useEffect(() => {
+    const el = learnBox.current;
+    if (el) el.scrollTop = el.scrollHeight;
+  }, [learnSteps.length]);
+  useEffect(() => {
+    const el = reuseBox.current;
+    if (el) el.scrollTop = el.scrollHeight;
+  }, [reuseSteps.length]);
 
   function reset(nextPair = pairId) {
     runId.current++;
@@ -353,7 +368,7 @@ export function Studio({ liveAvailable, model }: { liveAvailable: boolean; model
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-3">
-                <Timeline steps={learnSteps} running={learnPhase === "running"} endRef={learnEnd} />
+                <Timeline steps={learnSteps} running={learnPhase === "running"} boxRef={learnBox} />
                 {learnOutcome && <Outcome text={learnOutcome} />}
                 <div className="flex items-center justify-between gap-2">
                   <StatsLine steps={learnSteps} />
@@ -407,7 +422,7 @@ export function Studio({ liveAvailable, model }: { liveAvailable: boolean; model
                     {reuseVariant === "warm" ? `With skill: ${skill?.name}` : "Cold start (no skill)"}
                   </Badge>
                 )}
-                <Timeline steps={reuseSteps} running={reusePhase === "running"} endRef={reuseEnd} />
+                <Timeline steps={reuseSteps} running={reusePhase === "running"} boxRef={reuseBox} />
                 {reuseOutcome && <Outcome text={reuseOutcome} />}
                 <div className="flex flex-wrap gap-2">
                   <Button size="sm" disabled={busy || !skill} onClick={() => onReuse("warm")}>
@@ -461,15 +476,15 @@ function Outcome({ text }: { text: string }) {
 function Timeline({
   steps,
   running,
-  endRef,
+  boxRef,
 }: {
   steps: RunStep[];
   running: boolean;
-  endRef: React.RefObject<HTMLDivElement | null>;
+  boxRef: React.RefObject<HTMLDivElement | null>;
 }) {
   if (steps.length === 0 && !running) return <Empty>No run yet.</Empty>;
   return (
-    <div className="max-h-[420px] space-y-1 overflow-y-auto pr-1">
+    <div ref={boxRef} className="max-h-[420px] space-y-1 overflow-y-auto pr-1">
       {steps.map((s, i) => {
         const Icon = KIND_ICON[s.kind];
         return (
@@ -513,7 +528,6 @@ function Timeline({
           <Loader2 className="size-3.5 animate-spin" /> working…
         </div>
       )}
-      <div ref={endRef} />
     </div>
   );
 }
