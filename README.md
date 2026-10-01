@@ -16,3 +16,5 @@ Each demo is deployed as its own Vercel project with **Root Directory** set to `
 | AgentRun Support Triage | `apps/agentrun-support-triage` | https://agentrun-support-triage.vercel.app | Vercel; scripted mode without keys; optional live Jev via `OPENROUTER_API_KEY`/`TYPESAFE_API_KEY`; optional live Claude via `ANTHROPIC_API_KEY` |
 | Codex Security Scan | `apps/codex-security-scan` | https://codex-security-scan.vercel.app | Vercel; scripted dual-target (canned sample + chronicle) without keys; optional Live via server-side `OPENAI_API_KEY` (SDK modes need Python+git, off on Vercel) |
 | Claude Agent Loops | `apps/claude-agent-loops` | https://claude-agent-loops.vercel.app | Vercel; scripted loops without keys; optional Live via server-side `ANTHROPIC_API_KEY` + `ANTHROPIC_WORKSPACE_ID` |
+| Hermes Skill Loop | `apps/hermes-skill-loop` | https://hermes-skill-loop.vercel.app | Vercel; scripted run/extract/reuse without keys; optional Live via server-side `ANTHROPIC_API_KEY` + `ANTHROPIC_WORKSPACE_ID` |
+
