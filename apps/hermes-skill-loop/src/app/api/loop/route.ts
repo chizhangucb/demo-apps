@@ -10,7 +10,12 @@ export async function POST(req: Request) {
   if (!liveAvailable()) {
     return NextResponse.json({ error: "Live mode needs ANTHROPIC_API_KEY on the server." }, { status: 503 });
   }
-  const body = (await req.json()) as LiveRunRequest | LiveExtractRequest;
+  let body: LiveRunRequest | LiveExtractRequest;
+  try {
+    body = (await req.json()) as LiveRunRequest | LiveExtractRequest;
+  } catch {
+    return NextResponse.json({ error: "Request body must be JSON." }, { status: 400 });
+  }
   try {
     if (body.phase === "run") return NextResponse.json(await liveRun(body));
     if (body.phase === "extract") return NextResponse.json(await liveExtract(body));
