@@ -1,5 +1,13 @@
 {
-  "proposed": [],
+  "proposed": [
+    {
+      "id": "2105721434807083061",
+      "title": "Claude Code Mods: TypeScript in-process hooks to change Claude Code behavior and UI",
+      "url": "https://x.com/ClaudeDevs/status/2105721434807083061",
+      "slug": "claude-code-mods",
+      "date": "2026-10-02"
+    }
+  ],
   "built": [
     {
       "id": "2100262432413528336",
