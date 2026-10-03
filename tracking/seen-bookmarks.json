@@ -1,5 +1,13 @@
 {
-  "proposed": [],
+  "proposed": [
+    {
+      "id": "2102762406204076532",
+      "title": "Pi SDK + Jev \u2014 custom agent harness (model pick, tool gate, answer check)",
+      "url": "https://x.com/omarsar0/status/2102762406204076532",
+      "slug": "pi-jev-harness",
+      "date": "2026-10-03"
+    }
+  ],
   "built": [
     {
       "id": "2105721434807083061",
