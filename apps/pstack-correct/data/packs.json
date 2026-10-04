@@ -1,0 +1,188 @@
+[
+  {
+    "id": "escape-hatches",
+    "name": "Escape hatches",
+    "tagline": "any, casts, and optional fields that are never really optional",
+    "notes": [
+      "stop using `any` for the order payload",
+      "that `as Order` cast hides a missing field",
+      "`shippedAt` is optional but it is always set once status is shipped",
+      "you added another `as unknown as` to make the compiler quiet",
+      "don't reach for `any` again, type the status properly"
+    ],
+    "keywords": ["any", "cast", "as unknown", "as order", "optional", "type the", "typed", "compiler", "ts-ignore", "ts-expect-error", "non-null assertion", "illegal state"],
+    "pattern": "Illegal states are representable, so the agent keeps reaching for `any`, casts, and optional fields to paper over them.",
+    "wrongFix": "Remember to avoid `any` and casts. Don't forget that shippedAt is always set when an order is shipped.",
+    "fix": {
+      "layer": "types",
+      "mechanism": "unrepresentable",
+      "title": "Model the order as a discriminated union and delete the cast",
+      "summary": "Each status carries exactly the fields it has. A shipped order without `shippedAt` no longer type-checks, so there is nothing to cast around.",
+      "whyNotWeaker": "A lint rule banning `any` would still let `as Order` through, and a runtime check only fires after the bad object exists. The type removes the state."
+    },
+    "before": {
+      "caption": "Leaky: one bag of optionals, held together by a cast",
+      "lines": [
+        "type Order = {",
+        "  status: string",
+        "  shippedAt?: Date",
+        "  trackingId?: string",
+        "}",
+        "",
+        "const order = payload as any as Order",
+        "label(order.shippedAt!) // trust me"
+      ]
+    },
+    "after": {
+      "caption": "Encoded: the bad state cannot be written down",
+      "lines": [
+        "type Order =",
+        "  | { status: \"pending\" }",
+        "  | { status: \"shipped\"; shippedAt: Date; trackingId: string }",
+        "",
+        "function label(o: Extract<Order, { status: \"shipped\" }>) {",
+        "  return o.shippedAt // always present, no `!`",
+        "}"
+      ]
+    }
+  },
+  {
+    "id": "validate-later",
+    "name": "Validate later",
+    "tagline": "guards scattered through the middle of the code",
+    "notes": [
+      "remember to validate the payload before using it",
+      "that bug was unparsed JSON again",
+      "check the API response before use",
+      "the webhook body was trusted without validation",
+      "you forgot to validate the query params in the handler"
+    ],
+    "keywords": ["validat*", "unparsed", "parse", "json", "payload", "api response", "response", "webhook", "body", "query params", "untrusted", "trusted", "schema", "zod", "input"],
+    "pattern": "Validation lives in the middle of the code, so every new call site has to remember to re-check data that should already be trusted.",
+    "wrongFix": "Remember to validate the payload and check the API response before you use it.",
+    "fix": {
+      "layer": "architecture",
+      "mechanism": "unrepresentable",
+      "title": "Parse at the boundary; inside, only parsed types exist",
+      "summary": "One `parseChargeEvent` runs where data enters (route, webhook, fetch). It returns a typed value or a 400. Internal functions accept only the parsed type, so unparsed JSON cannot reach them.",
+      "whyNotWeaker": "A shared `validate()` helper still has to be remembered at every call site, and scattered runtime checks keep the guard in the middle. Moving the parse to the edge makes raw input unrepresentable inside."
+    },
+    "before": {
+      "caption": "Leaky: raw JSON flows in, guards sprinkled later",
+      "lines": [
+        "export async function POST(req: Request) {",
+        "  const body = await req.json() // unknown, used as-is",
+        "  await charge(body)",
+        "}",
+        "",
+        "async function charge(body: any) {",
+        "  if (!body?.amount) return // remembered here, not elsewhere",
+        "}"
+      ]
+    },
+    "after": {
+      "caption": "Encoded: one parse at the edge, typed everywhere after",
+      "lines": [
+        "export async function POST(req: Request) {",
+        "  const event = parseChargeEvent(await req.json())",
+        "  if (!event.ok) return Response.json(event.error, { status: 400 })",
+        "  await charge(event.value) // ChargeEvent, already trusted",
+        "}",
+        "",
+        "async function charge(e: ChargeEvent) { /* no guards needed */ }"
+      ]
+    }
+  },
+  {
+    "id": "banned-call",
+    "name": "Banned call",
+    "tagline": "a rule that only exists as a sentence",
+    "notes": [
+      "don't call `fs` from the route handler",
+      "stop shelling out there with child_process",
+      "that API is banned in app code",
+      "you imported `fs` into a page component again",
+      "no `exec` in request handlers, use the job queue"
+    ],
+    "keywords": ["fs", "child_process", "shell*", "exec", "spawn", "banned", "import*", "route handler", "app code", "page component", "process.env", "eval", "forbidden", "not allowed"],
+    "pattern": "The rule only exists as a sentence, so it is re-broken every time the agent edits a route or page.",
+    "wrongFix": "Don't forget: never call fs or child_process from app code. Use the job queue instead.",
+    "fix": {
+      "layer": "checks",
+      "mechanism": "lint",
+      "title": "Ban the import in app code and fail CI",
+      "summary": "An ESLint `no-restricted-imports` rule scoped to `src/app/**` rejects `fs`, `node:fs`, and `child_process` with a message pointing at the queue. The build goes red before review.",
+      "whyNotWeaker": "No type can stop an import, so the strongest fit is a check. A runtime guard would only fire in production, and a helper is optional. Lint fails the build on every edit."
+    },
+    "before": {
+      "caption": "Leaky: the rule is a comment",
+      "lines": [
+        "// NOTE: please don't use fs in routes",
+        "import { readFileSync } from \"fs\"",
+        "import { execSync } from \"child_process\"",
+        "",
+        "export function GET() {",
+        "  execSync(\"convert in.png out.webp\")",
+        "}"
+      ]
+    },
+    "after": {
+      "caption": "Encoded: the build refuses it",
+      "lines": [
+        "// eslint.config.mjs",
+        "{ files: [\"src/app/**\"], rules: {",
+        "  \"no-restricted-imports\": [\"error\", {",
+        "    paths: [\"fs\", \"node:fs\", \"child_process\"],",
+        "    message: \"Enqueue a job via lib/jobs instead.\"",
+        "  }] } }",
+        "// $ bun run lint  ->  error  'fs' import is restricted"
+      ]
+    }
+  },
+  {
+    "id": "nil-check-bandage",
+    "name": "Nil-check bandage",
+    "tagline": "silence the crash, keep the cause",
+    "notes": [
+      "just add a null check so it stops crashing",
+      "you swallowed the crash with try/catch again",
+      "guard it so the page doesn't blow up",
+      "another `user?.profile?.name ?? ''` fallback hiding a missing profile",
+      "the undefined comes from getProfile, not from the page"
+    ],
+    "keywords": ["null", "nil", "undefined", "null check", "crash*", "swallow*", "try/catch", "catch", "guard", "blow up", "fallback", "optional chaining", "?.", "?? ''", "missing", "cannot read"],
+    "pattern": "The symptom is silenced at each call site while the producer keeps returning a missing value.",
+    "wrongFix": "Just add a null check there, and remember to guard user.profile anywhere it is used.",
+    "fix": {
+      "layer": "architecture",
+      "mechanism": "unrepresentable",
+      "title": "Fix the producer: return a Profile or an explicit NotFound",
+      "summary": "`getProfile` returns `{ kind: \"found\", profile } | { kind: \"missing\" }`. Callers must handle both cases once, and a found profile always has a name. The `?.` chains go away.",
+      "whyNotWeaker": "Another null check is a runtime bandage at one call site; the next caller crashes again. Changing what the producer can return removes the hole for every caller."
+    },
+    "before": {
+      "caption": "Leaky: every caller guards, cause untouched",
+      "lines": [
+        "async function getProfile(id: string) {",
+        "  return db.profile.find(id) // Profile | undefined, unsaid",
+        "}",
+        "",
+        "try {",
+        "  title = (await getProfile(id))?.name ?? \"\"",
+        "} catch {} // page no longer blows up"
+      ]
+    },
+    "after": {
+      "caption": "Encoded: missing is a case, not a crash",
+      "lines": [
+        "type ProfileResult =",
+        "  | { kind: \"found\"; profile: Profile } // name: string",
+        "  | { kind: \"missing\" }",
+        "",
+        "const r = await getProfile(id)",
+        "if (r.kind === \"missing\") return notFound()",
+        "title = r.profile.name"
+      ]
+    }
+  }
+]
