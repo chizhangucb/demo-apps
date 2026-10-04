@@ -1,0 +1,77 @@
+[
+  {
+    "id": "readme-summary",
+    "title": "Summarize the README",
+    "shape": "Safe read · fast model · done",
+    "task": "Read README.md in this repo and give me a three-bullet summary of what the project does.",
+    "script": {
+      "model": { "probabilities": { "fast": 0.86, "powerful": 0.14 }, "complexity": 0.8 },
+      "tools": [
+        {
+          "tool": "read",
+          "args": "README.md",
+          "unsafe": 0.04,
+          "result": "# Orbit — a tiny CLI that syncs dotfiles across machines via a git remote. Commands: init, push, pull, status."
+        }
+      ],
+      "answer": "- Orbit is a small CLI that keeps your dotfiles in sync across machines.\n- It stores them in a git remote you own.\n- Four commands cover the workflow: init, push, pull and status.",
+      "done": 3.6
+    }
+  },
+  {
+    "id": "disk-cleanup",
+    "title": "Free up disk space",
+    "shape": "Risky delete blocked · low confidence → powerful",
+    "task": "My laptop is out of disk space. Find what is taking room in ~/projects and clean it up.",
+    "script": {
+      "model": { "probabilities": { "fast": 0.56, "powerful": 0.44 }, "complexity": 1.9 },
+      "tools": [
+        {
+          "tool": "bash",
+          "args": "du -sh ~/projects/* | sort -h | tail -5",
+          "unsafe": 0.09,
+          "result": "1.2G  ~/projects/site/node_modules\n3.8G  ~/projects/ml/checkpoints\n9.4G  ~/projects/ml/datasets"
+        },
+        {
+          "tool": "bash",
+          "args": "rm -rf ~/projects/ml",
+          "unsafe": 0.94,
+          "result": "(blocked by harness — nothing was deleted)"
+        }
+      ],
+      "answer": "The biggest folders are ml/datasets (9.4G), ml/checkpoints (3.8G) and site/node_modules (1.2G). I did not delete anything: removing ~/projects/ml was blocked as unsafe. Safe next step: run `rm -rf ~/projects/site/node_modules` yourself (reinstallable), and decide which checkpoints you still need.",
+      "done": 3.1
+    }
+  },
+  {
+    "id": "jwt-refactor",
+    "title": "Refactor auth to JWT rotation",
+    "shape": "Complex → powerful · write allowed · unfinished answer",
+    "task": "Refactor src/auth.ts to rotate JWT refresh tokens on every use, update the tests, and push the branch.",
+    "script": {
+      "model": { "probabilities": { "fast": 0.18, "powerful": 0.82 }, "complexity": 3.4 },
+      "tools": [
+        {
+          "tool": "read",
+          "args": "src/auth.ts",
+          "unsafe": 0.05,
+          "result": "export function refresh(token) { const claims = verify(token); return sign(claims) } // 84 lines"
+        },
+        {
+          "tool": "edit",
+          "args": "src/auth.ts — issue new refresh token, revoke old jti",
+          "unsafe": 0.38,
+          "result": "(simulated) patch applied in memory: +27 −6"
+        },
+        {
+          "tool": "bash",
+          "args": "git push --force origin main",
+          "unsafe": 0.81,
+          "result": "(blocked by harness — nothing was pushed)"
+        }
+      ],
+      "answer": "I drafted the rotation logic in src/auth.ts (new refresh token per use, old jti revoked). I have not updated the tests yet and the push was blocked.",
+      "done": 1.4
+    }
+  }
+]
