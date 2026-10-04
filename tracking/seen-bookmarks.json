@@ -1,15 +1,13 @@
 {
-  "proposed": [
+  "proposed": [],
+  "built": [
     {
       "id": "2106542593656111276",
       "title": "pstack /correct: find recurring agent mistakes and fix the environment (architecture, types, checks)",
       "url": "https://x.com/poteto/status/2106542593656111276",
       "slug": "pstack-correct",
-      "date": "2026-10-04",
-      "angle": "Interactive sticky demo of pstack 0.15.9 /correct: paste recurring agent correction notes (or pick a canned pitfall pack), surface the pattern, and show the architecture/types/checks fix it would write. Next.js + Bun under apps/pstack-correct/, Vercel-ready."
-    }
-  ],
-  "built": [
+      "date": "2026-10-04"
+    },
     {
       "id": "2102762406204076532",
       "title": "Pi SDK + Jev \u2014 custom agent harness (model pick, tool gate, answer check)",
