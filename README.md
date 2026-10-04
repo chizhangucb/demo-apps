@@ -18,4 +18,4 @@ Each demo is deployed as its own Vercel project with **Root Directory** set to `
 | Claude Agent Loops | `apps/claude-agent-loops` | https://claude-agent-loops.vercel.app | Vercel; scripted loops without keys; optional Live via server-side `ANTHROPIC_API_KEY` + `ANTHROPIC_WORKSPACE_ID` |
 | Hermes Skill Loop | `apps/hermes-skill-loop` | https://hermes-skill-loop.vercel.app | Vercel; scripted run/extract/reuse without keys; optional Live via server-side `ANTHROPIC_API_KEY` + `ANTHROPIC_WORKSPACE_ID` |
 | Claude Code Mods | `apps/claude-code-mods` | https://claude-mods-playground.vercel.app | Vercel; scripted mod playground (deny/rewrite/pass-through) without keys; optional Suggest via server-side `ANTHROPIC_API_KEY` + `ANTHROPIC_WORKSPACE_ID` |
-
+| Pi + Jev Harness | `apps/pi-jev-harness` | https://pi-jev-harness.vercel.app | Vercel; scripted three-gate harness (model pick, tool allow/deny, done score) without keys; live Jev via server-side `OPENROUTER_API_KEY` or `TYPESAFE_API_KEY` |
