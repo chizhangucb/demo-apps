@@ -1,0 +1,47 @@
+{
+  "id": "launch-notes",
+  "title": "Launch notes",
+  "prompt": "Collect what changed in the last release and draft launch notes.",
+  "researcher": [
+    { "say": "Pulling the changelog and the release page." },
+    {
+      "tool": "browser.navigate",
+      "args": { "url": "https://example.dev/releases/v2.4.0" },
+      "output": "Release v2.4.0: per-Dot permissions, activity log, page revisions, 11 bug fixes.",
+      "onDenied": "Browser is off for me; I'll list the changes from memory without sources."
+    },
+    {
+      "tool": "files.read",
+      "args": { "path": "CHANGELOG.md" },
+      "output": "## 2.4.0\n- feat: per-Dot browser/files/shell permissions\n- feat: activity log\n- feat: page revision checks\n- fix: 11 bugs"
+    },
+    {
+      "tool": "files.write",
+      "args": { "path": "notes.md", "bytes": 960 },
+      "output": "wrote notes.md (960 bytes)"
+    },
+    { "say": "Three headline changes plus fixes." }
+  ],
+  "findings": [
+    { "title": "Per-Dot permissions", "detail": "Browser, workspace files and shell can be toggled per coworker and start disabled.", "source": "https://example.dev/releases/v2.4.0" },
+    { "title": "Activity log", "detail": "Each computer action records name, requester and outcome, without contents.", "source": "https://example.dev/releases/v2.4.0#activity" },
+    { "title": "Page revision checks", "detail": "Saving a stale draft now asks for a fresh review.", "source": "https://example.dev/changelog#2.4.0" },
+    { "title": "11 bug fixes", "detail": "Mostly autosave and reconnect edge cases.", "source": "https://example.dev/changelog#2.4.0" }
+  ],
+  "handoff": "Researcher hands 4 findings to Writer.",
+  "writer": [
+    { "say": "Writing launch notes from the findings." },
+    {
+      "tool": "shell.run",
+      "args": { "command": "git log --oneline v2.3.0..v2.4.0" },
+      "output": "a1b2c3d feat: per-dot permissions\n9f8e7d6 feat: activity log\n5a4b3c2 feat: page revisions",
+      "onAllowed": "Commit log matches the findings.",
+      "onDenied": "Shell is off for me. The Researcher's changelog notes are enough."
+    },
+    { "say": "Launch notes drafted. Requesting review." }
+  ],
+  "page": {
+    "title": "v2.4.0 launch notes",
+    "body": "## What's new in 2.4\n- **Per-Dot permissions.** Turn browser, files and shell on or off for each coworker. Everything starts off.\n- **Activity log.** See every computer action, who asked for it and whether it was allowed.\n- **Page revision checks.** A changed draft goes back for review before it is saved.\n\n## Fixes\n11 fixes, mostly around autosave and reconnects."
+  }
+}

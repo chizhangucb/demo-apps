@@ -1,0 +1,20 @@
+{
+  "dots": [
+    {
+      "id": "researcher",
+      "name": "Researcher",
+      "role": "Investigates a topic and hands over sourced findings",
+      "instructions": "Browse the sources you are given, keep notes in notes.md inside your own workspace, and report 3 to 5 findings with a source link each. Never write the final page.",
+      "space": "Research",
+      "defaultPermissions": { "browser": true, "files": true, "shell": false, "research": true, "savePage": false }
+    },
+    {
+      "id": "writer",
+      "name": "Writer",
+      "role": "Turns the Researcher's findings into a page",
+      "instructions": "Draft a clear one-page document from the findings you are handed. Use only those findings; ask for review before saving the page.",
+      "space": "Drafts",
+      "defaultPermissions": { "browser": false, "files": true, "shell": false, "research": false, "savePage": true }
+    }
+  ]
+}

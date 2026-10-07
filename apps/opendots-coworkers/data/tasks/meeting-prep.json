@@ -1,0 +1,46 @@
+{
+  "id": "meeting-prep",
+  "title": "Meeting prep",
+  "prompt": "Gather background on a fictional customer and draft a prep page.",
+  "researcher": [
+    { "say": "Looking up Northwind Robotics (fictional) for tomorrow's call." },
+    {
+      "tool": "browser.navigate",
+      "args": { "url": "https://northwind-robotics.example/about" },
+      "output": "Northwind Robotics: warehouse picking robots, 240 employees, Series B (fictional).",
+      "onDenied": "Browser is off for me, so this prep has no sources."
+    },
+    {
+      "tool": "files.read",
+      "args": { "path": "../writer/draft.md" },
+      "output": "(writer draft)",
+      "onAllowed": "Read the Writer's draft.",
+      "onDenied": "That file is outside my workspace. Working from my own notes only."
+    },
+    {
+      "tool": "files.write",
+      "args": { "path": "notes.md", "bytes": 1320 },
+      "output": "wrote notes.md (1320 bytes)"
+    },
+    { "say": "Three findings ready." }
+  ],
+  "findings": [
+    { "title": "Who they are", "detail": "Northwind Robotics builds warehouse picking robots; about 240 people; Series B. (Fictional company.)", "source": "https://northwind-robotics.example/about" },
+    { "title": "Likely pain point", "detail": "Their job posts mention operator dashboards and incident review.", "source": "https://northwind-robotics.example/careers" },
+    { "title": "Open question", "detail": "Unclear who owns tooling: ops or platform team. Ask early.", "source": "https://northwind-robotics.example/blog/ops" }
+  ],
+  "handoff": "Researcher hands 3 findings to Writer.",
+  "writer": [
+    { "say": "Drafting the prep page." },
+    {
+      "tool": "files.write",
+      "args": { "path": "draft.md", "bytes": 1105 },
+      "output": "wrote draft.md (1105 bytes)"
+    },
+    { "say": "Prep page drafted. Requesting review." }
+  ],
+  "page": {
+    "title": "Prep: Northwind Robotics call",
+    "body": "## Context\nNorthwind Robotics (fictional) builds warehouse picking robots: about 240 people, Series B.\n\n## Talking points\n- Operator dashboards and incident review look like the pain point.\n- Ask early whether ops or the platform team owns tooling.\n\n## Goal for the call\nAgree on a two-week pilot with one warehouse team."
+  }
+}
