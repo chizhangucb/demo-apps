@@ -1,0 +1,57 @@
+{
+  "id": "competitor-brief",
+  "title": "Competitor brief",
+  "prompt": "Research three open source agent UI protocols and write a one-page comparison.",
+  "researcher": [
+    { "say": "Starting with the protocol docs. I'll keep notes in my workspace." },
+    {
+      "tool": "browser.navigate",
+      "args": { "url": "https://docs.ag-ui.com/introduction" },
+      "output": "AG-UI: open, event-based protocol connecting agent backends to user-facing apps. ~16 event types over SSE, WebSockets or webhooks.",
+      "onDenied": "Browser is off for me, so I can't open the docs. I'll report what I know without sources."
+    },
+    {
+      "tool": "browser.snapshot",
+      "args": { "selector": "main" },
+      "output": "Headings: Lifecycle events, Text messages, Tool calls, State management, Activity, Interrupts."
+    },
+    {
+      "tool": "research.search",
+      "args": { "query": "agent to UI protocol MCP A2A comparison" },
+      "output": "3 results: modelcontextprotocol.io, a2a-protocol.org, docs.ag-ui.com/concepts/events"
+    },
+    {
+      "tool": "files.write",
+      "args": { "path": "notes.md", "bytes": 1840 },
+      "output": "wrote notes.md (1840 bytes)"
+    },
+    { "say": "Notes saved. Four findings ready for the Writer." }
+  ],
+  "findings": [
+    { "title": "AG-UI is the agent-to-user layer", "detail": "Event stream (text, tool calls, state deltas, interrupts) between an agent backend and a frontend.", "source": "https://docs.ag-ui.com/introduction" },
+    { "title": "MCP is the agent-to-tools layer", "detail": "Standardizes how an agent discovers and calls tools and resources; not a UI protocol on its own.", "source": "https://modelcontextprotocol.io" },
+    { "title": "A2A is the agent-to-agent layer", "detail": "Lets independent agents delegate tasks to each other across vendors.", "source": "https://a2a-protocol.org" },
+    { "title": "They stack rather than compete", "detail": "A coworker app can use all three: MCP for tools, A2A for delegation, AG-UI to stream to the human.", "source": "https://docs.ag-ui.com/concepts/events" }
+  ],
+  "handoff": "Researcher hands 4 findings to Writer.",
+  "writer": [
+    { "say": "Drafting the comparison from the Researcher's notes." },
+    {
+      "tool": "browser.navigate",
+      "args": { "url": "https://modelcontextprotocol.io" },
+      "output": "Model Context Protocol: an open protocol for connecting AI apps to tools and data.",
+      "onAllowed": "Source checks out. Continuing the draft.",
+      "onDenied": "I'm not allowed to browse. Sticking to the Researcher's notes."
+    },
+    {
+      "tool": "files.write",
+      "args": { "path": "draft.md", "bytes": 2210 },
+      "output": "wrote draft.md (2210 bytes)"
+    },
+    { "say": "Draft ready. Requesting review before saving." }
+  ],
+  "page": {
+    "title": "Agent UI protocols: a one-page comparison",
+    "body": "## Summary\nAG-UI, MCP and A2A solve different hops of an agent system, so most teams will use more than one.\n\n## At a glance\n- **AG-UI** (agent to user): streams text, tool calls, state and interrupts to the frontend.\n- **MCP** (agent to tools): discovers and calls tools and resources.\n- **A2A** (agent to agent): delegates work between independent agents.\n\n## Recommendation\nUse MCP for tools, AG-UI for the human-facing stream, and add A2A only when separate agents need to hand off work."
+  }
+}
