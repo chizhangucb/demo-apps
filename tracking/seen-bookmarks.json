@@ -1,5 +1,13 @@
 {
-  "proposed": [],
+  "proposed": [
+    {
+      "id": "2105710796198322659",
+      "title": "OpenDots: CopilotKit's self-hostable always-on AI coworkers (per-Dot roles, permissions, own computer, any AG-UI harness)",
+      "url": "https://x.com/ataiiam/status/2105710796198322659",
+      "slug": "opendots-coworkers",
+      "date": "2026-10-07"
+    }
+  ],
   "built": [
     {
       "id": "2106542593656111276",
