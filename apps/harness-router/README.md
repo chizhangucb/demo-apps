@@ -83,11 +83,11 @@ The browser folds events with the same reducer the server uses to rebuild respon
 
 ## How cancel works on Vercel
 
-Serverless instances do not share memory, so the stream and the cancel call may land on different instances.
+Serverless instances do not share memory, so the stream and the cancel call may land on different instances. **Cancel is authoritative only on the instance that handled the cancel call.**
 
-- **Deterministic response ids.** A response id encodes harness, task, session and every turn's start time, model, budget and ignored fields (`src/lib/uhp/ids.ts`). Any instance can rebuild the response at any instant from the id and the clock, so `GET /v1/responses/{id}` works without a database.
-- **Warm path.** A module-level registry records the cancel point. The stream loop checks it every tick and emits closing events: unfinished items are closed `incomplete`, then `response.failed` with `status: "cancelled"`. The cancel reply is built from the same cut, so both agree.
-- **Cold path.** After a 200 from cancel, the client waits up to 1s for that terminal event. If it does not come (the stream lives on another instance), the client closes the reader and renders the response returned by the cancel call. The stored response is the source of truth; the stream is an optimisation.
+- **Deterministic response ids.** A response id encodes harness, task, session and every turn's start time, model, budget and ignored fields (`src/lib/uhp/ids.ts`). Any instance can rebuild a response that was not cancelled from the id and the clock, so `GET /v1/responses/{id}` works without a database. The cancel point is not in the id, so a cancel is only known to the instance that received it.
+- **Same instance.** A module-level registry records the cancel point. The stream loop checks it every tick and emits closing events: unfinished items are closed `incomplete`, then `response.failed` with `status: "cancelled"`. The cancel reply is built from the same cut, so both agree, and later reads on that instance return `cancelled`.
+- **Different instance.** If the stream runs on another serverless instance, that stream never sees the cancel and may still finish as `response.completed`, and a read of the response on that instance (or a cold one) can return `completed`. The UI falls back to the cancel reply: after a 200 from cancel it waits up to 1s for the terminal event, and if none arrives it closes the reader and renders the response returned by the cancel call. On the production deploy this fallback is the common path.
 - Sessions and their turns live in `localStorage`, so reloads and cold starts keep them. Session reads accept `?latest=<response id>`, a scripted-server hint: the latest id encodes every turn of the session, so files and turns can be listed on a cold instance too.
 
 ## Data, not code
