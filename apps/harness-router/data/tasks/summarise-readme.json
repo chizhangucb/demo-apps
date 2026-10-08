@@ -1,0 +1,262 @@
+{
+  "id": "summarise-readme",
+  "title": "Summarise a README",
+  "blurb": "Short. Inline input_file, one artifact. Good for compare mode.",
+  "prompt": "Summarise README.md in three bullets and save summary.md.",
+  "pace": 1.0,
+  "inputFile": {
+    "filename": "README.md",
+    "mimeType": "text/markdown",
+    "content": "# tinyq\n\ntinyq is a tiny job queue for Bun and Node. Jobs live in SQLite, so a crash never loses work.\n\n## Features\n- `enqueue(name, payload, { runAt, retries })` with exponential backoff\n- Workers pull with `SELECT ... FOR UPDATE SKIP LOCKED` semantics emulated in SQLite\n- A 40-line dashboard at `/tinyq` shows queued, running and failed jobs\n\n## Limits\nSingle process only. No priorities yet. Payloads must be JSON-serialisable.\n"
+  },
+  "scripts": {
+    "codex": {
+      "reasoning": "The README is attached as an input file in the workspace. Read it, pull out what/how/limits, write summary.md.",
+      "steps": [
+        {
+          "name": "shell",
+          "arguments": {
+            "command": [
+              "bash",
+              "-lc",
+              "cat README.md"
+            ]
+          },
+          "output": "# tinyq\n\ntinyq is a tiny job queue for Bun and Node. Jobs live in SQLite, so a crash never loses work.\n\n## Features\n- `enqueue(name, payload, { runAt, retries })` with exponential backoff\n- Workers pull with `SELECT ... FOR UPDATE SKIP LOCKED` semantics emulated in SQLite\n- A 40-line dashboard at `/tinyq` shows queued, running and failed jobs\n\n## Limits\nSingle process only. No priorities yet. Payloads must be JSON-serialisable.\n"
+        },
+        {
+          "name": "apply_patch",
+          "arguments": {
+            "input": "*** Begin Patch\n*** Add File: summary.md\n+# tinyq summary\n+...\n*** End Patch"
+          },
+          "output": "Success. Updated the following files:\nA summary.md"
+        }
+      ],
+      "text": "Saved summary.md:\n\n- tinyq is a small SQLite-backed job queue for Bun/Node, so jobs survive crashes.\n- enqueue() supports run-at scheduling and exponential-backoff retries; a /tinyq dashboard shows job states.\n- Limits: single process, no priorities, JSON payloads only.",
+      "artifacts": [
+        {
+          "filename": "summary.md",
+          "mimeType": "text/markdown",
+          "content": "# tinyq summary\n\n- **What:** a tiny SQLite-backed job queue for Bun and Node; jobs survive crashes.\n- **How:** `enqueue()` with run-at and exponential-backoff retries; workers pull jobs safely, and a small `/tinyq` dashboard shows job states.\n- **Limits:** single process, no priorities, JSON payloads only.\n"
+        }
+      ]
+    },
+    "claude-code": {
+      "steps": [
+        {
+          "name": "TodoWrite",
+          "arguments": {
+            "todos": [
+              {
+                "content": "Read README.md",
+                "status": "in_progress"
+              },
+              {
+                "content": "Write summary.md",
+                "status": "pending"
+              }
+            ]
+          },
+          "output": "Todos updated (2 items)."
+        },
+        {
+          "name": "Read",
+          "arguments": {
+            "file_path": "/workspace/README.md"
+          },
+          "output": "# tinyq\n\ntinyq is a tiny job queue for Bun and Node. Jobs live in SQLite, so a crash never loses work.\n\n## Features\n- `enqueue(name, payload, { runAt, retries })` with exponential backoff\n- Workers pull with `SELECT ... FOR UPDATE SKIP LOCKED` semantics emulated in SQLite\n- A 40-line dashboard at `/tinyq` shows queued, running and failed jobs\n\n## Limits\nSingle process only. No priorities yet. Payloads must be JSON-serialisable.\n"
+        },
+        {
+          "name": "Write",
+          "arguments": {
+            "file_path": "/workspace/summary.md",
+            "content": "# tinyq summary\n\n- **What:** a tiny SQLite-backed job queue for Bun and Node; jobs survive crashes.\n- **How:** `enqueue()` with run-at and exponential-backoff retries; workers pull jobs safely, and a small `/tinyq` dashboard shows job states.\n- **Limits:** single process, no priorities, JSON payloads only.\n"
+          },
+          "output": "File created successfully at: /workspace/summary.md"
+        },
+        {
+          "name": "Bash",
+          "arguments": {
+            "command": "wc -l summary.md",
+            "description": "Check the summary length"
+          },
+          "output": "5 summary.md"
+        }
+      ],
+      "text": "I read README.md and wrote **summary.md** with three bullets:\n\n- **What:** a tiny SQLite-backed job queue for Bun and Node; jobs survive crashes.\n- **How:** enqueue() with run-at and backoff retries; a /tinyq dashboard shows job states.\n- **Limits:** single process, no priorities, JSON-only payloads.",
+      "artifacts": [
+        {
+          "filename": "summary.md",
+          "mimeType": "text/markdown",
+          "content": "# tinyq summary\n\n- **What:** a tiny SQLite-backed job queue for Bun and Node; jobs survive crashes.\n- **How:** `enqueue()` with run-at and exponential-backoff retries; workers pull jobs safely, and a small `/tinyq` dashboard shows job states.\n- **Limits:** single process, no priorities, JSON payloads only.\n"
+        }
+      ]
+    },
+    "hermes": {
+      "reasoning": "A matching skill exists (summarise-docs). Load it, then follow its three-bullet recipe.",
+      "steps": [
+        {
+          "name": "skill_view",
+          "arguments": {
+            "name": "summarise-docs"
+          },
+          "output": "summarise-docs v3: read the doc, answer what / how / limits, one line each, save as markdown."
+        },
+        {
+          "name": "read_file",
+          "arguments": {
+            "path": "README.md"
+          },
+          "output": "# tinyq\n\ntinyq is a tiny job queue for Bun and Node. Jobs live in SQLite, so a crash never loses work.\n\n## Features\n- `enqueue(name, payload, { runAt, retries })` with exponential backoff\n- Workers pull with `SELECT ... FOR UPDATE SKIP LOCKED` semantics emulated in SQLite\n- A 40-line dashboard at `/tinyq` shows queued, running and failed jobs\n\n## Limits\nSingle process only. No priorities yet. Payloads must be JSON-serialisable.\n"
+        },
+        {
+          "name": "write_file",
+          "arguments": {
+            "path": "summary.md",
+            "content": "# tinyq summary\n\n- **What:** a tiny SQLite-backed job queue for Bun and Node; jobs survive crashes.\n- **How:** `enqueue()` with run-at and exponential-backoff retries; workers pull jobs safely, and a small `/tinyq` dashboard shows job states.\n- **Limits:** single process, no priorities, JSON payloads only.\n"
+          },
+          "output": "Wrote 312 bytes to summary.md"
+        }
+      ],
+      "text": "Done, using the summarise-docs skill. summary.md says:\n- What: tiny SQLite job queue for Bun/Node, crash-safe.\n- How: enqueue() with scheduling and retries, plus a /tinyq dashboard.\n- Limits: one process, no priorities, JSON payloads.",
+      "artifacts": [
+        {
+          "filename": "summary.md",
+          "mimeType": "text/markdown",
+          "content": "# tinyq summary\n\n- **What:** a tiny SQLite-backed job queue for Bun and Node; jobs survive crashes.\n- **How:** `enqueue()` with run-at and exponential-backoff retries; workers pull jobs safely, and a small `/tinyq` dashboard shows job states.\n- **Limits:** single process, no priorities, JSON payloads only.\n"
+        }
+      ]
+    },
+    "pi": {
+      "steps": [
+        {
+          "name": "read",
+          "arguments": {
+            "path": "README.md"
+          },
+          "output": "# tinyq\n\ntinyq is a tiny job queue for Bun and Node. Jobs live in SQLite, so a crash never loses work.\n\n## Features\n- `enqueue(name, payload, { runAt, retries })` with exponential backoff\n- Workers pull with `SELECT ... FOR UPDATE SKIP LOCKED` semantics emulated in SQLite\n- A 40-line dashboard at `/tinyq` shows queued, running and failed jobs\n\n## Limits\nSingle process only. No priorities yet. Payloads must be JSON-serialisable.\n"
+        },
+        {
+          "name": "write",
+          "arguments": {
+            "path": "summary.md",
+            "content": "# tinyq summary\n\n- **What:** a tiny SQLite-backed job queue for Bun and Node; jobs survive crashes.\n- **How:** `enqueue()` with run-at and exponential-backoff retries; workers pull jobs safely, and a small `/tinyq` dashboard shows job states.\n- **Limits:** single process, no priorities, JSON payloads only.\n"
+          },
+          "output": "ok"
+        }
+      ],
+      "text": "summary.md written.\n- SQLite-backed job queue for Bun/Node.\n- enqueue() + retries + /tinyq dashboard.\n- Single process, no priorities.",
+      "artifacts": [
+        {
+          "filename": "summary.md",
+          "mimeType": "text/markdown",
+          "content": "# tinyq summary\n\n- **What:** a tiny SQLite-backed job queue for Bun and Node; jobs survive crashes.\n- **How:** `enqueue()` with run-at and exponential-backoff retries; workers pull jobs safely, and a small `/tinyq` dashboard shows job states.\n- **Limits:** single process, no priorities, JSON payloads only.\n"
+        }
+      ]
+    }
+  },
+  "followUp": {
+    "prompt": "Now make it shorter.",
+    "scripts": {
+      "codex": {
+        "reasoning": "Same workspace; summary.md is already there. Compress to one line.",
+        "steps": [
+          {
+            "name": "shell",
+            "arguments": {
+              "command": [
+                "bash",
+                "-lc",
+                "cat summary.md"
+              ]
+            },
+            "output": "# tinyq summary\n\n- **What:** a tiny SQLite-backed job queue for Bun and Node; jobs survive crashes.\n- **How:** `enqueue()` with run-at and exponential-backoff retries; workers pull jobs safely, and a small `/tinyq` dashboard shows job states.\n- **Limits:** single process, no priorities, JSON payloads only.\n"
+          }
+        ],
+        "text": "Saved summary-short.md: tinyq is a crash-safe SQLite job queue for Bun/Node with retries and a dashboard; single process only.",
+        "artifacts": [
+          {
+            "filename": "summary-short.md",
+            "mimeType": "text/markdown",
+            "content": "tinyq: crash-safe SQLite job queue for Bun/Node with retries and a dashboard. Single process only.\n"
+          }
+        ]
+      },
+      "claude-code": {
+        "steps": [
+          {
+            "name": "Read",
+            "arguments": {
+              "file_path": "/workspace/summary.md"
+            },
+            "output": "# tinyq summary\n\n- **What:** a tiny SQLite-backed job queue for Bun and Node; jobs survive crashes.\n- **How:** `enqueue()` with run-at and exponential-backoff retries; workers pull jobs safely, and a small `/tinyq` dashboard shows job states.\n- **Limits:** single process, no priorities, JSON payloads only.\n"
+          },
+          {
+            "name": "Write",
+            "arguments": {
+              "file_path": "/workspace/summary-short.md",
+              "content": "..."
+            },
+            "output": "File created successfully at: /workspace/summary-short.md"
+          }
+        ],
+        "text": "Shortened it to one line in **summary-short.md**: a crash-safe SQLite job queue for Bun/Node with retries and a dashboard; single process only.",
+        "artifacts": [
+          {
+            "filename": "summary-short.md",
+            "mimeType": "text/markdown",
+            "content": "tinyq: crash-safe SQLite job queue for Bun/Node with retries and a dashboard. Single process only.\n"
+          }
+        ]
+      },
+      "hermes": {
+        "steps": [
+          {
+            "name": "read_file",
+            "arguments": {
+              "path": "summary.md"
+            },
+            "output": "# tinyq summary\n\n- **What:** a tiny SQLite-backed job queue for Bun and Node; jobs survive crashes.\n- **How:** `enqueue()` with run-at and exponential-backoff retries; workers pull jobs safely, and a small `/tinyq` dashboard shows job states.\n- **Limits:** single process, no priorities, JSON payloads only.\n"
+          },
+          {
+            "name": "write_file",
+            "arguments": {
+              "path": "summary-short.md",
+              "content": "..."
+            },
+            "output": "Wrote 98 bytes to summary-short.md"
+          }
+        ],
+        "text": "summary-short.md: crash-safe SQLite job queue for Bun/Node; retries + dashboard; one process.",
+        "artifacts": [
+          {
+            "filename": "summary-short.md",
+            "mimeType": "text/markdown",
+            "content": "tinyq: crash-safe SQLite job queue for Bun/Node; retries + dashboard; one process.\n"
+          }
+        ]
+      },
+      "pi": {
+        "steps": [
+          {
+            "name": "write",
+            "arguments": {
+              "path": "summary-short.md",
+              "content": "..."
+            },
+            "output": "ok"
+          }
+        ],
+        "text": "summary-short.md: SQLite job queue, retries, dashboard, one process.",
+        "artifacts": [
+          {
+            "filename": "summary-short.md",
+            "mimeType": "text/markdown",
+            "content": "tinyq: SQLite job queue, retries, dashboard, one process.\n"
+          }
+        ]
+      }
+    }
+  },
+  "order": 1
+}
