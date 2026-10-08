@@ -1,0 +1,462 @@
+{
+  "id": "research-brief",
+  "title": "Research brief (long)",
+  "blurb": "Many slow steps. Best for Cancel and max_step.",
+  "prompt": "Write a one-page brief comparing three agent harnesses with a CSV of features.",
+  "pace": 2.2,
+  "scripts": {
+    "codex": {
+      "reasoning": "Gather notes on each harness from the local docs mirror, draft the brief, then derive a feature matrix as CSV.",
+      "steps": [
+        {
+          "name": "shell",
+          "arguments": {
+            "command": [
+              "bash",
+              "-lc",
+              "ls docs/harnesses"
+            ]
+          },
+          "output": "codex.md\nclaude-code.md\nhermes.md\npi.md"
+        },
+        {
+          "name": "shell",
+          "arguments": {
+            "command": [
+              "bash",
+              "-lc",
+              "sed -n 1,80p docs/harnesses/codex.md"
+            ]
+          },
+          "output": "Notes from source 1: harness docs describe the tool surface, session model and reporting. (scripted fixture)"
+        },
+        {
+          "name": "shell",
+          "arguments": {
+            "command": [
+              "bash",
+              "-lc",
+              "sed -n 1,80p docs/harnesses/claude-code.md"
+            ]
+          },
+          "output": "Notes from source 2: harness docs describe the tool surface, session model and reporting. (scripted fixture)"
+        },
+        {
+          "name": "shell",
+          "arguments": {
+            "command": [
+              "bash",
+              "-lc",
+              "sed -n 1,80p docs/harnesses/hermes.md"
+            ]
+          },
+          "output": "Notes from source 3: harness docs describe the tool surface, session model and reporting. (scripted fixture)"
+        },
+        {
+          "name": "apply_patch",
+          "arguments": {
+            "input": "*** Begin Patch\n*** Add File: brief.md\n+# Agent harnesses: a one-page brief\n+...\n*** End Patch"
+          },
+          "output": "Success. Updated the following files:\nA brief.md"
+        },
+        {
+          "name": "apply_patch",
+          "arguments": {
+            "input": "*** Begin Patch\n*** Add File: features.csv\n+harness,reasoning_summary,...\n*** End Patch"
+          },
+          "output": "Success. Updated the following files:\nA features.csv"
+        },
+        {
+          "name": "shell",
+          "arguments": {
+            "command": [
+              "bash",
+              "-lc",
+              "wc -w brief.md && column -s, -t < features.csv | head"
+            ]
+          },
+          "output": "212 brief.md\nharness      reasoning_summary  todo_lists  skills  usage_reported"
+        }
+      ],
+      "text": "Wrote brief.md (one page, ~210 words) comparing Codex, Claude Code and Hermes on planning style, tool surface and reporting, and features.csv with a five-column feature matrix. Main takeaway: under UHP the harness becomes a parameter, so the same task can be run on each and compared directly.",
+      "artifacts": [
+        {
+          "filename": "brief.md",
+          "mimeType": "text/markdown",
+          "content": "# Agent harnesses: a one-page brief\n\nCodex, Claude Code and Hermes all take a task, run their own tools in a workspace, and hand back results and files. They differ in how they plan, which tools they expose, and what they report.\n\n## Codex\nReasoning summaries, a small tool surface (`shell`, `apply_patch`), strong at patch-shaped edits. Reports token usage.\n\n## Claude Code\nRich tool set (`Read`, `Edit`, `Write`, `Bash`, `TodoWrite`), explicit todo lists, takes more, smaller steps. Reports token usage.\n\n## Hermes\nSkill library plus memory: loads a matching skill before acting and can write new skills after. Usage accounting depends on the provider, so it may report none.\n\n## Takeaway\nBehind one Responses-compatible API (UHP), you can swap the harness by changing `metadata.harness_id` and compare them on the same task.\n"
+        },
+        {
+          "filename": "features.csv",
+          "mimeType": "text/csv",
+          "content": "harness,reasoning_summary,todo_lists,skills,usage_reported,typical_tools\ncodex,yes,no,no,yes,\"shell; apply_patch\"\nclaude-code,no,yes,no,yes,\"Read; Edit; Write; Bash; TodoWrite\"\nhermes,yes,no,yes,no,\"terminal; read_file; write_file; skill_view\"\n"
+        }
+      ]
+    },
+    "claude-code": {
+      "steps": [
+        {
+          "name": "TodoWrite",
+          "arguments": {
+            "todos": [
+              {
+                "content": "Collect notes per harness",
+                "status": "in_progress"
+              },
+              {
+                "content": "Draft brief.md",
+                "status": "pending"
+              },
+              {
+                "content": "Build features.csv",
+                "status": "pending"
+              },
+              {
+                "content": "Proofread",
+                "status": "pending"
+              }
+            ]
+          },
+          "output": "Todos updated (4 items)."
+        },
+        {
+          "name": "Bash",
+          "arguments": {
+            "command": "ls docs/harnesses",
+            "description": "List harness docs"
+          },
+          "output": "codex.md\nclaude-code.md\nhermes.md\npi.md"
+        },
+        {
+          "name": "Read",
+          "arguments": {
+            "file_path": "/workspace/docs/harnesses/codex.md"
+          },
+          "output": "Notes from source 1: harness docs describe the tool surface, session model and reporting. (scripted fixture)"
+        },
+        {
+          "name": "Read",
+          "arguments": {
+            "file_path": "/workspace/docs/harnesses/claude-code.md"
+          },
+          "output": "Notes from source 2: harness docs describe the tool surface, session model and reporting. (scripted fixture)"
+        },
+        {
+          "name": "Read",
+          "arguments": {
+            "file_path": "/workspace/docs/harnesses/hermes.md"
+          },
+          "output": "Notes from source 3: harness docs describe the tool surface, session model and reporting. (scripted fixture)"
+        },
+        {
+          "name": "TodoWrite",
+          "arguments": {
+            "todos": [
+              {
+                "content": "Collect notes per harness",
+                "status": "completed"
+              },
+              {
+                "content": "Draft brief.md",
+                "status": "in_progress"
+              },
+              {
+                "content": "Build features.csv",
+                "status": "pending"
+              },
+              {
+                "content": "Proofread",
+                "status": "pending"
+              }
+            ]
+          },
+          "output": "Todos updated (4 items)."
+        },
+        {
+          "name": "Write",
+          "arguments": {
+            "file_path": "/workspace/brief.md",
+            "content": "# Agent harnesses: a one-page brief\n..."
+          },
+          "output": "File created successfully at: /workspace/brief.md"
+        },
+        {
+          "name": "Edit",
+          "arguments": {
+            "file_path": "/workspace/brief.md",
+            "old_string": "## Takeaway",
+            "new_string": "## Takeaway\nBehind one Responses-compatible API..."
+          },
+          "output": "The file /workspace/brief.md has been updated."
+        },
+        {
+          "name": "Write",
+          "arguments": {
+            "file_path": "/workspace/features.csv",
+            "content": "harness,reasoning_summary,..."
+          },
+          "output": "File created successfully at: /workspace/features.csv"
+        },
+        {
+          "name": "Bash",
+          "arguments": {
+            "command": "wc -w brief.md",
+            "description": "Check the brief fits one page"
+          },
+          "output": "212 brief.md"
+        },
+        {
+          "name": "Read",
+          "arguments": {
+            "file_path": "/workspace/features.csv"
+          },
+          "output": "harness,reasoning_summary,todo_lists,skills,usage_reported,typical_tools\ncodex,yes,no,no,yes,\"shell; apply_patch\"\nclaude-code,no,yes,no,yes,\"Read; Edit; Write; Bash; TodoWrite\"\nhermes,yes,no,yes,no,\"terminal; read_file; write_file; skill_view\"\n"
+        },
+        {
+          "name": "TodoWrite",
+          "arguments": {
+            "todos": [
+              {
+                "content": "Collect notes per harness",
+                "status": "completed"
+              },
+              {
+                "content": "Draft brief.md",
+                "status": "completed"
+              },
+              {
+                "content": "Build features.csv",
+                "status": "completed"
+              },
+              {
+                "content": "Proofread",
+                "status": "completed"
+              }
+            ]
+          },
+          "output": "Todos updated (4 items)."
+        }
+      ],
+      "text": "Done. **brief.md** is a one-page comparison of Codex, Claude Code and Hermes (planning style, tool surface, what each reports), and **features.csv** is the matching feature matrix.\n\nThe short version: they all take a task and run their own tools, but they differ in planning (reasoning summaries vs todo lists vs skills) and in what they report back, which is exactly what a shared protocol makes visible.",
+      "artifacts": [
+        {
+          "filename": "brief.md",
+          "mimeType": "text/markdown",
+          "content": "# Agent harnesses: a one-page brief\n\nCodex, Claude Code and Hermes all take a task, run their own tools in a workspace, and hand back results and files. They differ in how they plan, which tools they expose, and what they report.\n\n## Codex\nReasoning summaries, a small tool surface (`shell`, `apply_patch`), strong at patch-shaped edits. Reports token usage.\n\n## Claude Code\nRich tool set (`Read`, `Edit`, `Write`, `Bash`, `TodoWrite`), explicit todo lists, takes more, smaller steps. Reports token usage.\n\n## Hermes\nSkill library plus memory: loads a matching skill before acting and can write new skills after. Usage accounting depends on the provider, so it may report none.\n\n## Takeaway\nBehind one Responses-compatible API (UHP), you can swap the harness by changing `metadata.harness_id` and compare them on the same task.\n"
+        },
+        {
+          "filename": "features.csv",
+          "mimeType": "text/csv",
+          "content": "harness,reasoning_summary,todo_lists,skills,usage_reported,typical_tools\ncodex,yes,no,no,yes,\"shell; apply_patch\"\nclaude-code,no,yes,no,yes,\"Read; Edit; Write; Bash; TodoWrite\"\nhermes,yes,no,yes,no,\"terminal; read_file; write_file; skill_view\"\n"
+        }
+      ]
+    },
+    "hermes": {
+      "reasoning": "The write-brief skill fits. Load it, gather notes, then draft and tabulate.",
+      "steps": [
+        {
+          "name": "skill_view",
+          "arguments": {
+            "name": "write-brief"
+          },
+          "output": "write-brief v2: intro paragraph, one section per subject, a takeaway; keep under 250 words."
+        },
+        {
+          "name": "terminal",
+          "arguments": {
+            "command": "ls docs/harnesses"
+          },
+          "output": "codex.md\nclaude-code.md\nhermes.md\npi.md"
+        },
+        {
+          "name": "read_file",
+          "arguments": {
+            "path": "docs/harnesses/codex.md"
+          },
+          "output": "Notes from source 1: harness docs describe the tool surface, session model and reporting. (scripted fixture)"
+        },
+        {
+          "name": "read_file",
+          "arguments": {
+            "path": "docs/harnesses/claude-code.md"
+          },
+          "output": "Notes from source 2: harness docs describe the tool surface, session model and reporting. (scripted fixture)"
+        },
+        {
+          "name": "read_file",
+          "arguments": {
+            "path": "docs/harnesses/hermes.md"
+          },
+          "output": "Notes from source 3: harness docs describe the tool surface, session model and reporting. (scripted fixture)"
+        },
+        {
+          "name": "write_file",
+          "arguments": {
+            "path": "brief.md",
+            "content": "# Agent harnesses: a one-page brief\n..."
+          },
+          "output": "Wrote 1180 bytes to brief.md"
+        },
+        {
+          "name": "write_file",
+          "arguments": {
+            "path": "features.csv",
+            "content": "harness,reasoning_summary,..."
+          },
+          "output": "Wrote 260 bytes to features.csv"
+        },
+        {
+          "name": "terminal",
+          "arguments": {
+            "command": "wc -w brief.md"
+          },
+          "output": "212 brief.md"
+        }
+      ],
+      "text": "Followed the write-brief skill: brief.md compares Codex, Claude Code and Hermes in one page, and features.csv has the feature matrix. Hermes itself reports no token usage here, so usage is null rather than zero.",
+      "artifacts": [
+        {
+          "filename": "brief.md",
+          "mimeType": "text/markdown",
+          "content": "# Agent harnesses: a one-page brief\n\nCodex, Claude Code and Hermes all take a task, run their own tools in a workspace, and hand back results and files. They differ in how they plan, which tools they expose, and what they report.\n\n## Codex\nReasoning summaries, a small tool surface (`shell`, `apply_patch`), strong at patch-shaped edits. Reports token usage.\n\n## Claude Code\nRich tool set (`Read`, `Edit`, `Write`, `Bash`, `TodoWrite`), explicit todo lists, takes more, smaller steps. Reports token usage.\n\n## Hermes\nSkill library plus memory: loads a matching skill before acting and can write new skills after. Usage accounting depends on the provider, so it may report none.\n\n## Takeaway\nBehind one Responses-compatible API (UHP), you can swap the harness by changing `metadata.harness_id` and compare them on the same task.\n"
+        },
+        {
+          "filename": "features.csv",
+          "mimeType": "text/csv",
+          "content": "harness,reasoning_summary,todo_lists,skills,usage_reported,typical_tools\ncodex,yes,no,no,yes,\"shell; apply_patch\"\nclaude-code,no,yes,no,yes,\"Read; Edit; Write; Bash; TodoWrite\"\nhermes,yes,no,yes,no,\"terminal; read_file; write_file; skill_view\"\n"
+        }
+      ]
+    },
+    "pi": {
+      "steps": [
+        {
+          "name": "bash",
+          "arguments": {
+            "command": "cat docs/harnesses/{codex,claude-code,hermes}.md"
+          },
+          "output": "Notes from source 1: harness docs describe the tool surface, session model and reporting. (scripted fixture)\nNotes from source 2: harness docs describe the tool surface, session model and reporting. (scripted fixture)\nNotes from source 3: harness docs describe the tool surface, session model and reporting. (scripted fixture)"
+        },
+        {
+          "name": "write",
+          "arguments": {
+            "path": "brief.md",
+            "content": "# Agent harnesses: a one-page brief\n..."
+          },
+          "output": "ok"
+        },
+        {
+          "name": "write",
+          "arguments": {
+            "path": "features.csv",
+            "content": "harness,reasoning_summary,..."
+          },
+          "output": "ok"
+        },
+        {
+          "name": "bash",
+          "arguments": {
+            "command": "wc -w brief.md"
+          },
+          "output": "212 brief.md"
+        }
+      ],
+      "text": "brief.md (one page) and features.csv written. Codex: reasoning + patches. Claude Code: todo lists + rich tools. Hermes: skills + memory.",
+      "artifacts": [
+        {
+          "filename": "brief.md",
+          "mimeType": "text/markdown",
+          "content": "# Agent harnesses: a one-page brief\n\nCodex, Claude Code and Hermes all take a task, run their own tools in a workspace, and hand back results and files. They differ in how they plan, which tools they expose, and what they report.\n\n## Codex\nReasoning summaries, a small tool surface (`shell`, `apply_patch`), strong at patch-shaped edits. Reports token usage.\n\n## Claude Code\nRich tool set (`Read`, `Edit`, `Write`, `Bash`, `TodoWrite`), explicit todo lists, takes more, smaller steps. Reports token usage.\n\n## Hermes\nSkill library plus memory: loads a matching skill before acting and can write new skills after. Usage accounting depends on the provider, so it may report none.\n\n## Takeaway\nBehind one Responses-compatible API (UHP), you can swap the harness by changing `metadata.harness_id` and compare them on the same task.\n"
+        },
+        {
+          "filename": "features.csv",
+          "mimeType": "text/csv",
+          "content": "harness,reasoning_summary,todo_lists,skills,usage_reported,typical_tools\ncodex,yes,no,no,yes,\"shell; apply_patch\"\nclaude-code,no,yes,no,yes,\"Read; Edit; Write; Bash; TodoWrite\"\nhermes,yes,no,yes,no,\"terminal; read_file; write_file; skill_view\"\n"
+        }
+      ]
+    }
+  },
+  "followUp": {
+    "prompt": "Now make it shorter.",
+    "scripts": {
+      "codex": {
+        "steps": [
+          {
+            "name": "apply_patch",
+            "arguments": {
+              "input": "*** Begin Patch\n*** Add File: brief-short.md\n...\n*** End Patch"
+            },
+            "output": "ok"
+          }
+        ],
+        "text": "Cut the brief to five lines in brief-short.md. Same session: brief.md and features.csv from the first turn are still in the workspace.",
+        "artifacts": [
+          {
+            "filename": "brief-short.md",
+            "mimeType": "text/markdown",
+            "content": "# Harnesses in five lines\n\n- Codex: reasoning summaries, shell + apply_patch.\n- Claude Code: todo lists, Read/Edit/Write/Bash.\n- Hermes: skills + memory, may report no usage.\n- All three take a task and run their own tools.\n- UHP makes the harness a parameter.\n"
+          }
+        ]
+      },
+      "claude-code": {
+        "steps": [
+          {
+            "name": "Write",
+            "arguments": {
+              "file_path": "/workspace/brief-short.md",
+              "content": "..."
+            },
+            "output": "ok"
+          }
+        ],
+        "text": "Cut the brief to five lines in brief-short.md. Same session: brief.md and features.csv from the first turn are still in the workspace.",
+        "artifacts": [
+          {
+            "filename": "brief-short.md",
+            "mimeType": "text/markdown",
+            "content": "# Harnesses in five lines\n\n- Codex: reasoning summaries, shell + apply_patch.\n- Claude Code: todo lists, Read/Edit/Write/Bash.\n- Hermes: skills + memory, may report no usage.\n- All three take a task and run their own tools.\n- UHP makes the harness a parameter.\n"
+          }
+        ]
+      },
+      "hermes": {
+        "steps": [
+          {
+            "name": "write_file",
+            "arguments": {
+              "path": "brief-short.md",
+              "content": "..."
+            },
+            "output": "ok"
+          }
+        ],
+        "text": "Cut the brief to five lines in brief-short.md. Same session: brief.md and features.csv from the first turn are still in the workspace.",
+        "artifacts": [
+          {
+            "filename": "brief-short.md",
+            "mimeType": "text/markdown",
+            "content": "# Harnesses in five lines\n\n- Codex: reasoning summaries, shell + apply_patch.\n- Claude Code: todo lists, Read/Edit/Write/Bash.\n- Hermes: skills + memory, may report no usage.\n- All three take a task and run their own tools.\n- UHP makes the harness a parameter.\n"
+          }
+        ]
+      },
+      "pi": {
+        "steps": [
+          {
+            "name": "write",
+            "arguments": {
+              "path": "brief-short.md",
+              "content": "..."
+            },
+            "output": "ok"
+          }
+        ],
+        "text": "Cut the brief to five lines in brief-short.md. Same session: brief.md and features.csv from the first turn are still in the workspace.",
+        "artifacts": [
+          {
+            "filename": "brief-short.md",
+            "mimeType": "text/markdown",
+            "content": "# Harnesses in five lines\n\n- Codex: reasoning summaries, shell + apply_patch.\n- Claude Code: todo lists, Read/Edit/Write/Bash.\n- Hermes: skills + memory, may report no usage.\n- All three take a task and run their own tools.\n- UHP makes the harness a parameter.\n"
+          }
+        ]
+      }
+    }
+  },
+  "order": 3
+}

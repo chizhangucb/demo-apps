@@ -1,0 +1,118 @@
+{
+  "harnesses": [
+    {
+      "id": "chrn_5c1d0a4e9b7f4a6c8e2d1f0a3b4c5d6e",
+      "name": "Codex",
+      "base": "codex",
+      "baseLabel": "OpenAI Codex CLI",
+      "defaultModel": "gpt-5.4",
+      "models": [
+        { "id": "gpt-5.4", "available": true },
+        { "id": "gpt-5.4-mini", "available": true },
+        { "id": "gpt-5.5-pro", "available": false }
+      ],
+      "onUnavailableModel": "substitute",
+      "systemPrompt": "You are Codex, a coding agent working in a sandboxed workspace.",
+      "mcpServers": [],
+      "skills": [],
+      "disabledTools": ["web_search"],
+      "maxStep": 40,
+      "timeoutSeconds": 600,
+      "createdAt": 1785888000,
+      "style": {
+        "tools": ["shell", "apply_patch"],
+        "reasoning": true,
+        "reportsUsage": true,
+        "paceMs": 260,
+        "textChunk": 48,
+        "accent": "emerald",
+        "blurb": "Reasoning summary, shell + apply_patch, few large text deltas."
+      }
+    },
+    {
+      "id": "chrn_08dae611630d467ab3e67ed792570ae5",
+      "name": "Claude Code",
+      "base": "claude-code",
+      "baseLabel": "Claude Code",
+      "defaultModel": "claude-sonnet-4.6",
+      "models": [
+        { "id": "claude-sonnet-4.6", "available": true },
+        { "id": "claude-haiku-4.5", "available": true },
+        { "id": "claude-opus-4.6", "available": false }
+      ],
+      "onUnavailableModel": "substitute",
+      "systemPrompt": "You are Claude Code, an agentic coding tool.",
+      "mcpServers": [],
+      "skills": [],
+      "disabledTools": [],
+      "maxStep": 60,
+      "timeoutSeconds": 900,
+      "createdAt": 1785888000,
+      "style": {
+        "tools": ["Read", "Edit", "Write", "Bash", "TodoWrite"],
+        "reasoning": false,
+        "reportsUsage": true,
+        "paceMs": 230,
+        "textChunk": 18,
+        "accent": "orange",
+        "blurb": "No reasoning summary, Read/Edit/Write/Bash/TodoWrite, the most steps."
+      }
+    },
+    {
+      "id": "chrn_7a3f9e2b6c8d4e1f9a0b2c4d6e8f0a1b",
+      "name": "Hermes",
+      "base": "hermes",
+      "baseLabel": "Hermes Agent (Nous Research)",
+      "defaultModel": "nousresearch/hermes-4-70b",
+      "models": [
+        { "id": "nousresearch/hermes-4-70b", "available": true },
+        { "id": "nousresearch/hermes-4-405b", "available": false }
+      ],
+      "onUnavailableModel": "reject",
+      "systemPrompt": "You are Hermes, a self-improving agent with skills and memory.",
+      "mcpServers": [],
+      "skills": ["summarise-docs", "write-brief"],
+      "disabledTools": [],
+      "maxStep": 30,
+      "timeoutSeconds": 600,
+      "createdAt": 1785888000,
+      "style": {
+        "tools": ["terminal", "read_file", "write_file", "skill_view"],
+        "reasoning": true,
+        "reportsUsage": false,
+        "paceMs": 300,
+        "textChunk": 14,
+        "accent": "violet",
+        "blurb": "Loads a skill first, terminal/read_file/write_file, usage: null."
+      }
+    },
+    {
+      "id": "chrn_2e4f6a8c0b1d3e5f7a9c1e3b5d7f9a2c",
+      "name": "Pi",
+      "base": "pi",
+      "baseLabel": "Pi coding agent",
+      "defaultModel": "qwen3-coder-flash",
+      "models": [
+        { "id": "qwen3-coder-flash", "available": true },
+        { "id": "gpt-5.4-mini", "available": true }
+      ],
+      "onUnavailableModel": "substitute",
+      "systemPrompt": "You are Pi, a minimal coding agent.",
+      "mcpServers": [],
+      "skills": [],
+      "disabledTools": [],
+      "maxStep": 20,
+      "timeoutSeconds": 300,
+      "createdAt": 1785888000,
+      "style": {
+        "tools": ["read", "bash", "edit", "write"],
+        "reasoning": false,
+        "reportsUsage": true,
+        "paceMs": 140,
+        "textChunk": 32,
+        "accent": "sky",
+        "blurb": "Four minimal tools, fastest pace, fewest steps."
+      }
+    }
+  ]
+}

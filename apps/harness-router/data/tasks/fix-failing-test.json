@@ -1,0 +1,345 @@
+{
+  "id": "fix-failing-test",
+  "title": "Fix a failing test",
+  "blurb": "Two artifacts. The most visible tool differences across harnesses.",
+  "prompt": "The test in utils.test.ts fails. Fix utils.ts and save the patch.",
+  "pace": 1.0,
+  "scripts": {
+    "codex": {
+      "reasoning": "Run the test first to see the failure, then patch the regex to collapse runs and trim edge dashes, re-run, and save the diff.",
+      "steps": [
+        {
+          "name": "shell",
+          "arguments": {
+            "command": [
+              "bash",
+              "-lc",
+              "bun test utils.test.ts"
+            ]
+          },
+          "output": "bun test v1.4.2\n\nutils.test.ts:\nerror: expect(received).toBe(expected)\n\nExpected: \"hello-world\"\nReceived: \"--hello---world--\"\n\n(fail) slugify collapses and trims dashes\n 0 pass\n 1 fail\n"
+        },
+        {
+          "name": "shell",
+          "arguments": {
+            "command": [
+              "bash",
+              "-lc",
+              "cat utils.ts"
+            ]
+          },
+          "output": "export function slugify(input: string): string {\n  return input.toLowerCase().replace(/[^a-z0-9]/g, \"-\");\n}\n"
+        },
+        {
+          "name": "apply_patch",
+          "arguments": {
+            "input": "*** Begin Patch\n*** Update File: utils.ts\n@@\n-  return input.toLowerCase().replace(/[^a-z0-9]/g, \"-\");\n+  return input\n+    .toLowerCase()\n+    .replace(/[^a-z0-9]+/g, \"-\")\n+    .replace(/^-+|-+$/g, \"\");\n*** End Patch"
+          },
+          "output": "Success. Updated the following files:\nM utils.ts"
+        },
+        {
+          "name": "shell",
+          "arguments": {
+            "command": [
+              "bash",
+              "-lc",
+              "bun test utils.test.ts | tee test-output.txt && git diff > fix.patch"
+            ]
+          },
+          "output": "bun test v1.4.2\n\nutils.test.ts:\n(pass) slugify collapses and trims dashes [0.21ms]\n\n 1 pass\n 0 fail\n 1 expect() calls\n"
+        }
+      ],
+      "text": "Fixed: slugify replaced every non-alphanumeric character with its own dash and never trimmed. It now collapses runs (`[^a-z0-9]+`) and trims leading/trailing dashes. The test passes; the diff is in fix.patch and the run log in test-output.txt.",
+      "artifacts": [
+        {
+          "filename": "fix.patch",
+          "mimeType": "text/x-diff",
+          "content": "--- a/utils.ts\n+++ b/utils.ts\n@@ -1,3 +1,6 @@\n export function slugify(input: string): string {\n-  return input.toLowerCase().replace(/[^a-z0-9]/g, \"-\");\n+  return input\n+    .toLowerCase()\n+    .replace(/[^a-z0-9]+/g, \"-\")\n+    .replace(/^-+|-+$/g, \"\");\n }\n"
+        },
+        {
+          "filename": "test-output.txt",
+          "mimeType": "text/plain",
+          "content": "bun test v1.4.2\n\nutils.test.ts:\n(pass) slugify collapses and trims dashes [0.21ms]\n\n 1 pass\n 0 fail\n 1 expect() calls\n"
+        }
+      ]
+    },
+    "claude-code": {
+      "steps": [
+        {
+          "name": "TodoWrite",
+          "arguments": {
+            "todos": [
+              {
+                "content": "Reproduce the failing test",
+                "status": "in_progress"
+              },
+              {
+                "content": "Fix slugify in utils.ts",
+                "status": "pending"
+              },
+              {
+                "content": "Verify and save patch",
+                "status": "pending"
+              }
+            ]
+          },
+          "output": "Todos updated (3 items)."
+        },
+        {
+          "name": "Bash",
+          "arguments": {
+            "command": "bun test utils.test.ts",
+            "description": "Run the failing test"
+          },
+          "output": "bun test v1.4.2\n\nutils.test.ts:\nerror: expect(received).toBe(expected)\n\nExpected: \"hello-world\"\nReceived: \"--hello---world--\"\n\n(fail) slugify collapses and trims dashes\n 0 pass\n 1 fail\n"
+        },
+        {
+          "name": "Read",
+          "arguments": {
+            "file_path": "/workspace/utils.test.ts"
+          },
+          "output": "import { expect, test } from \"bun:test\";\nimport { slugify } from \"./utils\";\n\ntest(\"slugify collapses and trims dashes\", () => {\n  expect(slugify(\"  Hello,  World! \")).toBe(\"hello-world\");\n});\n"
+        },
+        {
+          "name": "Read",
+          "arguments": {
+            "file_path": "/workspace/utils.ts"
+          },
+          "output": "export function slugify(input: string): string {\n  return input.toLowerCase().replace(/[^a-z0-9]/g, \"-\");\n}\n"
+        },
+        {
+          "name": "Edit",
+          "arguments": {
+            "file_path": "/workspace/utils.ts",
+            "old_string": "return input.toLowerCase().replace(/[^a-z0-9]/g, \"-\");",
+            "new_string": "return input\n    .toLowerCase()\n    .replace(/[^a-z0-9]+/g, \"-\")\n    .replace(/^-+|-+$/g, \"\");"
+          },
+          "output": "The file /workspace/utils.ts has been updated."
+        },
+        {
+          "name": "Bash",
+          "arguments": {
+            "command": "bun test utils.test.ts 2>&1 | tee test-output.txt",
+            "description": "Re-run the test"
+          },
+          "output": "bun test v1.4.2\n\nutils.test.ts:\n(pass) slugify collapses and trims dashes [0.21ms]\n\n 1 pass\n 0 fail\n 1 expect() calls\n"
+        },
+        {
+          "name": "Bash",
+          "arguments": {
+            "command": "git diff utils.ts > fix.patch",
+            "description": "Save the patch"
+          },
+          "output": ""
+        },
+        {
+          "name": "TodoWrite",
+          "arguments": {
+            "todos": [
+              {
+                "content": "Reproduce the failing test",
+                "status": "completed"
+              },
+              {
+                "content": "Fix slugify in utils.ts",
+                "status": "completed"
+              },
+              {
+                "content": "Verify and save patch",
+                "status": "completed"
+              }
+            ]
+          },
+          "output": "Todos updated (3 items)."
+        }
+      ],
+      "text": "The test expected `hello-world` but got `--hello---world--`: `slugify` turned each non-alphanumeric character into its own dash and never trimmed.\n\nI changed the regex to collapse runs and trim the edges. The test now passes. **fix.patch** has the diff and **test-output.txt** the passing run.",
+      "artifacts": [
+        {
+          "filename": "fix.patch",
+          "mimeType": "text/x-diff",
+          "content": "--- a/utils.ts\n+++ b/utils.ts\n@@ -1,3 +1,6 @@\n export function slugify(input: string): string {\n-  return input.toLowerCase().replace(/[^a-z0-9]/g, \"-\");\n+  return input\n+    .toLowerCase()\n+    .replace(/[^a-z0-9]+/g, \"-\")\n+    .replace(/^-+|-+$/g, \"\");\n }\n"
+        },
+        {
+          "filename": "test-output.txt",
+          "mimeType": "text/plain",
+          "content": "bun test v1.4.2\n\nutils.test.ts:\n(pass) slugify collapses and trims dashes [0.21ms]\n\n 1 pass\n 0 fail\n 1 expect() calls\n"
+        }
+      ]
+    },
+    "hermes": {
+      "reasoning": "No skill matches a failing unit test. Reproduce, read, fix, verify.",
+      "steps": [
+        {
+          "name": "terminal",
+          "arguments": {
+            "command": "bun test utils.test.ts"
+          },
+          "output": "bun test v1.4.2\n\nutils.test.ts:\nerror: expect(received).toBe(expected)\n\nExpected: \"hello-world\"\nReceived: \"--hello---world--\"\n\n(fail) slugify collapses and trims dashes\n 0 pass\n 1 fail\n"
+        },
+        {
+          "name": "read_file",
+          "arguments": {
+            "path": "utils.ts"
+          },
+          "output": "export function slugify(input: string): string {\n  return input.toLowerCase().replace(/[^a-z0-9]/g, \"-\");\n}\n"
+        },
+        {
+          "name": "write_file",
+          "arguments": {
+            "path": "utils.ts",
+            "content": "export function slugify(input: string): string {\n  return input\n    .toLowerCase()\n    .replace(/[^a-z0-9]+/g, \"-\")\n    .replace(/^-+|-+$/g, \"\");\n}\n"
+          },
+          "output": "Wrote 160 bytes to utils.ts"
+        },
+        {
+          "name": "terminal",
+          "arguments": {
+            "command": "bun test utils.test.ts > test-output.txt; git diff > fix.patch; cat test-output.txt"
+          },
+          "output": "bun test v1.4.2\n\nutils.test.ts:\n(pass) slugify collapses and trims dashes [0.21ms]\n\n 1 pass\n 0 fail\n 1 expect() calls\n"
+        }
+      ],
+      "text": "Fixed slugify (collapse runs of separators, trim edge dashes). Test passes. Saved fix.patch and test-output.txt. I also noted this pattern for a future skill.",
+      "artifacts": [
+        {
+          "filename": "fix.patch",
+          "mimeType": "text/x-diff",
+          "content": "--- a/utils.ts\n+++ b/utils.ts\n@@ -1,3 +1,6 @@\n export function slugify(input: string): string {\n-  return input.toLowerCase().replace(/[^a-z0-9]/g, \"-\");\n+  return input\n+    .toLowerCase()\n+    .replace(/[^a-z0-9]+/g, \"-\")\n+    .replace(/^-+|-+$/g, \"\");\n }\n"
+        },
+        {
+          "filename": "test-output.txt",
+          "mimeType": "text/plain",
+          "content": "bun test v1.4.2\n\nutils.test.ts:\n(pass) slugify collapses and trims dashes [0.21ms]\n\n 1 pass\n 0 fail\n 1 expect() calls\n"
+        }
+      ]
+    },
+    "pi": {
+      "steps": [
+        {
+          "name": "bash",
+          "arguments": {
+            "command": "bun test utils.test.ts; cat utils.ts"
+          },
+          "output": "bun test v1.4.2\n\nutils.test.ts:\nerror: expect(received).toBe(expected)\n\nExpected: \"hello-world\"\nReceived: \"--hello---world--\"\n\n(fail) slugify collapses and trims dashes\n 0 pass\n 1 fail\n\nexport function slugify(input: string): string {\n  return input.toLowerCase().replace(/[^a-z0-9]/g, \"-\");\n}\n"
+        },
+        {
+          "name": "edit",
+          "arguments": {
+            "path": "utils.ts",
+            "oldText": "replace(/[^a-z0-9]/g, \"-\")",
+            "newText": "replace(/[^a-z0-9]+/g, \"-\").replace(/^-+|-+$/g, \"\")"
+          },
+          "output": "ok"
+        },
+        {
+          "name": "bash",
+          "arguments": {
+            "command": "bun test utils.test.ts | tee test-output.txt; git diff > fix.patch"
+          },
+          "output": "bun test v1.4.2\n\nutils.test.ts:\n(pass) slugify collapses and trims dashes [0.21ms]\n\n 1 pass\n 0 fail\n 1 expect() calls\n"
+        }
+      ],
+      "text": "Fixed: collapse separator runs and trim dashes. Test passes. fix.patch + test-output.txt saved.",
+      "artifacts": [
+        {
+          "filename": "fix.patch",
+          "mimeType": "text/x-diff",
+          "content": "--- a/utils.ts\n+++ b/utils.ts\n@@ -1,3 +1,3 @@\n export function slugify(input: string): string {\n-  return input.toLowerCase().replace(/[^a-z0-9]/g, \"-\");\n+  return input.toLowerCase().replace(/[^a-z0-9]+/g, \"-\").replace(/^-+|-+$/g, \"\");\n }\n"
+        },
+        {
+          "filename": "test-output.txt",
+          "mimeType": "text/plain",
+          "content": "bun test v1.4.2\n\nutils.test.ts:\n(pass) slugify collapses and trims dashes [0.21ms]\n\n 1 pass\n 0 fail\n 1 expect() calls\n"
+        }
+      ]
+    }
+  },
+  "followUp": {
+    "prompt": "Now make it shorter.",
+    "scripts": {
+      "codex": {
+        "steps": [
+          {
+            "name": "apply_patch",
+            "arguments": {
+              "input": "*** Begin Patch\n*** Update File: utils.ts\n...\n*** End Patch"
+            },
+            "output": "ok"
+          }
+        ],
+        "text": "Made the fix a one-liner and saved it as fix-minimal.patch. Same session, same workspace: fix.patch from the first turn is still there.",
+        "artifacts": [
+          {
+            "filename": "fix-minimal.patch",
+            "mimeType": "text/x-diff",
+            "content": "--- a/utils.ts\n+++ b/utils.ts\n@@ -2 +2 @@\n-  return input.toLowerCase().replace(/[^a-z0-9]/g, \"-\");\n+  return input.toLowerCase().replace(/[^a-z0-9]+/g, \"-\").replace(/^-|-$/g, \"\");\n"
+          }
+        ]
+      },
+      "claude-code": {
+        "steps": [
+          {
+            "name": "Edit",
+            "arguments": {
+              "file_path": "/workspace/utils.ts",
+              "old_string": "...",
+              "new_string": "..."
+            },
+            "output": "ok"
+          }
+        ],
+        "text": "Made the fix a one-liner and saved it as fix-minimal.patch. Same session, same workspace: fix.patch from the first turn is still there.",
+        "artifacts": [
+          {
+            "filename": "fix-minimal.patch",
+            "mimeType": "text/x-diff",
+            "content": "--- a/utils.ts\n+++ b/utils.ts\n@@ -2 +2 @@\n-  return input.toLowerCase().replace(/[^a-z0-9]/g, \"-\");\n+  return input.toLowerCase().replace(/[^a-z0-9]+/g, \"-\").replace(/^-|-$/g, \"\");\n"
+          }
+        ]
+      },
+      "hermes": {
+        "steps": [
+          {
+            "name": "write_file",
+            "arguments": {
+              "path": "utils.ts",
+              "content": "..."
+            },
+            "output": "ok"
+          }
+        ],
+        "text": "Made the fix a one-liner and saved it as fix-minimal.patch. Same session, same workspace: fix.patch from the first turn is still there.",
+        "artifacts": [
+          {
+            "filename": "fix-minimal.patch",
+            "mimeType": "text/x-diff",
+            "content": "--- a/utils.ts\n+++ b/utils.ts\n@@ -2 +2 @@\n-  return input.toLowerCase().replace(/[^a-z0-9]/g, \"-\");\n+  return input.toLowerCase().replace(/[^a-z0-9]+/g, \"-\").replace(/^-|-$/g, \"\");\n"
+          }
+        ]
+      },
+      "pi": {
+        "steps": [
+          {
+            "name": "edit",
+            "arguments": {
+              "path": "utils.ts",
+              "oldText": "...",
+              "newText": "..."
+            },
+            "output": "ok"
+          }
+        ],
+        "text": "Made the fix a one-liner and saved it as fix-minimal.patch. Same session, same workspace: fix.patch from the first turn is still there.",
+        "artifacts": [
+          {
+            "filename": "fix-minimal.patch",
+            "mimeType": "text/x-diff",
+            "content": "--- a/utils.ts\n+++ b/utils.ts\n@@ -2 +2 @@\n-  return input.toLowerCase().replace(/[^a-z0-9]/g, \"-\");\n+  return input.toLowerCase().replace(/[^a-z0-9]+/g, \"-\").replace(/^-|-$/g, \"\");\n"
+          }
+        ]
+      }
+    }
+  },
+  "order": 2
+}
