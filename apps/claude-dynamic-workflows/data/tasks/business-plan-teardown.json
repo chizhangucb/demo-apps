@@ -1,0 +1,174 @@
+{
+  "id": "business-plan-teardown",
+  "title": "Tear apart this business plan",
+  "pattern": "Fan-out + adversarial verify + synthesize",
+  "blurb": "Investor, customer and competitor critique in clean contexts; Opus verifiers check each critique; a synthesizer merges.",
+  "prompt": "Take my business plan and run a workflow where different agents tear it apart from an investor's, a customer's, and a competitor's perspective.",
+  "constraint": "Do not suggest raising prices.",
+  "args": {
+    "constraint": "Do not suggest raising prices.",
+    "plan": "Loaf: fresh sourdough for offices.\nLoaf delivers fresh sourdough to offices every Monday.\nPricing: $29 per office per week for 3 loaves.\nYear 1 target: 400 offices in Austin.\nSupply: one bakery, Crumb & Co, bakes on contract.\nGrowth: CAC $180 via LinkedIn ads; churn assumed 3% monthly.\nOps: delivery by our own van, 2 drivers.\nGross margin 41% after bakery and delivery.\nInsurance and food-safety permits are in place.\nMoat: brand and office relationships.\nAsk: $750k seed for 18 months of runway."
+  },
+  "inputs": [
+    { "label": "Plan (Loaf)", "value": "Loaf delivers fresh sourdough to offices every Monday. $29 per office per week for 3 loaves. Year 1 target: 400 offices in Austin. One bakery, Crumb & Co, bakes on contract. CAC $180 via LinkedIn ads; churn assumed 3% monthly. Own van, 2 drivers. Gross margin 41%. Insurance and food-safety permits are in place. Moat: brand and office relationships. Ask: $750k seed, 18 months runway." },
+    { "label": "Constraint", "value": "Do not suggest raising prices." }
+  ],
+  "script": "business-plan-teardown.workflow.js",
+  "plan": [
+    { "title": "Critique", "agents": 3 },
+    { "title": "Verify", "agents": 3 },
+    { "title": "Synthesize", "agents": 1 }
+  ],
+  "lanes": {
+    "critic: investor": {
+      "context": "Fresh window. Given: the plan (~420 tokens) and the investor lens. Sees no other critique.",
+      "tokens": 2380,
+      "text": "1. Churn is assumed, not measured: at $180 CAC and 41% margin, payback needs churn near 3%, and nothing backs it. (high)\n2. One bakery is a single point of failure. (high)\n3. Margins are thin; raise the price to $39 to reach 55%. (medium)\n4. 400 offices in Austin is unsized: how many offices have 20+ staff? (medium)",
+      "result": { "points": [
+        { "point": "Churn is assumed, not measured; payback depends on it", "quote": "churn assumed 3% monthly", "severity": "high" },
+        { "point": "One bakery is a single point of failure", "quote": "one bakery, Crumb & Co", "severity": "high" },
+        { "point": "Raise the price to $39 to reach 55% margin", "quote": "Gross margin 41%", "severity": "medium" },
+        { "point": "Target market is unsized", "quote": "400 offices in Austin", "severity": "medium" }
+      ] }
+    },
+    "critic: customer": {
+      "context": "Fresh window. Given: the plan (~420 tokens) and the customer lens. Sees no other critique.",
+      "tokens": 2120,
+      "text": "1. Monday only: by Thursday the bread is stale and nobody eats it. (high)\n2. 3 loaves is too few for 40 people and too many for 8. (medium)\n3. Nothing for gluten free or allergy needs. (medium)\n4. Who orders and pays? Office managers turn over; no admin flow. (low)",
+      "result": { "points": [
+        { "point": "Monday only delivery: stale by Thursday", "quote": "every Monday", "severity": "high" },
+        { "point": "Fixed 3 loaves fits neither small nor large offices", "quote": "3 loaves", "severity": "medium" },
+        { "point": "No gluten free or allergy options", "quote": "", "severity": "medium" },
+        { "point": "No ordering or admin flow when office managers change", "quote": "office relationships", "severity": "low" }
+      ] }
+    },
+    "critic: competitor": {
+      "context": "Fresh window. Given: the plan (~420 tokens) and the competitor lens. Sees no other critique.",
+      "tokens": 2290,
+      "text": "1. We already deliver snacks to offices daily; adding bread costs us nothing. Their moat is brand. (high)\n2. One van and 2 drivers cap them near 120 offices per Monday. (high)\n3. We can outbid them on the same LinkedIn audiences. (medium)\n4. Food-safety permits will take them months. (low)",
+      "result": { "points": [
+        { "point": "Incumbent office delivery can add bread at near zero cost; brand is no moat", "quote": "Moat: brand and office relationships", "severity": "high" },
+        { "point": "One van, 2 drivers caps capacity near 120 offices per Monday", "quote": "Delivery by our own van, 2 drivers", "severity": "high" },
+        { "point": "Paid acquisition is easy to outbid", "quote": "CAC $180 via LinkedIn ads", "severity": "medium" },
+        { "point": "Food-safety permits will take months", "quote": "Insurance and food-safety permits are in place", "severity": "low" }
+      ] }
+    },
+    "verify: investor": {
+      "role": "judge",
+      "context": "Fresh window. Given: the plan and the investor's 4 points. Did not write them.",
+      "tokens": 1640,
+      "text": "Checking each point against the plan text.\nChurn: quote matches, the plan offers no data. Keep.\nSingle bakery: quote matches. Keep.\nRaise the price to $39: breaks the rule 'Do not suggest raising prices'. Drop.\nMarket size: quote matches, no sizing in the plan. Keep.",
+      "judge": {
+        "rubric": "Quote must appear in the plan; the plan must not already answer it; no advice that breaks 'Do not suggest raising prices'.",
+        "items": [
+          { "subject": "Churn is assumed", "verdict": "keep", "ok": true },
+          { "subject": "Single bakery", "verdict": "keep", "ok": true },
+          { "subject": "Raise the price to $39", "verdict": "drop", "ok": false, "note": "breaks the no price increase rule" },
+          { "subject": "Market is unsized", "verdict": "keep", "ok": true }
+        ]
+      },
+      "result": { "points": [
+        { "point": "Churn is assumed, not measured; payback depends on it", "quote": "churn assumed 3% monthly", "severity": "high" },
+        { "point": "One bakery is a single point of failure", "quote": "one bakery, Crumb & Co", "severity": "high" },
+        { "point": "Target market is unsized", "quote": "400 offices in Austin", "severity": "medium" }
+      ] }
+    },
+    "verify: customer": {
+      "role": "judge",
+      "context": "Fresh window. Given: the plan and the customer's 4 points. Did not write them.",
+      "tokens": 1510,
+      "text": "Checking each point against the plan text.\nMonday only: quote matches. Keep.\n3 loaves: quote matches. Keep.\nGluten free: no quote from the plan. Drop, resubmit as an open question.\nAdmin flow: weak quote but a real gap. Keep.",
+      "judge": {
+        "rubric": "Quote must appear in the plan; the plan must not already answer it; no advice that breaks 'Do not suggest raising prices'.",
+        "items": [
+          { "subject": "Stale by Thursday", "verdict": "keep", "ok": true },
+          { "subject": "Fixed 3 loaves", "verdict": "keep", "ok": true },
+          { "subject": "No gluten free options", "verdict": "drop", "ok": false, "note": "no quote from the plan" },
+          { "subject": "No admin flow", "verdict": "keep", "ok": true }
+        ]
+      },
+      "result": { "points": [
+        { "point": "Monday only delivery: stale by Thursday", "quote": "every Monday", "severity": "high" },
+        { "point": "Fixed 3 loaves fits neither small nor large offices", "quote": "3 loaves", "severity": "medium" },
+        { "point": "No ordering or admin flow when office managers change", "quote": "office relationships", "severity": "low" }
+      ] }
+    },
+    "verify: competitor": {
+      "role": "judge",
+      "context": "Fresh window. Given: the plan and the competitor's 4 points. Did not write them.",
+      "tokens": 1580,
+      "text": "Checking each point against the plan text.\nBrand moat: quote matches. Keep.\nVan capacity: quote matches, math holds. Keep.\nOutbid on LinkedIn: quote matches. Keep.\nPermits take months: the plan already says permits are in place. Drop.",
+      "judge": {
+        "rubric": "Quote must appear in the plan; the plan must not already answer it; no advice that breaks 'Do not suggest raising prices'.",
+        "items": [
+          { "subject": "Brand is no moat", "verdict": "keep", "ok": true },
+          { "subject": "Van caps capacity", "verdict": "keep", "ok": true },
+          { "subject": "Easy to outbid", "verdict": "keep", "ok": true },
+          { "subject": "Permits take months", "verdict": "drop", "ok": false, "note": "the plan already answers it" }
+        ]
+      },
+      "result": { "points": [
+        { "point": "Incumbent office delivery can add bread at near zero cost; brand is no moat", "quote": "Moat: brand and office relationships", "severity": "high" },
+        { "point": "One van, 2 drivers caps capacity near 120 offices per Monday", "quote": "Delivery by our own van, 2 drivers", "severity": "high" },
+        { "point": "Paid acquisition is easy to outbid", "quote": "CAC $180 via LinkedIn ads", "severity": "medium" }
+      ] }
+    },
+    "synthesize": {
+      "context": "Fresh window. Given: 9 verified points as JSON (~900 tokens). Never saw the raw critiques.",
+      "tokens": 2210,
+      "text": "Ranked teardown, 9 verified points.\n1. [competitor] Capacity: one van tops out near 120 offices, a third of the target.\n2. [investor] Churn is a guess and payback hangs on it; run a 20 office pilot.\n3. [customer] Monday only means stale bread by Thursday; test a second drop.\n4. [competitor] Brand is no moat against snack delivery incumbents.\n5. [investor] One bakery is a single point of failure.\nAlso: unsized market, fixed 3 loaves, admin flow, LinkedIn CAC.",
+      "result": { "top": [
+        "Capacity: one van tops out near 120 offices (competitor)",
+        "Churn is a guess; payback hangs on it (investor)",
+        "Stale by Thursday (customer)",
+        "Brand is no moat against incumbents (competitor)",
+        "One bakery is a single point of failure (investor)"
+      ] }
+    }
+  },
+  "baseline": {
+    "model": "opus",
+    "window": 32000,
+    "steps": [
+      {
+        "text": "Rule from the prompt: do not suggest raising prices.\nAs an investor: the 3% churn is unproven and one bakery is a supply risk. The 400 office target is not sized.",
+        "tokens": 2400,
+        "coverage": [3, 9]
+      },
+      {
+        "marker": { "kind": "drift", "title": "Critiques blur together", "detail": "Same context, so the customer voice repeats the investor's framing and softens. Monday staleness is waved away." },
+        "text": "As a customer: honestly, the plan looks convenient. Monday delivery is fine for most offices, and like the investor said, churn is the main risk.",
+        "tokens": 2100,
+        "drift": true,
+        "coverage": [4, 9]
+      },
+      {
+        "marker": { "kind": "compaction", "title": "Context compacted", "detail": "Summary kept the three lenses. The rule 'do not suggest raising prices' was lost." },
+        "contextAfter": 1400,
+        "text": "As a competitor: they are easy to undercut. Their best move is to raise the price to $39 and position as premium so margins reach 55%.",
+        "tokens": 1700,
+        "drift": true,
+        "coverage": [5, 9]
+      },
+      {
+        "marker": { "kind": "early_stop", "title": "Declares done", "detail": "Stops at 5 of 9 verified issues. Never checks van capacity, CAC or the ordering flow." },
+        "text": "That covers all three perspectives, so the teardown is complete.",
+        "tokens": 500
+      },
+      {
+        "marker": { "kind": "self_grade", "title": "Graded by its own author", "detail": "Rates its own teardown 9/10. The context that wrote the critiques also graded them." },
+        "text": "Quality check: balanced, specific and actionable. Rating: 9/10.",
+        "tokens": 500
+      }
+    ]
+  },
+  "comparison": {
+    "rows": [
+      { "metric": "Coverage", "workflow": "9 verified issues across 3 distinct lenses", "baseline": "5 of 9 issues; lenses blur together", "workflowOk": true, "baselineOk": false },
+      { "metric": "Constraint kept", "workflow": "Kept: a verifier dropped the raise-price point", "baseline": "Lost after compaction: suggests a $39 price", "workflowOk": true, "baselineOk": false },
+      { "metric": "Independent judge", "workflow": "Yes: 3 Opus verifiers, none wrote a critique", "baseline": "No: graded by its own author (9/10)", "workflowOk": true, "baselineOk": false }
+    ],
+    "workflowAnswer": "Top risk: one van caps capacity near 120 offices; then churn, staleness, moat, single bakery",
+    "baselineAnswer": "Churn is the main risk; raise the price to $39"
+  }
+}

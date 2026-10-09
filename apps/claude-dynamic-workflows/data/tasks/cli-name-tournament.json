@@ -1,0 +1,118 @@
+{
+  "id": "cli-name-tournament",
+  "title": "Name this CLI",
+  "pattern": "Tournament",
+  "blurb": "Brainstorm agents on Haiku and Sonnet, a bracket of fresh Opus judges, an independent final ranking.",
+  "prompt": "I need a name for this CLI tool. Use a workflow to brainstorm a bunch of options and run a tournament to pick the top 3.",
+  "constraint": "Names must be 8 characters or fewer and must not clash with a popular existing CLI.",
+  "args": {
+    "tool": "a CLI that deploys a preview environment for the current git branch and prints its URL",
+    "constraint": "Names must be 8 characters or fewer and must not clash with a popular existing CLI."
+  },
+  "inputs": [
+    { "label": "Tool", "value": "A CLI that deploys a preview environment for the current git branch and prints its URL." },
+    { "label": "Constraint", "value": "Names must be 8 characters or fewer and must not clash with a popular existing CLI." }
+  ],
+  "script": "cli-name-tournament.workflow.js",
+  "plan": [
+    { "title": "Brainstorm", "agents": 3 },
+    { "title": "Bracket", "agents": 9 },
+    { "title": "Final", "agents": 1 }
+  ],
+  "lanes": {
+    "brainstorm: playful": {
+      "context": "Fresh window. Given: tool description and a playful style brief (~340 tokens).",
+      "tokens": 1180,
+      "text": "Playful, verb-like, easy to say out loud.\nskiff: a small boat that carries your branch out.\nhopper: hop from branch to preview.\nzipline: fast ride to a URL.\npopup: the preview pops up.",
+      "result": { "names": ["skiff", "hopper", "zipline", "popup"] }
+    },
+    "brainstorm: unix": {
+      "context": "Fresh window. Given: tool description and a terse Unix style brief (~330 tokens).",
+      "tokens": 940,
+      "text": "Terse, two to three letters, Unix style.\npv: preview.\nshp: ship.\nprv: preview, no vowels.\ndpl: deploy.",
+      "result": { "names": ["pv", "shp", "prv", "dpl"] }
+    },
+    "brainstorm: descriptive": {
+      "context": "Fresh window. Given: tool description and a descriptive style brief (~350 tokens).",
+      "tokens": 1460,
+      "text": "Descriptive, says what it does at a glance.\npreviewd: a preview daemon for branches.\nbranchly: everything branch shaped.\nstagelet: a tiny staging env per branch.\nshipit: ship the branch.",
+      "result": { "names": ["previewd", "branchly", "stagelet", "shipit"] }
+    }
+  },
+  "rules": [
+    {
+      "match": "^r\\d+: (.+) vs (.+)$",
+      "kind": "pairwise",
+      "context": "Fresh window. Given: two names and the rubric (~220 tokens). Never saw the brainstorm.",
+      "tokens": 640
+    },
+    {
+      "match": "^judge: final ranking$",
+      "kind": "rank",
+      "context": "Fresh window. Given: 3 finalists and the rubric. Proposed none, judged none.",
+      "tokens": 1120
+    }
+  ],
+  "tournament": {
+    "rubric": "8 characters or fewer, no clash with a popular CLI, easy to type, says what it does, memorable.",
+    "ranking": ["skiff", "stagelet", "previewd", "branchly", "zipline", "hopper", "shp", "popup", "prv", "dpl", "shipit", "pv"],
+    "reasons": {
+      "skiff": "5 chars, no known CLI, a clear image of carrying a branch out",
+      "stagelet": "8 chars, says staging, reads as small and per branch",
+      "previewd": "8 chars and literal, but the d suffix suggests a daemon",
+      "branchly": "8 chars, friendly, a little vague about deploys",
+      "zipline": "7 chars, fun, but says speed rather than preview",
+      "hopper": "6 chars, cute, easy to confuse with the Hopper disassembler",
+      "shp": "3 chars, fast to type, unclaimed, a bit cryptic",
+      "popup": "5 chars, sounds like a UI widget, not a deploy tool",
+      "prv": "3 chars, hard to say out loud",
+      "dpl": "3 chars, reads as deploy but says nothing about previews",
+      "shipit": "6 chars, but shipit is already a popular deploy tool",
+      "pv": "2 chars, clashes with pv, the pipe viewer"
+    }
+  },
+  "baseline": {
+    "model": "opus",
+    "window": 32000,
+    "steps": [
+      {
+        "text": "Brainstorming names for a CLI that deploys a preview environment for the current git branch. Rule from the prompt: 8 characters max, no clash with a popular CLI.\nIdeas: shipit, previewd, branchcaster, skiff, pv, launchpad.",
+        "tokens": 1900,
+        "coverage": [0, 12]
+      },
+      {
+        "text": "Quick pass: shipit is short and punchy, previewd says what it does, skiff is cute, pv is very fast to type.",
+        "tokens": 1500,
+        "coverage": [4, 12]
+      },
+      {
+        "marker": { "kind": "compaction", "title": "Context compacted", "detail": "Summary kept: 'name a preview deploy CLI, prefer short'. The 8 character limit and the no-clash rule were not carried over." },
+        "contextAfter": 1200,
+        "text": "Continuing from the summary: the user wants a short name for a preview CLI. Something more descriptive could also work: branchcaster tells you exactly what it does.",
+        "tokens": 1300,
+        "drift": true
+      },
+      {
+        "marker": { "kind": "early_stop", "title": "Declares done", "detail": "Stops after judging 4 of 12 candidates. No head to head comparison was ever run." },
+        "text": "We have strong options. Top 3: 1. shipit 2. branchcaster 3. pv. These cover the space well, so there is no need to go further.",
+        "tokens": 900,
+        "drift": true,
+        "coverage": [4, 12]
+      },
+      {
+        "marker": { "kind": "self_grade", "title": "Graded by its own author", "detail": "Scores its own picks 9.5/10. The same context wrote the list and judged it." },
+        "text": "Self review against the rubric: memorable, short, descriptive. Score: 9.5/10. Done.",
+        "tokens": 600
+      }
+    ]
+  },
+  "comparison": {
+    "rows": [
+      { "metric": "Coverage", "workflow": "12 of 12 names judged in 9 head to head bouts", "baseline": "4 of 12 names judged, 0 bouts", "workflowOk": true, "baselineOk": false },
+      { "metric": "Constraint kept", "workflow": "All finalists 8 chars or fewer, no clashes", "baseline": "Lost after compaction: branchcaster is 12 chars; shipit and pv clash", "workflowOk": true, "baselineOk": false },
+      { "metric": "Independent judge", "workflow": "Yes: 10 Opus judges, none proposed a name", "baseline": "No: graded by its own author (9.5/10)", "workflowOk": true, "baselineOk": false }
+    ],
+    "workflowAnswer": "skiff, stagelet, shp",
+    "baselineAnswer": "shipit, branchcaster, pv"
+  }
+}
