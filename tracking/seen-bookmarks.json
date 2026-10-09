@@ -1,5 +1,13 @@
 {
-  "proposed": [],
+  "proposed": [
+    {
+      "id": "2061907337154367865",
+      "title": "Claude Code dynamic workflows: Claude writes its own JS harness on the fly (spawn subagents, pick models, worktrees, adversarial checks)",
+      "url": "https://x.com/trq212/status/2061907337154367865",
+      "slug": "claude-dynamic-workflows",
+      "date": "2026-10-09"
+    }
+  ],
   "built": [
     {
       "id": "2100888166219886818",
