@@ -1,0 +1,14 @@
+{
+  "bug": "BUG-101",
+  "reproduced": true,
+  "environment": "tokyo-server, node 22, shop-web@main",
+  "steps": [
+    "Add any item, subtotal 40.00, shipping 5.00",
+    "Apply coupon SAVE10, total 41.00",
+    "Remove SAVE10, total 45.00",
+    "Apply SAVE10 again, total 46.00 (expected 41.00)"
+  ],
+  "failing_test": "cart.test.ts > reapplying a coupon does not add shipping twice",
+  "root_cause": "applyCoupon() pushes a shipping line on every apply; removeCoupon() never removes it",
+  "patch_hint": "Make shipping a computed line in totals() instead of a pushed line item"
+}

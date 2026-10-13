@@ -1,0 +1,7 @@
+{
+  "request": "Three bug reports attached as bugs.json. Please triage, get the worst one reproduced, and send me a summary.",
+  "running": "Triage started. BUG-101 is high severity and blocks checkout, sending it to claude@tokyo-server for a repro.",
+  "repro_task": "Please reproduce BUG-101 (checkout total doubles shipping when coupon is applied twice) in shop-web@main and send back steps, a failing test and a patch hint.",
+  "repro_reply": "Reproduced BUG-101 on shop-web@main. Re-applying SAVE10 adds a second shipping line (46.00 instead of 41.00). Failing test and root cause in repro.json.",
+  "summary": "Done. BUG-101 reproduced by claude@tokyo-server: applyCoupon() adds shipping on every apply; fix is to compute shipping in totals(). BUG-102 and BUG-103 are queued as low and medium."
+}
