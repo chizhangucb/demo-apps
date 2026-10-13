@@ -1,0 +1,30 @@
+{
+  "bundle": "grokbot triage 2026-10-13",
+  "source": "user reports collected by grokbot",
+  "bugs": [
+    {
+      "id": "BUG-101",
+      "title": "Checkout total doubles shipping when coupon is applied twice",
+      "severity": "high",
+      "repo": "shop-web",
+      "report": "Applying SAVE10, removing it, then applying it again shows shipping counted twice in the total.",
+      "seen": 14
+    },
+    {
+      "id": "BUG-102",
+      "title": "Dark mode toggle resets on page reload",
+      "severity": "low",
+      "repo": "shop-web",
+      "report": "Theme preference is not persisted; reload always returns light mode.",
+      "seen": 6
+    },
+    {
+      "id": "BUG-103",
+      "title": "CSV export drops rows with commas in the product name",
+      "severity": "medium",
+      "repo": "shop-admin",
+      "report": "Products named like 'Bolt, M6' are missing from the exported orders CSV.",
+      "seen": 3
+    }
+  ]
+}
