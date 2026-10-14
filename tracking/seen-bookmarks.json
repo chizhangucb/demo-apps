@@ -1,5 +1,13 @@
 {
-  "proposed": [],
+  "proposed": [
+    {
+      "id": "2105194385868718426",
+      "title": "magpie: one local gateway that puts any model behind any coding agent (Claude Code on Kimi, Codex on DeepSeek) with routing groups that fail over between accounts when a quota runs out",
+      "url": "https://x.com/yetone/status/2105194385868718426",
+      "slug": "magpie-routing-groups",
+      "date": "2026-10-14"
+    }
+  ],
   "built": [
     {
       "id": "2109643779464720568",
