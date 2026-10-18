@@ -1,5 +1,13 @@
 {
-  "proposed": [],
+  "proposed": [
+    {
+      "id": "2093026705728516444",
+      "title": "WorldMonitor signal-to-trade desk: six role agents (scan, price vs prediction markets, sentiment, trade, settle, supervise) on top of open-source WorldMonitor; angle is paper trading plus a fast loser-cut exit rule",
+      "url": "https://x.com/savipww/status/2093026705728516444",
+      "slug": "worldmonitor-signal-desk",
+      "date": "2026-10-18"
+    }
+  ],
   "built": [
     {
       "id": "2105194385868718426",
