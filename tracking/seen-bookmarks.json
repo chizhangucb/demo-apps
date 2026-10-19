@@ -1,5 +1,13 @@
 {
-  "proposed": [],
+  "proposed": [
+    {
+      "id": "2078081213961851252",
+      "title": "equity-research-skill: open-source agent skill for institutional-style single-stock reports (nine chapters, expectations gap, earnings-quality grade, scripted DCF/EPV/EVA in scripts/dcf.py, missing data written as not obtained); US, HK, A-shares",
+      "url": "https://x.com/rollingSirius/status/2078081213961851252",
+      "slug": "equity-research-desk",
+      "date": "2026-10-19"
+    }
+  ],
   "built": [
     {
       "id": "2093026705728516444",
