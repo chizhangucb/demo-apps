@@ -1,14 +1,13 @@
 {
-  "proposed": [
+  "proposed": [],
+  "built": [
     {
       "id": "2078081213961851252",
       "title": "equity-research-skill: open-source agent skill for institutional-style single-stock reports (nine chapters, expectations gap, earnings-quality grade, scripted DCF/EPV/EVA in scripts/dcf.py, missing data written as not obtained); US, HK, A-shares",
       "url": "https://x.com/rollingSirius/status/2078081213961851252",
       "slug": "equity-research-desk",
       "date": "2026-10-19"
-    }
-  ],
-  "built": [
+    },
     {
       "id": "2093026705728516444",
       "title": "WorldMonitor signal-to-trade desk: six role agents (scan, price vs prediction markets, sentiment, trade, settle, supervise) on top of open-source WorldMonitor; angle is paper trading plus a fast loser-cut exit rule",

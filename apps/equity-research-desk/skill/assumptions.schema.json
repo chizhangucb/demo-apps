@@ -1,0 +1,34 @@
+{
+ "$comment": "Judgment knobs the analyst sets. src/lib/assumptions.ts expands them into a full dcf.py config (price, shares, net_debt, wacc, terminal_g, scenarios[], sensitivity, reverse, pvgo, epv, eva, montecarlo).",
+ "type": "object",
+ "properties": {
+  "wacc": { "type": "number", "description": "Discount rate, 0.05 to 0.20" },
+  "terminal_g": { "type": "number", "description": "Terminal growth, 0 to 0.05 and below wacc" },
+  "scenarios": {
+   "type": "object",
+   "properties": {
+    "bear": { "$ref": "#/$defs/scenario" },
+    "base": { "$ref": "#/$defs/scenario" },
+    "bull": { "$ref": "#/$defs/scenario" }
+   },
+   "required": ["bear", "base", "bull"],
+   "additionalProperties": false
+  },
+  "rationale": { "type": "string", "description": "Why these numbers, citing only supplied data" }
+ },
+ "required": ["wacc", "terminal_g", "scenarios", "rationale"],
+ "additionalProperties": false,
+ "$defs": {
+  "scenario": {
+   "type": "object",
+   "properties": {
+    "prob": { "type": "number" },
+    "growth_start": { "type": "number", "description": "Revenue growth in year 1" },
+    "growth_end": { "type": "number", "description": "Revenue growth in year 5, then fades to terminal_g" },
+    "fcf_margin_target": { "type": "number", "description": "FCF margin reached by year 5" }
+   },
+   "required": ["prob", "growth_start", "growth_end", "fcf_margin_target"],
+   "additionalProperties": false
+  }
+ }
+}
