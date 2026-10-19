@@ -1,0 +1,25 @@
+{
+ "wacc": 0.1,
+ "terminal_g": 0.03,
+ "scenarios": {
+  "bear": {
+   "prob": 0.25,
+   "growth_start": 0.12,
+   "growth_end": 0.02,
+   "fcf_margin_target": 0.01
+  },
+  "base": {
+   "prob": 0.5,
+   "growth_start": 0.28,
+   "growth_end": 0.05,
+   "fcf_margin_target": 0.0436
+  },
+  "bull": {
+   "prob": 0.25,
+   "growth_start": 0.4,
+   "growth_end": 0.08,
+   "fcf_margin_target": 0.0592
+  }
+ },
+ "rationale": "Scripted defaults: 10% WACC and 3% terminal growth. Growth starts from a share of the filed revenue CAGR and fades linearly; FCF margin converges to a share of the normalized after-tax operating margin (bear uses the filed FCF margin history, floored at 1%)."
+}

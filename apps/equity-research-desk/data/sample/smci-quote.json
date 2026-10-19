@@ -1,0 +1,18 @@
+{
+ "price": {
+  "value": 32.655,
+  "source": "Yahoo Finance chart API",
+  "asOf": "2026-10-19T16:35:04.000Z",
+  "detail": "SMCI USD last price, cached for the sample"
+ },
+ "low52": {
+  "value": 19.48,
+  "source": "Yahoo Finance chart API",
+  "asOf": "2026-10-19T16:35:04.000Z"
+ },
+ "high52": {
+  "value": 56.6,
+  "source": "Yahoo Finance chart API",
+  "asOf": "2026-10-19T16:35:04.000Z"
+ }
+}

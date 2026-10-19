@@ -1,0 +1,134 @@
+{
+ "price": 32.655,
+ "shares": 657,
+ "net_debt": -3465.3,
+ "wacc": 0.1,
+ "terminal_g": 0.03,
+ "scenarios": [
+  {
+   "name": "bear",
+   "prob": 0.25,
+   "revenue": [
+    43750.6,
+    47907,
+    51260.4,
+    53567.2,
+    54638.5
+   ],
+   "fcf_margin": [
+    -0.078,
+    -0.056,
+    -0.034,
+    -0.012,
+    0.01
+   ],
+   "fade_years": 5,
+   "fade_g_start": 0.02,
+   "annual_dilution": 0.01
+  },
+  {
+   "name": "base",
+   "prob": 0.5,
+   "revenue": [
+    50000.7,
+    61125.9,
+    71211.7,
+    78866.9,
+    82810.3
+   ],
+   "fcf_margin": [
+    -0.0713,
+    -0.0426,
+    -0.0138,
+    0.0149,
+    0.0436
+   ],
+   "fade_years": 5,
+   "fade_g_start": 0.05,
+   "annual_dilution": 0.01
+  },
+  {
+   "name": "bull",
+   "prob": 0.25,
+   "revenue": [
+    54688.3,
+    72188.6,
+    89513.8,
+    103836,
+    112142.9
+   ],
+   "fcf_margin": [
+    -0.0682,
+    -0.0363,
+    -0.0045,
+    0.0274,
+    0.0592
+   ],
+   "fade_years": 5,
+   "fade_g_start": 0.08,
+   "annual_dilution": 0.01
+  }
+ ],
+ "sensitivity": {
+  "scenario": "base",
+  "wacc": [
+   0.09,
+   0.1,
+   0.11
+  ],
+  "g": [
+   0.02,
+   0.03,
+   0.04
+  ]
+ },
+ "reverse": {
+  "interim_fcf": [
+   -3565,
+   -2604,
+   -982.7,
+   1175.1,
+   3610.5
+  ],
+  "steady_margins": [
+   0.0436,
+   0.0592
+  ],
+  "base_revenue": 39063.1
+ },
+ "pvgo": {
+  "earnings_ps": 3.7059
+ },
+ "epv": {
+  "earnings_basis": "NOPAT",
+  "normalized_earnings": 2434.7,
+  "coc": 0.1,
+  "net_debt": -3465.3,
+  "shares": 657,
+  "asset_value": 14479.5,
+  "price": 32.655,
+  "growth": {
+   "g": 0.03,
+   "roiic": 0.1987,
+   "mode": "franchise"
+  }
+ },
+ "eva": {
+  "invested_capital": 11014.1,
+  "nopat": 2188.7,
+  "fade_years": 10,
+  "nopat_growth": 0.0811
+ },
+ "montecarlo": {
+  "n": 2000,
+  "seed": 42,
+  "base_revenue": 39063.1,
+  "years": 5,
+  "growth_mean": 0.1622,
+  "growth_std": 0.06,
+  "margin_low": 0.01,
+  "margin_mode": 0.0436,
+  "margin_high": 0.0592,
+  "terminal_g": 0.03
+ }
+}

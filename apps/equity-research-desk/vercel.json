@@ -1,0 +1,10 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": "nextjs",
+  "installCommand": "bun install",
+  "buildCommand": "bun run build",
+  "functions": {
+    "api/dcf.py": { "includeFiles": "python/**", "maxDuration": 30 },
+    "src/app/api/research/route.ts": { "maxDuration": 120 }
+  }
+}

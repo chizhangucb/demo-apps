@@ -1,0 +1,86 @@
+{
+ "thesis": "The market prices SMCI on reported profit, but the FY2026 10-K shows that profit is not turning into cash: operating cash flow was negative $6.81B against $2.23B of net income while inventory and receivables grew faster than revenue. My view is that the earnings base needs a clean year of cash conversion before any valuation work deserves weight.",
+ "falsifiers": [
+  "Operating cash flow turns positive and exceeds 0.8x net income over the next four reported quarters.",
+  "Inventory and receivables grow slower than revenue in the next 10-K.",
+  "No new late filing notice, auditor change or listing rule notice for twelve months."
+ ],
+ "near_term": null,
+ "counter_case": [
+  "The working capital build may be deliberate: revenue grew 78% in FY2026, and a large backlog of shipments could unwind into cash quickly.",
+  "Cash of $7.52B exceeds filed debt of $4.06B, so liquidity is not the binding risk in the filed numbers.",
+  "The composite valuation range sits above the current price, so a cash conversion turn would leave room for upside."
+ ],
+ "premortem": "If this avoid call is wrong a year from now, the likely reason is that the FY2026 inventory and receivables were timing, not quality: cash flow normalized, the grade moved to B, and the stock re-rated while the desk waited.",
+ "chapters": {
+  "1": {
+   "paragraphs": [
+    "Decision triad: intrinsic value reads fairly valued against the composite range, near-term direction is not obtained, and the action is avoid because the earnings quality grade is D.",
+    "The expectations gap table compares what the price implies (reverse DCF and PVGO from dcf.py) with the base case. The gap is not the bottleneck here; the quality of the earnings the gap is built on is."
+   ],
+   "my_view": "Valuation upside does not matter while reported profit does not convert to cash. Grade D vetoes any buy."
+  },
+  "2": {
+   "paragraphs": [
+    "SEC classifies Super Micro Computer under SIC 3571, Electronic Computers. Its fiscal year ends June 30 and the shares list on Nasdaq.",
+    "Filed revenue rose from $7.12B in FY2023 to $39.06B in FY2026. Gross margin fell from 18.0% to 10.8% over the same period, so growth came with thinner unit economics."
+   ],
+   "my_view": "A business that grows 5x while gross margin roughly halves is selling volume, not pricing power."
+  },
+  "3": {
+   "paragraphs": [
+    "Market share and competitor data were not gathered from a sourced dataset for this run, so share figures show not obtained.",
+    "The filed gross margin trend is the only competitive evidence in the bundle: margin compression during a demand boom usually points to price competition or a shift toward lower margin systems."
+   ],
+   "my_view": "Without sourced share data, the competitive position is unproven either way."
+  },
+  "4": {
+   "paragraphs": [
+    "The submissions index shows two auditor change filings (8-K item 4.01, October and November 2024), late filing notices for the FY2024 10-K and two 10-Qs, and several Nasdaq listing rule notices (item 3.01) from May 2024 to February 2025.",
+    "Diluted share count rose from 560m in FY2023 to 697m in FY2026. Stock based compensation was $412m in FY2026, about 1.1% of revenue. Two officer or director change filings followed in October 2026."
+   ],
+   "my_view": "The 2024 to 2025 filing history is a governance red flag on its own; the dilution is a second, smaller cost to holders."
+  },
+  "5": {
+   "paragraphs": [
+    "Net income was $2.23B in FY2026 while operating cash flow was negative $6.81B. Over three years cumulative operating cash flow was negative against $4.43B of net income.",
+    "Inventory reached $12.90B (from $4.68B) and receivables $6.13B (from $2.20B), both growing faster than revenue. The Beneish M-Score is not obtained because SG&A is not tagged in the filings, so one of its eight inputs is missing."
+   ],
+   "my_view": "Five hard fails in the forensic checks. This is the textbook pattern the skill's earnings quality gate is built to catch."
+  },
+  "6": {
+   "paragraphs": [
+    "All methods ran through the vendored dcf.py with the assumptions JSON shown in the panel: three scenario DCF with fade, a WACC by g sensitivity grid, reverse DCF and PVGO, EPV with franchise growth, EVA with residual income, and a 2,000 path Monte Carlo.",
+    "Relative valuation shows not obtained because no sourced peer multiple set was gathered. The bear case is close to zero because it keeps the filed cash burn for longer, which is the scenario the quality data argues for."
+   ],
+   "my_view": "The spread between bear and bull is wider than the gap to the price, so the point estimate carries little information."
+  },
+  "7": {
+   "paragraphs": [
+    "Sell-side consensus price targets and ratings were not obtained: no licensed estimates source is wired into this demo, and the skill forbids filling them from memory."
+   ],
+   "my_view": "No consensus view to lean on or lean against."
+  },
+  "8": {
+   "paragraphs": [
+    "The most recent 8-K filings cover results of operations (July and August 2026), a material agreement and charter change (June 2026), and officer or director changes (October 2026). The filing list in this chapter is taken from the SEC submissions index.",
+    "The next catalyst is the first FY2027 10-Q, which will show whether the FY2026 working capital build starts to unwind."
+   ],
+   "my_view": "The next 10-Q cash flow statement matters more than the next revenue print."
+  },
+  "9": {
+   "paragraphs": [
+    "Conclusion: avoid. dcf.py calibrates the price as fairly valued against the composite range, which would map to hold, but grade D overrides it to avoid and blocks any buy.",
+    "Position sizing: zero while the veto stands. The dcf.py position helper is shown for reference only."
+   ],
+   "my_view": "Revisit only after the falsifiers above are tested by new filings."
+  }
+ },
+ "gap_falsifiers": {
+  "revenue_cagr": "FY2027 revenue grows below the implied rate for two straight quarters.",
+  "steady_fcf": "Operating cash flow stays negative in the first two FY2027 10-Qs.",
+  "growth_share": "Normalized after-tax operating margin drops below 5%.",
+  "value": "Price holds below the composite low for a full quarter with no new filing to explain it.",
+  "quality": "Cash conversion back above 0.8x with inventory and receivables growing slower than revenue."
+ }
+}
