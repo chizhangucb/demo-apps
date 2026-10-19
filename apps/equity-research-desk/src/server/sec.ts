@@ -2,8 +2,7 @@ import "server-only";
 import type { CompanyFacts, Submissions } from "@/lib/edgar";
 
 // SEC fair access policy: identify the app and a contact in the User-Agent, stay under 10 req/s.
-// Replace the contact with your own address when you deploy.
-export const SEC_USER_AGENT = "EquityResearchDesk/0.1 (open-source demo) contact@example.com";
+export const SEC_USER_AGENT = "Tech Demos equity-research-desk alex.ea+techdemos@mail.grokbot.com";
 const TIMEOUT_MS = 8_000;
 const TTL_MS = 6 * 60 * 60 * 1000;
 
