@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import type { ModeInfo } from "@/lib/mode";
 import { cn } from "cn";
-import { CHAT_PRESETS } from "../../../data/samples/presets";
+import { CHAT_PRESETS, SAMPLE_RECORDING } from "../../../data/samples/presets";
 import { SOURCES } from "../../../data/benchmarks";
 import { fmt, LiveTag, Panel, Readout, SampleTag, Src } from "./bits";
 import { Gauge, PUBLISHED_MAX, PUBLISHED_MIN, Sparkline } from "./gauge";
@@ -195,7 +195,7 @@ export function Lab() {
             <div className="relative min-h-[300px] flex-1 overflow-auto border border-border bg-[#03070a] p-3 font-mono text-[12.5px] leading-relaxed lg:max-h-[440px]">
               <div className="mb-2 flex items-center justify-between text-[10px] tracking-[0.16em] text-muted-foreground">
                 <span>STREAM OUTPUT</span>
-                {isSample && <span className="text-amber-glow">SAMPLE: illustrative recorded response, replayed timings</span>}
+                {isSample && <span className="text-amber-glow">SAMPLE: {SAMPLE_RECORDING}, replayed at its recorded pace</span>}
               </div>
               {state.reasoning && (
                 <div className="mb-3 border-l-2 border-sim/50 pl-3 text-[12px] text-muted-foreground">
@@ -236,7 +236,7 @@ export function Lab() {
           deepseek-ai/DeepInfer
         </a>{" "}
         by DeepSeek-AI, Apache License 2.0. Chart data and original chart images come from that repository. Announcement <Src k="bookmark" />. API
-        reference <Src k="api" />. LIVE numbers are measured in your browser; SAMPLE is an illustrative recording; SIMULATION panels are illustrative
+        reference <Src k="api" />. LIVE numbers are measured in your browser; SAMPLE replays responses {SAMPLE_RECORDING}; SIMULATION panels are illustrative
         animations, not measurements.
       </footer>
     </div>

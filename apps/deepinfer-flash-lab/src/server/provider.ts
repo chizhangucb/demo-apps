@@ -1,9 +1,9 @@
 import "server-only";
 
-import chatTracks from "../../data/samples/chat.json";
-import { CHAT_PRESETS, STRUCTURED_PRESETS, type StructuredPreset } from "../../data/samples/presets";
+import { CHAT_PRESETS, RECORDED_RUNS, STRUCTURED_PRESETS, type StructuredPreset } from "../../data/samples/presets";
 import { resolveProvider, type ModeInfo, type ProviderConfig, SAMPLE_MODE } from "@/lib/mode";
 import { createSSEParser, parseChatChunk } from "@/lib/sse";
+import { exampleFor, structuredMessages } from "@/lib/structured-prompt";
 
 export const CHAT_MAX_TOKENS = 800;
 export const STRUCTURED_MAX_TOKENS = 800;
@@ -18,9 +18,6 @@ export type LabEvent =
   | { type: "usage"; completionTokens: number }
   | { type: "error"; message: string }
   | { type: "done" };
-
-type Track = { ttftMs: number; chunks: [string, number][] };
-const TRACKS = chatTracks as unknown as Record<string, { reasoning: Track; answer: Track }>;
 
 const sleep = (ms: number, signal?: AbortSignal) =>
   new Promise<void>((resolve) => {
@@ -39,29 +36,21 @@ export function pickChatPreset(presetId: string | undefined, prompt: string) {
   );
 }
 
-// Replays a recorded sample, chunk by chunk, with its recorded delays.
+// Replays a recorded run chunk by chunk with the gaps measured when it was
+// recorded: the thinking on run when thinking is on, otherwise the thinking off run.
 async function* replaySample(presetId: string, thinking: boolean, signal: AbortSignal): AsyncGenerator<LabEvent> {
-  const t = TRACKS[presetId] ?? TRACKS[CHAT_PRESETS[0].id];
-  let tokens = 0;
-  if (thinking) {
-    await sleep(t.reasoning.ttftMs, signal);
-    for (const [text, d] of t.reasoning.chunks) {
-      if (signal.aborted) return;
-      yield { type: "delta", kind: "reasoning", text };
-      tokens++;
-      await sleep(d, signal);
-    }
-    await sleep(120, signal);
-  } else {
-    await sleep(t.answer.ttftMs, signal);
-  }
-  for (const [text, d] of t.answer.chunks) {
+  const runs = RECORDED_RUNS[presetId] ?? RECORDED_RUNS[CHAT_PRESETS[0].id];
+  const run = thinking ? runs.on : runs.off;
+  await sleep(run.ttftMs, signal);
+  let first = true;
+  for (const [kind, text, gapMs] of run.chunks) {
     if (signal.aborted) return;
-    yield { type: "delta", kind: "content", text };
-    tokens++;
-    await sleep(d, signal);
+    if (!first) await sleep(gapMs, signal);
+    first = false;
+    if (signal.aborted) return;
+    yield { type: "delta", kind, text };
   }
-  yield { type: "usage", completionTokens: tokens };
+  yield { type: "usage", completionTokens: run.completionTokens ?? run.chunks.length };
 }
 
 function chatBody(p: ProviderConfig, prompt: string, thinking: boolean) {
@@ -161,43 +150,7 @@ export async function* runChat(
   yield { type: "done" };
 }
 
-// Build a filled example of the target shape from a schema, since the
-// DeepSeek JSON mode docs ask for an example in the prompt.
-export function exampleFor(schema: unknown): unknown {
-  const s = (schema ?? {}) as Record<string, unknown>;
-  if (Array.isArray(s.enum) && s.enum.length) return s.enum[0];
-  switch (s.type) {
-    case "object": {
-      const props = (s.properties ?? {}) as Record<string, unknown>;
-      return Object.fromEntries(Object.entries(props).map(([k, v]) => [k, exampleFor(v)]));
-    }
-    case "array":
-      return [exampleFor(s.items)];
-    case "integer":
-    case "number":
-      return typeof s.minimum === "number" ? s.minimum : 1;
-    case "boolean":
-      return true;
-    case "string":
-      return "...";
-    default:
-      return null;
-  }
-}
-
-export function structuredMessages(schema: object, prompt: string) {
-  return [
-    {
-      role: "system",
-      content:
-        "Reply with a single json object only, no prose. It must conform to this JSON schema:\n" +
-        JSON.stringify(schema) +
-        "\nExample json output shape:\n" +
-        JSON.stringify(exampleFor(schema)),
-    },
-    { role: "user", content: prompt },
-  ];
-}
+export { exampleFor, structuredMessages };
 
 export type StructuredResult = {
   info: ModeInfo;
@@ -214,7 +167,7 @@ export async function runStructured(
     STRUCTURED_PRESETS.find((s) => s.id === input.presetId) ?? STRUCTURED_PRESETS[0];
   const sample = async (note?: string): Promise<StructuredResult> => {
     await sleep(preset.sampleLatencyMs);
-    return { info: SAMPLE_MODE, sample: true, note, raw: JSON.stringify(preset.sampleOutput, null, 2) };
+    return { info: SAMPLE_MODE, sample: true, note, raw: preset.sampleRaw };
   };
 
   const p = resolveProvider(env);

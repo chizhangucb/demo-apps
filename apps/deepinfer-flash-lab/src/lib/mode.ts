@@ -53,7 +53,7 @@ export const SAMPLE_MODE: ModeInfo = {
   mode: "sample",
   label: "SAMPLE",
   provider: "Recorded sample (no key)",
-  model: "deepseek-flash (illustrative sample)",
+  model: "deepseek/deepseek-v4.1-flash (recorded sample)",
 };
 
 export function resolveMode(env: Env): ModeInfo {

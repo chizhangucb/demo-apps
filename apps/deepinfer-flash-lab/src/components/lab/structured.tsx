@@ -19,6 +19,15 @@ type Result = {
   clientMs: number;
 };
 
+// Indent valid JSON for reading; anything else is shown exactly as returned.
+function pretty(raw: string) {
+  try {
+    return JSON.stringify(JSON.parse(raw), null, 2);
+  } catch {
+    return raw;
+  }
+}
+
 export function StructuredPanel({ sampleMode }: { sampleMode: boolean }) {
   const [presetId, setPresetId] = useState(STRUCTURED_PRESETS[0].id);
   const preset = STRUCTURED_PRESETS.find((p) => p.id === presetId)!;
@@ -140,7 +149,7 @@ export function StructuredPanel({ sampleMode }: { sampleMode: boolean }) {
           }
         >
           <pre className="h-[300px] overflow-auto font-mono text-[11.5px] leading-snug text-cyan-glow/90">
-            {busy ? "waiting for model..." : result ? result.raw || "(empty content)" : "--"}
+            {busy ? "waiting for model..." : result ? pretty(result.raw) || "(empty content)" : "--"}
           </pre>
         </Column>
         <Column

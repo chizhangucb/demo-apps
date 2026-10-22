@@ -19,7 +19,7 @@ Bookmark: https://x.com/deepseek_ai/status/2112476496283775135. Plan: [`PLAN.md`
 ### LIVE, SAMPLE, SIMULATION
 
 - **LIVE**: a key is set. `/api/chat` streams from the provider with `max_tokens` 800, a 20 s first-byte timeout and a 60 s total timeout. `/api/structured` uses JSON mode (DeepSeek `response_format: {"type": "json_object"}` with the schema and an example in the prompt; OpenRouter `json_schema`), 30 s timeout, then validates with Ajv. If a live call fails before any token arrives, the route falls back to the matching sample and says so.
-- **SAMPLE**: no key. Answers in `data/samples/presets.ts` are hand-written illustrative samples (no key was available at build time). `data/samples/chat.json` holds per-chunk timings from a fixed-seed generator (`bun run samples`); the server replays them and the browser measures the replay with the same code as LIVE. Everything is labelled SAMPLE.
+- **SAMPLE**: no key. Every preset answer and structured output was recorded from DeepSeek-V4.1-Flash via OpenRouter on Oct 22, 2026 (model id `deepseek/deepseek-v4.1-flash`) by `bun run samples` (`scripts/build-samples.ts`, needs `OPENROUTER_API_KEY`). Each chat preset was recorded twice, thinking off and thinking on. `data/samples/chat.json` keeps the streamed text exactly as it arrived plus the measured time to first token and the measured gap before each chunk; `data/samples/structured.json` keeps the raw JSON and the measured round trip. The server replays a run at its recorded pace and the browser measures the replay with the same code as LIVE. The model output is verbatim, so it can contain punctuation such as dashes that the app copy itself avoids. Everything is labelled SAMPLE.
 - **SIMULATION**: CH.04 and CH.05 are animations. Confidences, acceptance draws, the cost model and block lengths are made up for illustration; only the numbers carrying a source link are published figures.
 
 ## Run
@@ -54,7 +54,7 @@ Keys are read only on the server. `/api/mode` returns the mode, provider and mod
 - `src/app/api/{chat,structured,mode}` routes
 - `src/components/lab/` the UI
 - `data/benchmarks.ts` every published number with its source URL
-- `data/samples/` SAMPLE responses and replay timings
+- `data/samples/` preset prompts and schemas (`prompts.ts`), recorded responses and timings (`chat.json`, `structured.json`), joined in `presets.ts`
 
 ## Credits and license
 
