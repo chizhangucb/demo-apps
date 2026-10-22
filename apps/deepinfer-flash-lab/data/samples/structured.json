@@ -1,0 +1,24 @@
+{
+  "meta": {
+    "model": "deepseek/deepseek-v4.1-flash",
+    "provider": "OpenRouter",
+    "recordedAt": "2026-10-22T17:42:21.407Z"
+  },
+  "runs": {
+    "deepinfer-example": {
+      "raw": "{\"color\":\"blue\",\"count\":2}",
+      "latencyMs": 718,
+      "valid": true
+    },
+    "bug-report": {
+      "raw": "{\"title\":\"Speed gauge keeps animating after stream cancellation mid-run\",\"severity\":\"medium\",\"component\":\"UI - Speed Gauge\",\"steps\":[\"Start a run/stream and wait until the speed gauge begins animating.\",\"Cancel the stream while it is still running (mid-run).\",\"Observe the speed gauge: it continues animating despite the stream being cancelled.\"],\"reproducible\":true}",
+      "latencyMs": 1753,
+      "valid": true
+    },
+    "recipe": {
+      "raw": "{\"vegetarian\":true,\"servings\":2,\"name\":\"Quick Sesame Garlic Noodles with Broccoli\",\"minutes\":20,\"ingredients\":[{\"qty\":\"6 oz\",\"item\":\"dried wheat noodles or ramen\"},{\"qty\":\"2 cups\",\"item\":\"broccoli florets\"},{\"qty\":\"3 cloves\",\"item\":\"garlic, minced\"},{\"qty\":\"3 tbsp\",\"item\":\"soy sauce\"},{\"qty\":\"1 tbsp\",\"item\":\"toasted sesame oil\"},{\"qty\":\"1 tsp\",\"item\":\"maple syrup or honey\"},{\"qty\":\"2\",\"item\":\"scallions, sliced\"},{\"qty\":\"1 tsp\",\"item\":\"sesame seeds\"}]}",
+      "latencyMs": 2051,
+      "valid": true
+    }
+  }
+}
