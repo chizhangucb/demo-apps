@@ -1,14 +1,13 @@
 {
-  "proposed": [
+  "proposed": [],
+  "built": [
     {
       "id": "2112476496283775135",
       "title": "DeepInfer: DeepSeek's open-source production inference framework for DeepSeek-V4.1-Flash (draft-token decoding with confidence-scheduled verification, async batch scheduler, batch-invariant/deterministic sampling, structured outputs); Apache-2.0, needs NVIDIA SM100 or Ascend 950",
       "url": "https://x.com/deepseek_ai/status/2112476496283775135",
       "slug": "deepinfer-flash-lab",
       "date": "2026-10-22"
-    }
-  ],
-  "built": [
+    },
     {
       "id": "2078081213961851252",
       "title": "equity-research-skill: open-source agent skill for institutional-style single-stock reports (nine chapters, expectations gap, earnings-quality grade, scripted DCF/EPV/EVA in scripts/dcf.py, missing data written as not obtained); US, HK, A-shares",
