@@ -1,5 +1,13 @@
 {
-  "proposed": [],
+  "proposed": [
+    {
+      "id": "2117313742891327994",
+      "title": "Weight-Space Programming: GPT-6 Astra edited 0.016% of Qwen3.5-0.8B weights (layers 15 and 19 down_proj) with no gradients, fixing thinking loops; MATH-500 7.9% to 48.1%; edited checkpoint RikiyaT/Qwen3.5-0.8B-weight-space-programming on Hugging Face, Apache-2.0",
+      "url": "https://x.com/rikiyatakehi/status/2117313742891327994",
+      "slug": "weight-space-lab",
+      "date": "2026-11-05"
+    }
+  ],
   "built": [
     {
       "id": "2112476496283775135",
@@ -66,7 +74,7 @@
     },
     {
       "id": "2102762406204076532",
-      "title": "Pi SDK + Jev \u2014 custom agent harness (model pick, tool gate, answer check)",
+      "title": "Pi SDK + Jev — custom agent harness (model pick, tool gate, answer check)",
       "url": "https://x.com/omarsar0/status/2102762406204076532",
       "slug": "pi-jev-harness",
       "date": "2026-10-03"
@@ -80,49 +88,49 @@
     },
     {
       "id": "2100262432413528336",
-      "title": "Hermes Agent \u2014 Nous Research self-improving agent harness (skills + memory loop)",
+      "title": "Hermes Agent — Nous Research self-improving agent harness (skills + memory loop)",
       "url": "https://x.com/JacquelineSYC19/status/2100262432413528336",
       "slug": "hermes-skill-loop",
       "date": "2026-10-01"
     },
     {
       "id": "2074208949205881033",
-      "title": "Claude Agent Loops \u2014 turn/goal/time/proactive loop patterns",
+      "title": "Claude Agent Loops — turn/goal/time/proactive loop patterns",
       "url": "https://x.com/ClaudeDevs/status/2074208949205881033",
       "slug": "claude-agent-loops",
       "date": "2026-09-30"
     },
     {
       "id": "2082263717916586117",
-      "title": "Codex Security CLI \u2014 OpenAI open-source security scan/fix SDK",
+      "title": "Codex Security CLI — OpenAI open-source security scan/fix SDK",
       "url": "https://x.com/OpenAI/status/2082263717916586117",
       "slug": "codex-security-scan",
       "date": "2026-09-29"
     },
     {
       "id": "2101029313906987422",
-      "title": "AgentRun \u2014 workflow DSL/harness for repetitive agent work (powered by Jev)",
+      "title": "AgentRun — workflow DSL/harness for repetitive agent work (powered by Jev)",
       "url": "https://x.com/MiguelriosEN/status/2101029313906987422",
       "slug": "agentrun-support-triage",
       "date": "2026-09-28"
     },
     {
       "id": "2092801435398553622",
-      "title": "Archify \u2014 agent skill for verifiable interactive architecture diagrams",
+      "title": "Archify — agent skill for verifiable interactive architecture diagrams",
       "url": "https://x.com/ungetsuli/status/2092801435398553622",
       "slug": "archify-system-map",
       "date": "2026-09-27"
     },
     {
       "id": "2099925682726002904",
-      "title": "Jev (TypeSafe System One) \u2014 decision-layer AI model",
+      "title": "Jev (TypeSafe System One) — decision-layer AI model",
       "url": "https://x.com/CompleteSkeptic/status/2099925682726002904",
       "slug": "jev-inbox-triage",
       "date": "2026-09-26"
     },
     {
       "id": "2095233745167282602",
-      "title": "Claude Commerce Agents \u2014 open-source shopping/merchant agent blueprint",
+      "title": "Claude Commerce Agents — open-source shopping/merchant agent blueprint",
       "url": "https://x.com/ClaudeDevs/status/2095233745167282602",
       "slug": "claude-commerce-retail",
       "date": "2026-09-26"
