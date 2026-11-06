@@ -1,14 +1,13 @@
 {
-  "proposed": [
+  "proposed": [],
+  "built": [
     {
       "id": "2117313742891327994",
       "title": "Weight-Space Programming: GPT-6 Astra edited 0.016% of Qwen3.5-0.8B weights (layers 15 and 19 down_proj) with no gradients, fixing thinking loops; MATH-500 7.9% to 48.1%; edited checkpoint RikiyaT/Qwen3.5-0.8B-weight-space-programming on Hugging Face, Apache-2.0",
       "url": "https://x.com/rikiyatakehi/status/2117313742891327994",
       "slug": "weight-space-lab",
       "date": "2026-11-05"
-    }
-  ],
-  "built": [
+    },
     {
       "id": "2112476496283775135",
       "title": "DeepInfer: DeepSeek's open-source production inference framework for DeepSeek-V4.1-Flash (draft-token decoding with confidence-scheduled verification, async batch scheduler, batch-invariant/deterministic sampling, structured outputs); Apache-2.0, needs NVIDIA SM100 or Ascend 950",
