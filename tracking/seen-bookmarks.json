@@ -1,5 +1,13 @@
 {
-  "proposed": [],
+  "proposed": [
+    {
+      "id": "2120548035721572620",
+      "title": "cutaway: Claude Code skill that turns one reference picture into a procedural three.js mechanical object that takes itself apart, checked against the picture and filmed at 60 fps (github.com/Nyxera0x/cutaway)",
+      "url": "https://x.com/isagi1000x/status/2120548035721572620",
+      "slug": "cutaway-lab",
+      "date": "2026-11-23"
+    }
+  ],
   "built": [
     {
       "id": "2117313742891327994",
