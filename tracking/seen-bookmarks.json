@@ -1,14 +1,13 @@
 {
-  "proposed": [
+  "proposed": [],
+  "built": [
     {
       "id": "2122753570730893678",
       "title": "StarVLA: MIT-licensed Lego-like codebase for vision-language-action robot models (swap backbone, action head, training recipe, benchmark; WebSocket policy server; 41+ Hugging Face checkpoint repos; ~4K GitHub stars) github.com/starVLA/starVLA",
       "url": "https://x.com/JinhuiYe/status/2122753570730893678",
       "slug": "starvla-composer",
       "date": "2026-11-24"
-    }
-  ],
-  "built": [
+    },
     {
       "id": "2120548035721572620",
       "title": "cutaway: Claude Code skill that turns one reference picture into a procedural three.js mechanical object that takes itself apart, checked against the picture and filmed at 60 fps (github.com/Nyxera0x/cutaway)",
