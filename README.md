@@ -10,6 +10,7 @@ Each demo is deployed as its own Vercel project with **Root Directory** set to `
 
 | App | App directory | Public URL | Notes |
 | --- | --- | --- | --- |
+| EFE Agent Arena | `apps/efe-agent-arena` | https://efe-agent-arena.vercel.app | Vercel; pick any two official ranked agents and a setting (Standard, Privileged, Realtime, or Overall), see which published core tests each solves that the other fails, plus per-suite leaders and the published RoboDojo prompt table; a scoreboard of official results only, not a running exam, and it works with zero secrets |
 | StarVLA Composer | `apps/starvla-composer` | https://starvla-composer.vercel.app | Vercel; pick one official StarVLA brick per layer (backbone, action head, recipe, benchmark), see whether the combo is supported, link official Hugging Face checkpoints, and read published scores with source links; a schematic arm shows how each action head turns one frame into a chunk of moves; live Hub lookup with a vendored fallback; this is a composer, not a running model, and it works with zero secrets |
 | Cutaway Lab | `apps/cutaway-lab` | https://cutawaylab.vercel.app | Vercel; official Nyxera0x/cutaway objects running in the browser, click a part or play the disassembly tour; optional Live rebuild from a picture via server-side Claude Sonnet; presets work with zero secrets |
 | Weight-Space Lab | `apps/weight-space-lab` | https://weight-space-lab.vercel.app | Vercel; recorded MATH-500 outputs, exact weight diff and experiment diary; optional best-effort live calls to public Hugging Face Space |
