@@ -1,14 +1,13 @@
 {
-  "proposed": [
+  "proposed": [],
+  "built": [
     {
       "id": "2125300304648470767",
       "title": "Embodied First Exam (EFE): MIT-licensed benchmark where coding agents write programs to control robots in frozen sim scenes (1,156 tasks, 35 suites, 47 robot types, runs on Harbor); per-agent head-to-head results github.com/mll-lab-nu/embodied-first-exam",
       "url": "https://x.com/ManlingLi_/status/2125300304648470767",
       "slug": "efe-agent-arena",
       "date": "2026-11-25"
-    }
-  ],
-  "built": [
+    },
     {
       "id": "2122753570730893678",
       "title": "StarVLA: MIT-licensed Lego-like codebase for vision-language-action robot models (swap backbone, action head, training recipe, benchmark; WebSocket policy server; 41+ Hugging Face checkpoint repos; ~4K GitHub stars) github.com/starVLA/starVLA",
