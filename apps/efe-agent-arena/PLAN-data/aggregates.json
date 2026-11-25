@@ -1,0 +1,5517 @@
+{
+  "snapshot": {
+    "date_label": "2026-11-25",
+    "fetched_at_pt": "2026-11-25 9:21 AM PT",
+    "site_build_at": "2026-11-25T04:07:10+00:00",
+    "site_commit": "b22e17713317e8e0f891dbc39b99ef7748784d09",
+    "task_set_commit": "258a77cb323f930890cb553e6356f80cb6e6250b",
+    "task_set_date": "2026-11-24T22:05:39-06:00",
+    "results_window": "Batch evaluation from 2 October to 23 November 2026; the latest finished attempt per agent and test. Quoted from exam.json leaderboard.note in the site commit above.",
+    "leaderboard_footer": "Questions as of 24 November 2026 \u00b7 results updated 24 November 2026. Quoted from https://www.embodied-first-exam.ai/leaderboard/ as fetched 2026-11-25 around 9:20 AM PT.",
+    "sources": {
+      "exam_json": "https://raw.githubusercontent.com/Embodied-First-Exam/embodied-first-exam.github.io/b22e17713317e8e0f891dbc39b99ef7748784d09/data/exam.json",
+      "tasks_json": "https://raw.githubusercontent.com/Embodied-First-Exam/embodied-first-exam.github.io/b22e17713317e8e0f891dbc39b99ef7748784d09/data/tasks.json",
+      "leaderboard": "https://www.embodied-first-exam.ai/leaderboard/",
+      "site": "https://www.embodied-first-exam.ai/",
+      "repo": "https://github.com/mll-lab-nu/embodied-first-exam",
+      "paper": "https://arxiv.org/abs/2611.12177",
+      "hf_leaderboard_older_snapshot": "https://huggingface.co/datasets/MLL-Lab/embodied-exam-data/tree/main/leaderboard"
+    },
+    "rule": "Core set only: 481 tasks / 951 tests (416 privileged, 481 standard, 54 realtime). A task is in the core set when tasks.json set is \"core\". Modes on the board for that task are the letters in its core flag (p, s, t). Overall: a core task counts as solved only if every core mode it has was solved. Standard / Privileged / Realtime: every core test of that mode. Success is the official S mark (verifier reward >= 1 within the token budget). One counted attempt per agent and test. Ranked agents are exam.json leaderboard.shared.runs (11). GPT-6 Luna (codex-gpt6_luna-xhigh) is present in exam.json runs but listed in leaderboard.shared.core_off and is not on the official board; do not rank it."
+  },
+  "agent_order": [
+    "codex-gpt6_2_astra-high",
+    "claude_code-fable_5_2-high",
+    "codex-gpt6_astra-high",
+    "codex-gpt6_1_sol-high",
+    "claude_code-opus_5_5-high",
+    "antigravity_cli-gemini_4_argon-high",
+    "claude_code-kimi_3_1_pro-high",
+    "claude_code-qwen4_max-high",
+    "antigravity_cli-gemini_3_8_flash-high",
+    "dsh-deepseek_v4_1_flash-high",
+    "claude_code-glm_5_3_flash-high"
+  ],
+  "agents": [
+    {
+      "id": "codex-gpt6_2_astra-high",
+      "model": "GPT-6.2 Astra",
+      "harness": "Codex",
+      "effort": "high",
+      "label": "Codex + GPT-6.2 Astra, reasoning high",
+      "scores": {
+        "overall": {
+          "solved": 260,
+          "tests": 481
+        },
+        "standard": {
+          "solved": 279,
+          "tests": 481
+        },
+        "privileged": {
+          "solved": 395,
+          "tests": 416
+        },
+        "realtime": {
+          "solved": 22,
+          "tests": 54
+        }
+      }
+    },
+    {
+      "id": "claude_code-fable_5_2-high",
+      "model": "Claude Fable 5.2",
+      "harness": "Claude Code",
+      "effort": "high",
+      "label": "Claude Code + Claude Fable 5.2, reasoning high",
+      "scores": {
+        "overall": {
+          "solved": 225,
+          "tests": 481
+        },
+        "standard": {
+          "solved": 248,
+          "tests": 481
+        },
+        "privileged": {
+          "solved": 337,
+          "tests": 416
+        },
+        "realtime": {
+          "solved": 22,
+          "tests": 54
+        }
+      }
+    },
+    {
+      "id": "codex-gpt6_astra-high",
+      "model": "GPT-6 Astra",
+      "harness": "Codex",
+      "effort": "high",
+      "label": "Codex + GPT-6 Astra, reasoning high",
+      "scores": {
+        "overall": {
+          "solved": 162,
+          "tests": 481
+        },
+        "standard": {
+          "solved": 175,
+          "tests": 481
+        },
+        "privileged": {
+          "solved": 333,
+          "tests": 416
+        },
+        "realtime": {
+          "solved": 17,
+          "tests": 54
+        }
+      }
+    },
+    {
+      "id": "codex-gpt6_1_sol-high",
+      "model": "GPT-6.1 Sol",
+      "harness": "Codex",
+      "effort": "high",
+      "label": "Codex + GPT-6.1 Sol, reasoning high",
+      "scores": {
+        "overall": {
+          "solved": 151,
+          "tests": 481
+        },
+        "standard": {
+          "solved": 163,
+          "tests": 481
+        },
+        "privileged": {
+          "solved": 309,
+          "tests": 416
+        },
+        "realtime": {
+          "solved": 13,
+          "tests": 54
+        }
+      }
+    },
+    {
+      "id": "claude_code-opus_5_5-high",
+      "model": "Claude Opus 5.5",
+      "harness": "Claude Code",
+      "effort": "high",
+      "label": "Claude Code + Claude Opus 5.5, reasoning high",
+      "scores": {
+        "overall": {
+          "solved": 117,
+          "tests": 481
+        },
+        "standard": {
+          "solved": 130,
+          "tests": 481
+        },
+        "privileged": {
+          "solved": 257,
+          "tests": 416
+        },
+        "realtime": {
+          "solved": 4,
+          "tests": 54
+        }
+      }
+    },
+    {
+      "id": "antigravity_cli-gemini_4_argon-high",
+      "model": "Gemini 4 Argon",
+      "harness": "Antigravity",
+      "effort": "high",
+      "label": "Antigravity + Gemini 4 Argon, reasoning high",
+      "scores": {
+        "overall": {
+          "solved": 97,
+          "tests": 481
+        },
+        "standard": {
+          "solved": 127,
+          "tests": 481
+        },
+        "privileged": {
+          "solved": 188,
+          "tests": 416
+        },
+        "realtime": {
+          "solved": 5,
+          "tests": 54
+        }
+      }
+    },
+    {
+      "id": "claude_code-kimi_3_1_pro-high",
+      "model": "Kimi 3.1 Pro",
+      "harness": "Claude Code",
+      "effort": "high",
+      "label": "Claude Code + Kimi 3.1 Pro, reasoning high",
+      "scores": {
+        "overall": {
+          "solved": 44,
+          "tests": 481
+        },
+        "standard": {
+          "solved": 55,
+          "tests": 481
+        },
+        "privileged": {
+          "solved": 165,
+          "tests": 416
+        },
+        "realtime": {
+          "solved": 4,
+          "tests": 54
+        }
+      }
+    },
+    {
+      "id": "claude_code-qwen4_max-high",
+      "model": "Qwen4 Max",
+      "harness": "Claude Code",
+      "effort": "high",
+      "label": "Claude Code + Qwen4 Max, reasoning high",
+      "scores": {
+        "overall": {
+          "solved": 32,
+          "tests": 481
+        },
+        "standard": {
+          "solved": 39,
+          "tests": 481
+        },
+        "privileged": {
+          "solved": 108,
+          "tests": 416
+        },
+        "realtime": {
+          "solved": 3,
+          "tests": 54
+        }
+      }
+    },
+    {
+      "id": "antigravity_cli-gemini_3_8_flash-high",
+      "model": "Gemini 3.8 Flash",
+      "harness": "Antigravity",
+      "effort": "high",
+      "label": "Antigravity + Gemini 3.8 Flash, reasoning high",
+      "scores": {
+        "overall": {
+          "solved": 25,
+          "tests": 481
+        },
+        "standard": {
+          "solved": 32,
+          "tests": 481
+        },
+        "privileged": {
+          "solved": 102,
+          "tests": 416
+        },
+        "realtime": {
+          "solved": 1,
+          "tests": 54
+        }
+      }
+    },
+    {
+      "id": "dsh-deepseek_v4_1_flash-high",
+      "model": "DeepSeek V4.1 Flash",
+      "harness": "DeepSeek Harness",
+      "effort": "high",
+      "label": "DeepSeek Harness + DeepSeek V4.1 Flash, reasoning high",
+      "scores": {
+        "overall": {
+          "solved": 14,
+          "tests": 481
+        },
+        "standard": {
+          "solved": 17,
+          "tests": 481
+        },
+        "privileged": {
+          "solved": 73,
+          "tests": 416
+        },
+        "realtime": {
+          "solved": 1,
+          "tests": 54
+        }
+      }
+    },
+    {
+      "id": "claude_code-glm_5_3_flash-high",
+      "model": "GLM 5.3 Flash",
+      "harness": "Claude Code",
+      "effort": "high",
+      "label": "Claude Code + GLM 5.3 Flash, reasoning high",
+      "scores": {
+        "overall": {
+          "solved": 11,
+          "tests": 481
+        },
+        "standard": {
+          "solved": 12,
+          "tests": 481
+        },
+        "privileged": {
+          "solved": 44,
+          "tests": 416
+        },
+        "realtime": {
+          "solved": 0,
+          "tests": 54
+        }
+      }
+    }
+  ],
+  "suites": [
+    {
+      "id": "behavior-1k",
+      "name": "BEHAVIOR-1K",
+      "code": "B1K",
+      "origin": "adapted",
+      "body": "mobile",
+      "page": "https://www.embodied-first-exam.ai/suite/behavior-1k/"
+    },
+    {
+      "id": "robolab",
+      "name": "RoboLab",
+      "code": "RLB",
+      "origin": "adapted",
+      "body": "arm",
+      "page": "https://www.embodied-first-exam.ai/suite/robolab/"
+    },
+    {
+      "id": "robocasa",
+      "name": "RoboCasa",
+      "code": "RCA",
+      "origin": "adapted",
+      "body": "mobile",
+      "page": "https://www.embodied-first-exam.ai/suite/robocasa/"
+    },
+    {
+      "id": "robocasa365",
+      "name": "RoboCasa365",
+      "code": "R365",
+      "origin": "adapted",
+      "body": "mobile",
+      "page": "https://www.embodied-first-exam.ai/suite/robocasa365/"
+    },
+    {
+      "id": "robocasa-gr1",
+      "name": "RoboCasa-GR1",
+      "code": "RGR1",
+      "origin": "adapted",
+      "body": "humanoid",
+      "page": "https://www.embodied-first-exam.ai/suite/robocasa-gr1/"
+    },
+    {
+      "id": "metaworldplus",
+      "name": "MetaWorld+",
+      "code": "MW+",
+      "origin": "adapted",
+      "body": "arm",
+      "page": "https://www.embodied-first-exam.ai/suite/metaworldplus/"
+    },
+    {
+      "id": "vlabench",
+      "name": "VLABench",
+      "code": "VLB",
+      "origin": "adapted",
+      "body": "arm",
+      "page": "https://www.embodied-first-exam.ai/suite/vlabench/"
+    },
+    {
+      "id": "humanoidbench",
+      "name": "HumanoidBench",
+      "code": "HB",
+      "origin": "adapted",
+      "body": "humanoid",
+      "page": "https://www.embodied-first-exam.ai/suite/humanoidbench/"
+    },
+    {
+      "id": "molmospaces",
+      "name": "MolmoSpaces",
+      "code": "MOL",
+      "origin": "adapted",
+      "body": "arm",
+      "page": "https://www.embodied-first-exam.ai/suite/molmospaces/"
+    },
+    {
+      "id": "kinder",
+      "name": "KinDER",
+      "code": "KND",
+      "origin": "adapted",
+      "body": "mobile",
+      "page": "https://www.embodied-first-exam.ai/suite/kinder/"
+    },
+    {
+      "id": "robopaint",
+      "name": "RoboPaint",
+      "code": "RPT",
+      "origin": "ours",
+      "body": "arm",
+      "page": "https://www.embodied-first-exam.ai/suite/robopaint/"
+    },
+    {
+      "id": "robotwin-2",
+      "name": "RoboTwin 2.0",
+      "code": "RTW",
+      "origin": "adapted",
+      "body": "bimanual",
+      "page": "https://www.embodied-first-exam.ai/suite/robotwin-2/"
+    },
+    {
+      "id": "mujoco-playground",
+      "name": "MuJoCo Playground",
+      "code": "MJP",
+      "origin": "adapted",
+      "body": "quadruped",
+      "page": "https://www.embodied-first-exam.ai/suite/mujoco-playground/"
+    },
+    {
+      "id": "dextoolbench",
+      "name": "DexToolBench",
+      "code": "DTB",
+      "origin": "adapted",
+      "body": "hand",
+      "page": "https://www.embodied-first-exam.ai/suite/dextoolbench/"
+    },
+    {
+      "id": "dexjoco",
+      "name": "DexJoCo",
+      "code": "DXJ",
+      "origin": "adapted",
+      "body": "hand",
+      "page": "https://www.embodied-first-exam.ai/suite/dexjoco/"
+    },
+    {
+      "id": "myosuite",
+      "name": "MyoSuite",
+      "code": "MYO",
+      "origin": "adapted",
+      "body": "musculoskeletal",
+      "page": "https://www.embodied-first-exam.ai/suite/myosuite/"
+    },
+    {
+      "id": "roboarc",
+      "name": "RoboARC",
+      "code": "ARC",
+      "origin": "ours",
+      "body": "bimanual",
+      "page": "https://www.embodied-first-exam.ai/suite/roboarc/"
+    },
+    {
+      "id": "robodojo",
+      "name": "RoboDojo",
+      "code": "RDJ",
+      "origin": "adapted",
+      "body": "bimanual",
+      "page": "https://www.embodied-first-exam.ai/suite/robodojo/"
+    },
+    {
+      "id": "pandadyn",
+      "name": "RoboDynamicExam",
+      "code": "PDS",
+      "origin": "ours",
+      "body": "bimanual",
+      "page": "https://www.embodied-first-exam.ai/suite/pandadyn/"
+    },
+    {
+      "id": "bigym2",
+      "name": "BiGym 2.0",
+      "code": "BG2",
+      "origin": "adapted",
+      "body": "humanoid",
+      "page": "https://www.embodied-first-exam.ai/suite/bigym2/"
+    },
+    {
+      "id": "yamlab",
+      "name": "YAMLab",
+      "code": "YAM",
+      "origin": "adapted",
+      "body": "bimanual",
+      "page": "https://www.embodied-first-exam.ai/suite/yamlab/"
+    },
+    {
+      "id": "libero-max",
+      "name": "LIBERO-MAX",
+      "code": "LBX",
+      "origin": "adapted",
+      "body": "arm",
+      "page": "https://www.embodied-first-exam.ai/suite/libero-max/"
+    },
+    {
+      "id": "embodied-olympics-fun",
+      "name": "Embodied Olympics - Fun",
+      "code": "OLF",
+      "origin": "ours",
+      "body": "humanoid",
+      "page": "https://www.embodied-first-exam.ai/suite/embodied-olympics-fun/"
+    },
+    {
+      "id": "embodied-olympics-match",
+      "name": "Embodied Olympics - Match",
+      "code": "OLM",
+      "origin": "ours",
+      "body": "arm",
+      "page": "https://www.embodied-first-exam.ai/suite/embodied-olympics-match/"
+    },
+    {
+      "id": "ambench",
+      "name": "AM-Bench",
+      "code": "AMB",
+      "origin": "adapted",
+      "body": "aerial",
+      "page": "https://www.embodied-first-exam.ai/suite/ambench/"
+    },
+    {
+      "id": "embodiedswe",
+      "name": "EmbodiedSWE",
+      "code": "ESW",
+      "origin": "adapted",
+      "body": "arm",
+      "page": "https://www.embodied-first-exam.ai/suite/embodiedswe/"
+    },
+    {
+      "id": "embodied-safety-exam",
+      "name": "Embodied Safety Exam",
+      "code": "ESE",
+      "origin": "ours",
+      "body": "arm",
+      "page": "https://www.embodied-first-exam.ai/suite/embodied-safety-exam/"
+    },
+    {
+      "id": "dexhand",
+      "name": "DexHandExam",
+      "code": "DXH",
+      "origin": "ours",
+      "body": "hand",
+      "page": "https://www.embodied-first-exam.ai/suite/dexhand/"
+    },
+    {
+      "id": "ispatialgym",
+      "name": "iSpatialGym",
+      "code": "ISG",
+      "origin": "ours",
+      "body": "mobile",
+      "page": "https://www.embodied-first-exam.ai/suite/ispatialgym/"
+    },
+    {
+      "id": "robowits",
+      "name": "RoboWits",
+      "code": "RWT",
+      "origin": "adapted",
+      "body": "bimanual",
+      "page": "https://www.embodied-first-exam.ai/suite/robowits/"
+    },
+    {
+      "id": "maniguard",
+      "name": "ManiGuard",
+      "code": "MGD",
+      "origin": "adapted",
+      "body": "arm",
+      "page": "https://www.embodied-first-exam.ai/suite/maniguard/"
+    },
+    {
+      "id": "roboengineer",
+      "name": "RoboEngineer",
+      "code": "ENG",
+      "origin": "ours",
+      "body": "mobile",
+      "page": "https://www.embodied-first-exam.ai/suite/roboengineer/"
+    }
+  ],
+  "views": {
+    "overall": {
+      "codex-gpt6_2_astra-high": {
+        "solved": 260,
+        "tests": 481
+      },
+      "claude_code-fable_5_2-high": {
+        "solved": 225,
+        "tests": 481
+      },
+      "codex-gpt6_astra-high": {
+        "solved": 162,
+        "tests": 481
+      },
+      "codex-gpt6_1_sol-high": {
+        "solved": 151,
+        "tests": 481
+      },
+      "claude_code-opus_5_5-high": {
+        "solved": 117,
+        "tests": 481
+      },
+      "antigravity_cli-gemini_4_argon-high": {
+        "solved": 97,
+        "tests": 481
+      },
+      "claude_code-kimi_3_1_pro-high": {
+        "solved": 44,
+        "tests": 481
+      },
+      "claude_code-qwen4_max-high": {
+        "solved": 32,
+        "tests": 481
+      },
+      "antigravity_cli-gemini_3_8_flash-high": {
+        "solved": 25,
+        "tests": 481
+      },
+      "dsh-deepseek_v4_1_flash-high": {
+        "solved": 14,
+        "tests": 481
+      },
+      "claude_code-glm_5_3_flash-high": {
+        "solved": 11,
+        "tests": 481
+      }
+    },
+    "standard": {
+      "codex-gpt6_2_astra-high": {
+        "solved": 279,
+        "tests": 481
+      },
+      "claude_code-fable_5_2-high": {
+        "solved": 248,
+        "tests": 481
+      },
+      "codex-gpt6_astra-high": {
+        "solved": 175,
+        "tests": 481
+      },
+      "codex-gpt6_1_sol-high": {
+        "solved": 163,
+        "tests": 481
+      },
+      "claude_code-opus_5_5-high": {
+        "solved": 130,
+        "tests": 481
+      },
+      "antigravity_cli-gemini_4_argon-high": {
+        "solved": 127,
+        "tests": 481
+      },
+      "claude_code-kimi_3_1_pro-high": {
+        "solved": 55,
+        "tests": 481
+      },
+      "claude_code-qwen4_max-high": {
+        "solved": 39,
+        "tests": 481
+      },
+      "antigravity_cli-gemini_3_8_flash-high": {
+        "solved": 32,
+        "tests": 481
+      },
+      "dsh-deepseek_v4_1_flash-high": {
+        "solved": 17,
+        "tests": 481
+      },
+      "claude_code-glm_5_3_flash-high": {
+        "solved": 12,
+        "tests": 481
+      }
+    },
+    "privileged": {
+      "codex-gpt6_2_astra-high": {
+        "solved": 395,
+        "tests": 416
+      },
+      "claude_code-fable_5_2-high": {
+        "solved": 337,
+        "tests": 416
+      },
+      "codex-gpt6_astra-high": {
+        "solved": 333,
+        "tests": 416
+      },
+      "codex-gpt6_1_sol-high": {
+        "solved": 309,
+        "tests": 416
+      },
+      "claude_code-opus_5_5-high": {
+        "solved": 257,
+        "tests": 416
+      },
+      "antigravity_cli-gemini_4_argon-high": {
+        "solved": 188,
+        "tests": 416
+      },
+      "claude_code-kimi_3_1_pro-high": {
+        "solved": 165,
+        "tests": 416
+      },
+      "claude_code-qwen4_max-high": {
+        "solved": 108,
+        "tests": 416
+      },
+      "antigravity_cli-gemini_3_8_flash-high": {
+        "solved": 102,
+        "tests": 416
+      },
+      "dsh-deepseek_v4_1_flash-high": {
+        "solved": 73,
+        "tests": 416
+      },
+      "claude_code-glm_5_3_flash-high": {
+        "solved": 44,
+        "tests": 416
+      }
+    },
+    "realtime": {
+      "codex-gpt6_2_astra-high": {
+        "solved": 22,
+        "tests": 54
+      },
+      "claude_code-fable_5_2-high": {
+        "solved": 22,
+        "tests": 54
+      },
+      "codex-gpt6_astra-high": {
+        "solved": 17,
+        "tests": 54
+      },
+      "codex-gpt6_1_sol-high": {
+        "solved": 13,
+        "tests": 54
+      },
+      "claude_code-opus_5_5-high": {
+        "solved": 4,
+        "tests": 54
+      },
+      "antigravity_cli-gemini_4_argon-high": {
+        "solved": 5,
+        "tests": 54
+      },
+      "claude_code-kimi_3_1_pro-high": {
+        "solved": 4,
+        "tests": 54
+      },
+      "claude_code-qwen4_max-high": {
+        "solved": 3,
+        "tests": 54
+      },
+      "antigravity_cli-gemini_3_8_flash-high": {
+        "solved": 1,
+        "tests": 54
+      },
+      "dsh-deepseek_v4_1_flash-high": {
+        "solved": 1,
+        "tests": 54
+      },
+      "claude_code-glm_5_3_flash-high": {
+        "solved": 0,
+        "tests": 54
+      }
+    }
+  },
+  "suite_scores": {
+    "standard": {
+      "ambench": {
+        "codex-gpt6_2_astra-high": {
+          "solved": 1,
+          "tests": 2
+        },
+        "claude_code-fable_5_2-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "codex-gpt6_astra-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "codex-gpt6_1_sol-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "claude_code-opus_5_5-high": {
+          "solved": 1,
+          "tests": 2
+        },
+        "antigravity_cli-gemini_4_argon-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "claude_code-kimi_3_1_pro-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "claude_code-qwen4_max-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "antigravity_cli-gemini_3_8_flash-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "dsh-deepseek_v4_1_flash-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "claude_code-glm_5_3_flash-high": {
+          "solved": 0,
+          "tests": 2
+        }
+      },
+      "behavior-1k": {
+        "codex-gpt6_2_astra-high": {
+          "solved": 40,
+          "tests": 71
+        },
+        "claude_code-fable_5_2-high": {
+          "solved": 26,
+          "tests": 71
+        },
+        "codex-gpt6_astra-high": {
+          "solved": 14,
+          "tests": 71
+        },
+        "codex-gpt6_1_sol-high": {
+          "solved": 13,
+          "tests": 71
+        },
+        "claude_code-opus_5_5-high": {
+          "solved": 5,
+          "tests": 71
+        },
+        "antigravity_cli-gemini_4_argon-high": {
+          "solved": 4,
+          "tests": 71
+        },
+        "claude_code-kimi_3_1_pro-high": {
+          "solved": 0,
+          "tests": 71
+        },
+        "claude_code-qwen4_max-high": {
+          "solved": 1,
+          "tests": 71
+        },
+        "antigravity_cli-gemini_3_8_flash-high": {
+          "solved": 0,
+          "tests": 71
+        },
+        "dsh-deepseek_v4_1_flash-high": {
+          "solved": 0,
+          "tests": 71
+        },
+        "claude_code-glm_5_3_flash-high": {
+          "solved": 0,
+          "tests": 71
+        }
+      },
+      "bigym2": {
+        "codex-gpt6_2_astra-high": {
+          "solved": 7,
+          "tests": 10
+        },
+        "claude_code-fable_5_2-high": {
+          "solved": 6,
+          "tests": 10
+        },
+        "codex-gpt6_astra-high": {
+          "solved": 4,
+          "tests": 10
+        },
+        "codex-gpt6_1_sol-high": {
+          "solved": 0,
+          "tests": 10
+        },
+        "claude_code-opus_5_5-high": {
+          "solved": 2,
+          "tests": 10
+        },
+        "antigravity_cli-gemini_4_argon-high": {
+          "solved": 2,
+          "tests": 10
+        },
+        "claude_code-kimi_3_1_pro-high": {
+          "solved": 0,
+          "tests": 10
+        },
+        "claude_code-qwen4_max-high": {
+          "solved": 0,
+          "tests": 10
+        },
+        "antigravity_cli-gemini_3_8_flash-high": {
+          "solved": 0,
+          "tests": 10
+        },
+        "dsh-deepseek_v4_1_flash-high": {
+          "solved": 0,
+          "tests": 10
+        },
+        "claude_code-glm_5_3_flash-high": {
+          "solved": 0,
+          "tests": 10
+        }
+      },
+      "dexhand": {
+        "codex-gpt6_2_astra-high": {
+          "solved": 20,
+          "tests": 23
+        },
+        "claude_code-fable_5_2-high": {
+          "solved": 15,
+          "tests": 23
+        },
+        "codex-gpt6_astra-high": {
+          "solved": 13,
+          "tests": 23
+        },
+        "codex-gpt6_1_sol-high": {
+          "solved": 9,
+          "tests": 23
+        },
+        "claude_code-opus_5_5-high": {
+          "solved": 2,
+          "tests": 23
+        },
+        "antigravity_cli-gemini_4_argon-high": {
+          "solved": 6,
+          "tests": 23
+        },
+        "claude_code-kimi_3_1_pro-high": {
+          "solved": 2,
+          "tests": 23
+        },
+        "claude_code-qwen4_max-high": {
+          "solved": 1,
+          "tests": 23
+        },
+        "antigravity_cli-gemini_3_8_flash-high": {
+          "solved": 1,
+          "tests": 23
+        },
+        "dsh-deepseek_v4_1_flash-high": {
+          "solved": 0,
+          "tests": 23
+        },
+        "claude_code-glm_5_3_flash-high": {
+          "solved": 0,
+          "tests": 23
+        }
+      },
+      "dexjoco": {
+        "codex-gpt6_2_astra-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "claude_code-fable_5_2-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "codex-gpt6_astra-high": {
+          "solved": 1,
+          "tests": 2
+        },
+        "codex-gpt6_1_sol-high": {
+          "solved": 0,
+          "tests": 2
+        },
+        "claude_code-opus_5_5-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "antigravity_cli-gemini_4_argon-high": {
+          "solved": 1,
+          "tests": 2
+        },
+        "claude_code-kimi_3_1_pro-high": {
+          "solved": 0,
+          "tests": 2
+        },
+        "claude_code-qwen4_max-high": {
+          "solved": 0,
+          "tests": 2
+        },
+        "antigravity_cli-gemini_3_8_flash-high": {
+          "solved": 1,
+          "tests": 2
+        },
+        "dsh-deepseek_v4_1_flash-high": {
+          "solved": 0,
+          "tests": 2
+        },
+        "claude_code-glm_5_3_flash-high": {
+          "solved": 0,
+          "tests": 2
+        }
+      },
+      "dextoolbench": {
+        "codex-gpt6_2_astra-high": {
+          "solved": 4,
+          "tests": 20
+        },
+        "claude_code-fable_5_2-high": {
+          "solved": 1,
+          "tests": 20
+        },
+        "codex-gpt6_astra-high": {
+          "solved": 2,
+          "tests": 20
+        },
+        "codex-gpt6_1_sol-high": {
+          "solved": 1,
+          "tests": 20
+        },
+        "claude_code-opus_5_5-high": {
+          "solved": 0,
+          "tests": 20
+        },
+        "antigravity_cli-gemini_4_argon-high": {
+          "solved": 0,
+          "tests": 20
+        },
+        "claude_code-kimi_3_1_pro-high": {
+          "solved": 0,
+          "tests": 20
+        },
+        "claude_code-qwen4_max-high": {
+          "solved": 0,
+          "tests": 20
+        },
+        "antigravity_cli-gemini_3_8_flash-high": {
+          "solved": 0,
+          "tests": 20
+        },
+        "dsh-deepseek_v4_1_flash-high": {
+          "solved": 0,
+          "tests": 20
+        },
+        "claude_code-glm_5_3_flash-high": {
+          "solved": 0,
+          "tests": 20
+        }
+      },
+      "embodied-olympics-fun": {
+        "codex-gpt6_2_astra-high": {
+          "solved": 27,
+          "tests": 56
+        },
+        "claude_code-fable_5_2-high": {
+          "solved": 27,
+          "tests": 56
+        },
+        "codex-gpt6_astra-high": {
+          "solved": 20,
+          "tests": 56
+        },
+        "codex-gpt6_1_sol-high": {
+          "solved": 20,
+          "tests": 56
+        },
+        "claude_code-opus_5_5-high": {
+          "solved": 16,
+          "tests": 56
+        },
+        "antigravity_cli-gemini_4_argon-high": {
+          "solved": 13,
+          "tests": 56
+        },
+        "claude_code-kimi_3_1_pro-high": {
+          "solved": 7,
+          "tests": 56
+        },
+        "claude_code-qwen4_max-high": {
+          "solved": 7,
+          "tests": 56
+        },
+        "antigravity_cli-gemini_3_8_flash-high": {
+          "solved": 2,
+          "tests": 56
+        },
+        "dsh-deepseek_v4_1_flash-high": {
+          "solved": 2,
+          "tests": 56
+        },
+        "claude_code-glm_5_3_flash-high": {
+          "solved": 0,
+          "tests": 56
+        }
+      },
+      "embodied-olympics-match": {
+        "codex-gpt6_2_astra-high": {
+          "solved": 9,
+          "tests": 13
+        },
+        "claude_code-fable_5_2-high": {
+          "solved": 10,
+          "tests": 13
+        },
+        "codex-gpt6_astra-high": {
+          "solved": 6,
+          "tests": 13
+        },
+        "codex-gpt6_1_sol-high": {
+          "solved": 6,
+          "tests": 13
+        },
+        "claude_code-opus_5_5-high": {
+          "solved": 3,
+          "tests": 13
+        },
+        "antigravity_cli-gemini_4_argon-high": {
+          "solved": 6,
+          "tests": 13
+        },
+        "claude_code-kimi_3_1_pro-high": {
+          "solved": 3,
+          "tests": 13
+        },
+        "claude_code-qwen4_max-high": {
+          "solved": 2,
+          "tests": 13
+        },
+        "antigravity_cli-gemini_3_8_flash-high": {
+          "solved": 0,
+          "tests": 13
+        },
+        "dsh-deepseek_v4_1_flash-high": {
+          "solved": 0,
+          "tests": 13
+        },
+        "claude_code-glm_5_3_flash-high": {
+          "solved": 1,
+          "tests": 13
+        }
+      },
+      "embodied-safety-exam": {
+        "codex-gpt6_2_astra-high": {
+          "solved": 27,
+          "tests": 50
+        },
+        "claude_code-fable_5_2-high": {
+          "solved": 35,
+          "tests": 50
+        },
+        "codex-gpt6_astra-high": {
+          "solved": 32,
+          "tests": 50
+        },
+        "codex-gpt6_1_sol-high": {
+          "solved": 29,
+          "tests": 50
+        },
+        "claude_code-opus_5_5-high": {
+          "solved": 19,
+          "tests": 50
+        },
+        "antigravity_cli-gemini_4_argon-high": {
+          "solved": 27,
+          "tests": 50
+        },
+        "claude_code-kimi_3_1_pro-high": {
+          "solved": 10,
+          "tests": 50
+        },
+        "claude_code-qwen4_max-high": {
+          "solved": 8,
+          "tests": 50
+        },
+        "antigravity_cli-gemini_3_8_flash-high": {
+          "solved": 10,
+          "tests": 50
+        },
+        "dsh-deepseek_v4_1_flash-high": {
+          "solved": 2,
+          "tests": 50
+        },
+        "claude_code-glm_5_3_flash-high": {
+          "solved": 5,
+          "tests": 50
+        }
+      },
+      "embodiedswe": {
+        "codex-gpt6_2_astra-high": {
+          "solved": 8,
+          "tests": 12
+        },
+        "claude_code-fable_5_2-high": {
+          "solved": 8,
+          "tests": 12
+        },
+        "codex-gpt6_astra-high": {
+          "solved": 5,
+          "tests": 12
+        },
+        "codex-gpt6_1_sol-high": {
+          "solved": 5,
+          "tests": 12
+        },
+        "claude_code-opus_5_5-high": {
+          "solved": 6,
+          "tests": 12
+        },
+        "antigravity_cli-gemini_4_argon-high": {
+          "solved": 4,
+          "tests": 12
+        },
+        "claude_code-kimi_3_1_pro-high": {
+          "solved": 0,
+          "tests": 12
+        },
+        "claude_code-qwen4_max-high": {
+          "solved": 0,
+          "tests": 12
+        },
+        "antigravity_cli-gemini_3_8_flash-high": {
+          "solved": 2,
+          "tests": 12
+        },
+        "dsh-deepseek_v4_1_flash-high": {
+          "solved": 0,
+          "tests": 12
+        },
+        "claude_code-glm_5_3_flash-high": {
+          "solved": 0,
+          "tests": 12
+        }
+      },
+      "humanoidbench": {
+        "codex-gpt6_2_astra-high": {
+          "solved": 1,
+          "tests": 8
+        },
+        "claude_code-fable_5_2-high": {
+          "solved": 0,
+          "tests": 8
+        },
+        "codex-gpt6_astra-high": {
+          "solved": 1,
+          "tests": 8
+        },
+        "codex-gpt6_1_sol-high": {
+          "solved": 0,
+          "tests": 8
+        },
+        "claude_code-opus_5_5-high": {
+          "solved": 0,
+          "tests": 8
+        },
+        "antigravity_cli-gemini_4_argon-high": {
+          "solved": 0,
+          "tests": 8
+        },
+        "claude_code-kimi_3_1_pro-high": {
+          "solved": 0,
+          "tests": 8
+        },
+        "claude_code-qwen4_max-high": {
+          "solved": 0,
+          "tests": 8
+        },
+        "antigravity_cli-gemini_3_8_flash-high": {
+          "solved": 0,
+          "tests": 8
+        },
+        "dsh-deepseek_v4_1_flash-high": {
+          "solved": 0,
+          "tests": 8
+        },
+        "claude_code-glm_5_3_flash-high": {
+          "solved": 0,
+          "tests": 8
+        }
+      },
+      "ispatialgym": {
+        "codex-gpt6_2_astra-high": {
+          "solved": 7,
+          "tests": 8
+        },
+        "claude_code-fable_5_2-high": {
+          "solved": 7,
+          "tests": 8
+        },
+        "codex-gpt6_astra-high": {
+          "solved": 4,
+          "tests": 8
+        },
+        "codex-gpt6_1_sol-high": {
+          "solved": 5,
+          "tests": 8
+        },
+        "claude_code-opus_5_5-high": {
+          "solved": 3,
+          "tests": 8
+        },
+        "antigravity_cli-gemini_4_argon-high": {
+          "solved": 3,
+          "tests": 8
+        },
+        "claude_code-kimi_3_1_pro-high": {
+          "solved": 3,
+          "tests": 8
+        },
+        "claude_code-qwen4_max-high": {
+          "solved": 0,
+          "tests": 8
+        },
+        "antigravity_cli-gemini_3_8_flash-high": {
+          "solved": 3,
+          "tests": 8
+        },
+        "dsh-deepseek_v4_1_flash-high": {
+          "solved": 1,
+          "tests": 8
+        },
+        "claude_code-glm_5_3_flash-high": {
+          "solved": 0,
+          "tests": 8
+        }
+      },
+      "kinder": {
+        "codex-gpt6_2_astra-high": {
+          "solved": 2,
+          "tests": 4
+        },
+        "claude_code-fable_5_2-high": {
+          "solved": 1,
+          "tests": 4
+        },
+        "codex-gpt6_astra-high": {
+          "solved": 0,
+          "tests": 4
+        },
+        "codex-gpt6_1_sol-high": {
+          "solved": 1,
+          "tests": 4
+        },
+        "claude_code-opus_5_5-high": {
+          "solved": 0,
+          "tests": 4
+        },
+        "antigravity_cli-gemini_4_argon-high": {
+          "solved": 0,
+          "tests": 4
+        },
+        "claude_code-kimi_3_1_pro-high": {
+          "solved": 0,
+          "tests": 4
+        },
+        "claude_code-qwen4_max-high": {
+          "solved": 0,
+          "tests": 4
+        },
+        "antigravity_cli-gemini_3_8_flash-high": {
+          "solved": 0,
+          "tests": 4
+        },
+        "dsh-deepseek_v4_1_flash-high": {
+          "solved": 0,
+          "tests": 4
+        },
+        "claude_code-glm_5_3_flash-high": {
+          "solved": 0,
+          "tests": 4
+        }
+      },
+      "libero-max": {
+        "codex-gpt6_2_astra-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "claude_code-fable_5_2-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "codex-gpt6_astra-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "codex-gpt6_1_sol-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "claude_code-opus_5_5-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "antigravity_cli-gemini_4_argon-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "claude_code-kimi_3_1_pro-high": {
+          "solved": 1,
+          "tests": 2
+        },
+        "claude_code-qwen4_max-high": {
+          "solved": 0,
+          "tests": 2
+        },
+        "antigravity_cli-gemini_3_8_flash-high": {
+          "solved": 1,
+          "tests": 2
+        },
+        "dsh-deepseek_v4_1_flash-high": {
+          "solved": 0,
+          "tests": 2
+        },
+        "claude_code-glm_5_3_flash-high": {
+          "solved": 0,
+          "tests": 2
+        }
+      },
+      "maniguard": {
+        "codex-gpt6_2_astra-high": {
+          "solved": 4,
+          "tests": 7
+        },
+        "claude_code-fable_5_2-high": {
+          "solved": 6,
+          "tests": 7
+        },
+        "codex-gpt6_astra-high": {
+          "solved": 3,
+          "tests": 7
+        },
+        "codex-gpt6_1_sol-high": {
+          "solved": 5,
+          "tests": 7
+        },
+        "claude_code-opus_5_5-high": {
+          "solved": 7,
+          "tests": 7
+        },
+        "antigravity_cli-gemini_4_argon-high": {
+          "solved": 4,
+          "tests": 7
+        },
+        "claude_code-kimi_3_1_pro-high": {
+          "solved": 4,
+          "tests": 7
+        },
+        "claude_code-qwen4_max-high": {
+          "solved": 1,
+          "tests": 7
+        },
+        "antigravity_cli-gemini_3_8_flash-high": {
+          "solved": 2,
+          "tests": 7
+        },
+        "dsh-deepseek_v4_1_flash-high": {
+          "solved": 0,
+          "tests": 7
+        },
+        "claude_code-glm_5_3_flash-high": {
+          "solved": 0,
+          "tests": 7
+        }
+      },
+      "metaworldplus": {
+        "codex-gpt6_2_astra-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "claude_code-fable_5_2-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "codex-gpt6_astra-high": {
+          "solved": 1,
+          "tests": 2
+        },
+        "codex-gpt6_1_sol-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "claude_code-opus_5_5-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "antigravity_cli-gemini_4_argon-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "claude_code-kimi_3_1_pro-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "claude_code-qwen4_max-high": {
+          "solved": 1,
+          "tests": 2
+        },
+        "antigravity_cli-gemini_3_8_flash-high": {
+          "solved": 1,
+          "tests": 2
+        },
+        "dsh-deepseek_v4_1_flash-high": {
+          "solved": 1,
+          "tests": 2
+        },
+        "claude_code-glm_5_3_flash-high": {
+          "solved": 1,
+          "tests": 2
+        }
+      },
+      "molmospaces": {
+        "codex-gpt6_2_astra-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "claude_code-fable_5_2-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "codex-gpt6_astra-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "codex-gpt6_1_sol-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "claude_code-opus_5_5-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "antigravity_cli-gemini_4_argon-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "claude_code-kimi_3_1_pro-high": {
+          "solved": 1,
+          "tests": 2
+        },
+        "claude_code-qwen4_max-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "antigravity_cli-gemini_3_8_flash-high": {
+          "solved": 0,
+          "tests": 2
+        },
+        "dsh-deepseek_v4_1_flash-high": {
+          "solved": 1,
+          "tests": 2
+        },
+        "claude_code-glm_5_3_flash-high": {
+          "solved": 1,
+          "tests": 2
+        }
+      },
+      "mujoco-playground": {
+        "codex-gpt6_2_astra-high": {
+          "solved": 7,
+          "tests": 7
+        },
+        "claude_code-fable_5_2-high": {
+          "solved": 3,
+          "tests": 7
+        },
+        "codex-gpt6_astra-high": {
+          "solved": 4,
+          "tests": 7
+        },
+        "codex-gpt6_1_sol-high": {
+          "solved": 3,
+          "tests": 7
+        },
+        "claude_code-opus_5_5-high": {
+          "solved": 0,
+          "tests": 7
+        },
+        "antigravity_cli-gemini_4_argon-high": {
+          "solved": 2,
+          "tests": 7
+        },
+        "claude_code-kimi_3_1_pro-high": {
+          "solved": 0,
+          "tests": 7
+        },
+        "claude_code-qwen4_max-high": {
+          "solved": 0,
+          "tests": 7
+        },
+        "antigravity_cli-gemini_3_8_flash-high": {
+          "solved": 0,
+          "tests": 7
+        },
+        "dsh-deepseek_v4_1_flash-high": {
+          "solved": 0,
+          "tests": 7
+        },
+        "claude_code-glm_5_3_flash-high": {
+          "solved": 0,
+          "tests": 7
+        }
+      },
+      "myosuite": {
+        "codex-gpt6_2_astra-high": {
+          "solved": 7,
+          "tests": 13
+        },
+        "claude_code-fable_5_2-high": {
+          "solved": 5,
+          "tests": 13
+        },
+        "codex-gpt6_astra-high": {
+          "solved": 3,
+          "tests": 13
+        },
+        "codex-gpt6_1_sol-high": {
+          "solved": 3,
+          "tests": 13
+        },
+        "claude_code-opus_5_5-high": {
+          "solved": 3,
+          "tests": 13
+        },
+        "antigravity_cli-gemini_4_argon-high": {
+          "solved": 1,
+          "tests": 13
+        },
+        "claude_code-kimi_3_1_pro-high": {
+          "solved": 1,
+          "tests": 13
+        },
+        "claude_code-qwen4_max-high": {
+          "solved": 0,
+          "tests": 13
+        },
+        "antigravity_cli-gemini_3_8_flash-high": {
+          "solved": 0,
+          "tests": 13
+        },
+        "dsh-deepseek_v4_1_flash-high": {
+          "solved": 0,
+          "tests": 13
+        },
+        "claude_code-glm_5_3_flash-high": {
+          "solved": 0,
+          "tests": 13
+        }
+      },
+      "pandadyn": {
+        "codex-gpt6_2_astra-high": {
+          "solved": 5,
+          "tests": 10
+        },
+        "claude_code-fable_5_2-high": {
+          "solved": 4,
+          "tests": 10
+        },
+        "codex-gpt6_astra-high": {
+          "solved": 3,
+          "tests": 10
+        },
+        "codex-gpt6_1_sol-high": {
+          "solved": 4,
+          "tests": 10
+        },
+        "claude_code-opus_5_5-high": {
+          "solved": 1,
+          "tests": 10
+        },
+        "antigravity_cli-gemini_4_argon-high": {
+          "solved": 2,
+          "tests": 10
+        },
+        "claude_code-kimi_3_1_pro-high": {
+          "solved": 0,
+          "tests": 10
+        },
+        "claude_code-qwen4_max-high": {
+          "solved": 0,
+          "tests": 10
+        },
+        "antigravity_cli-gemini_3_8_flash-high": {
+          "solved": 0,
+          "tests": 10
+        },
+        "dsh-deepseek_v4_1_flash-high": {
+          "solved": 0,
+          "tests": 10
+        },
+        "claude_code-glm_5_3_flash-high": {
+          "solved": 0,
+          "tests": 10
+        }
+      },
+      "roboarc": {
+        "codex-gpt6_2_astra-high": {
+          "solved": 32,
+          "tests": 58
+        },
+        "claude_code-fable_5_2-high": {
+          "solved": 33,
+          "tests": 58
+        },
+        "codex-gpt6_astra-high": {
+          "solved": 15,
+          "tests": 58
+        },
+        "codex-gpt6_1_sol-high": {
+          "solved": 14,
+          "tests": 58
+        },
+        "claude_code-opus_5_5-high": {
+          "solved": 15,
+          "tests": 58
+        },
+        "antigravity_cli-gemini_4_argon-high": {
+          "solved": 11,
+          "tests": 58
+        },
+        "claude_code-kimi_3_1_pro-high": {
+          "solved": 1,
+          "tests": 58
+        },
+        "claude_code-qwen4_max-high": {
+          "solved": 0,
+          "tests": 58
+        },
+        "antigravity_cli-gemini_3_8_flash-high": {
+          "solved": 2,
+          "tests": 58
+        },
+        "dsh-deepseek_v4_1_flash-high": {
+          "solved": 2,
+          "tests": 58
+        },
+        "claude_code-glm_5_3_flash-high": {
+          "solved": 0,
+          "tests": 58
+        }
+      },
+      "robocasa": {
+        "codex-gpt6_2_astra-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "claude_code-fable_5_2-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "codex-gpt6_astra-high": {
+          "solved": 0,
+          "tests": 2
+        },
+        "codex-gpt6_1_sol-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "claude_code-opus_5_5-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "antigravity_cli-gemini_4_argon-high": {
+          "solved": 1,
+          "tests": 2
+        },
+        "claude_code-kimi_3_1_pro-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "claude_code-qwen4_max-high": {
+          "solved": 0,
+          "tests": 2
+        },
+        "antigravity_cli-gemini_3_8_flash-high": {
+          "solved": 0,
+          "tests": 2
+        },
+        "dsh-deepseek_v4_1_flash-high": {
+          "solved": 1,
+          "tests": 2
+        },
+        "claude_code-glm_5_3_flash-high": {
+          "solved": 0,
+          "tests": 2
+        }
+      },
+      "robocasa-gr1": {
+        "codex-gpt6_2_astra-high": {
+          "solved": 1,
+          "tests": 1
+        },
+        "claude_code-fable_5_2-high": {
+          "solved": 1,
+          "tests": 1
+        },
+        "codex-gpt6_astra-high": {
+          "solved": 0,
+          "tests": 1
+        },
+        "codex-gpt6_1_sol-high": {
+          "solved": 0,
+          "tests": 1
+        },
+        "claude_code-opus_5_5-high": {
+          "solved": 1,
+          "tests": 1
+        },
+        "antigravity_cli-gemini_4_argon-high": {
+          "solved": 0,
+          "tests": 1
+        },
+        "claude_code-kimi_3_1_pro-high": {
+          "solved": 1,
+          "tests": 1
+        },
+        "claude_code-qwen4_max-high": {
+          "solved": 0,
+          "tests": 1
+        },
+        "antigravity_cli-gemini_3_8_flash-high": {
+          "solved": 0,
+          "tests": 1
+        },
+        "dsh-deepseek_v4_1_flash-high": {
+          "solved": 0,
+          "tests": 1
+        },
+        "claude_code-glm_5_3_flash-high": {
+          "solved": 0,
+          "tests": 1
+        }
+      },
+      "robocasa365": {
+        "codex-gpt6_2_astra-high": {
+          "solved": 3,
+          "tests": 5
+        },
+        "claude_code-fable_5_2-high": {
+          "solved": 2,
+          "tests": 5
+        },
+        "codex-gpt6_astra-high": {
+          "solved": 1,
+          "tests": 5
+        },
+        "codex-gpt6_1_sol-high": {
+          "solved": 1,
+          "tests": 5
+        },
+        "claude_code-opus_5_5-high": {
+          "solved": 1,
+          "tests": 5
+        },
+        "antigravity_cli-gemini_4_argon-high": {
+          "solved": 0,
+          "tests": 5
+        },
+        "claude_code-kimi_3_1_pro-high": {
+          "solved": 0,
+          "tests": 5
+        },
+        "claude_code-qwen4_max-high": {
+          "solved": 0,
+          "tests": 5
+        },
+        "antigravity_cli-gemini_3_8_flash-high": {
+          "solved": 0,
+          "tests": 5
+        },
+        "dsh-deepseek_v4_1_flash-high": {
+          "solved": 0,
+          "tests": 5
+        },
+        "claude_code-glm_5_3_flash-high": {
+          "solved": 0,
+          "tests": 5
+        }
+      },
+      "robodojo": {
+        "codex-gpt6_2_astra-high": {
+          "solved": 22,
+          "tests": 37
+        },
+        "claude_code-fable_5_2-high": {
+          "solved": 28,
+          "tests": 37
+        },
+        "codex-gpt6_astra-high": {
+          "solved": 21,
+          "tests": 37
+        },
+        "codex-gpt6_1_sol-high": {
+          "solved": 16,
+          "tests": 37
+        },
+        "claude_code-opus_5_5-high": {
+          "solved": 18,
+          "tests": 37
+        },
+        "antigravity_cli-gemini_4_argon-high": {
+          "solved": 21,
+          "tests": 37
+        },
+        "claude_code-kimi_3_1_pro-high": {
+          "solved": 10,
+          "tests": 37
+        },
+        "claude_code-qwen4_max-high": {
+          "solved": 6,
+          "tests": 37
+        },
+        "antigravity_cli-gemini_3_8_flash-high": {
+          "solved": 3,
+          "tests": 37
+        },
+        "dsh-deepseek_v4_1_flash-high": {
+          "solved": 3,
+          "tests": 37
+        },
+        "claude_code-glm_5_3_flash-high": {
+          "solved": 1,
+          "tests": 37
+        }
+      },
+      "roboengineer": {
+        "codex-gpt6_2_astra-high": {
+          "solved": 3,
+          "tests": 15
+        },
+        "claude_code-fable_5_2-high": {
+          "solved": 7,
+          "tests": 15
+        },
+        "codex-gpt6_astra-high": {
+          "solved": 5,
+          "tests": 15
+        },
+        "codex-gpt6_1_sol-high": {
+          "solved": 3,
+          "tests": 15
+        },
+        "claude_code-opus_5_5-high": {
+          "solved": 4,
+          "tests": 15
+        },
+        "antigravity_cli-gemini_4_argon-high": {
+          "solved": 4,
+          "tests": 15
+        },
+        "claude_code-kimi_3_1_pro-high": {
+          "solved": 2,
+          "tests": 15
+        },
+        "claude_code-qwen4_max-high": {
+          "solved": 3,
+          "tests": 15
+        },
+        "antigravity_cli-gemini_3_8_flash-high": {
+          "solved": 0,
+          "tests": 15
+        },
+        "dsh-deepseek_v4_1_flash-high": {
+          "solved": 2,
+          "tests": 15
+        },
+        "claude_code-glm_5_3_flash-high": {
+          "solved": 2,
+          "tests": 15
+        }
+      },
+      "robolab": {
+        "codex-gpt6_2_astra-high": {
+          "solved": 2,
+          "tests": 6
+        },
+        "claude_code-fable_5_2-high": {
+          "solved": 2,
+          "tests": 6
+        },
+        "codex-gpt6_astra-high": {
+          "solved": 0,
+          "tests": 6
+        },
+        "codex-gpt6_1_sol-high": {
+          "solved": 2,
+          "tests": 6
+        },
+        "claude_code-opus_5_5-high": {
+          "solved": 1,
+          "tests": 6
+        },
+        "antigravity_cli-gemini_4_argon-high": {
+          "solved": 1,
+          "tests": 6
+        },
+        "claude_code-kimi_3_1_pro-high": {
+          "solved": 0,
+          "tests": 6
+        },
+        "claude_code-qwen4_max-high": {
+          "solved": 2,
+          "tests": 6
+        },
+        "antigravity_cli-gemini_3_8_flash-high": {
+          "solved": 1,
+          "tests": 6
+        },
+        "dsh-deepseek_v4_1_flash-high": {
+          "solved": 0,
+          "tests": 6
+        },
+        "claude_code-glm_5_3_flash-high": {
+          "solved": 0,
+          "tests": 6
+        }
+      },
+      "robopaint": {
+        "codex-gpt6_2_astra-high": {
+          "solved": 21,
+          "tests": 22
+        },
+        "claude_code-fable_5_2-high": {
+          "solved": 2,
+          "tests": 22
+        },
+        "codex-gpt6_astra-high": {
+          "solved": 7,
+          "tests": 22
+        },
+        "codex-gpt6_1_sol-high": {
+          "solved": 6,
+          "tests": 22
+        },
+        "claude_code-opus_5_5-high": {
+          "solved": 2,
+          "tests": 22
+        },
+        "antigravity_cli-gemini_4_argon-high": {
+          "solved": 2,
+          "tests": 22
+        },
+        "claude_code-kimi_3_1_pro-high": {
+          "solved": 0,
+          "tests": 22
+        },
+        "claude_code-qwen4_max-high": {
+          "solved": 0,
+          "tests": 22
+        },
+        "antigravity_cli-gemini_3_8_flash-high": {
+          "solved": 0,
+          "tests": 22
+        },
+        "dsh-deepseek_v4_1_flash-high": {
+          "solved": 0,
+          "tests": 22
+        },
+        "claude_code-glm_5_3_flash-high": {
+          "solved": 0,
+          "tests": 22
+        }
+      },
+      "robotwin-2": {
+        "codex-gpt6_2_astra-high": {
+          "solved": 3,
+          "tests": 3
+        },
+        "claude_code-fable_5_2-high": {
+          "solved": 1,
+          "tests": 3
+        },
+        "codex-gpt6_astra-high": {
+          "solved": 1,
+          "tests": 3
+        },
+        "codex-gpt6_1_sol-high": {
+          "solved": 2,
+          "tests": 3
+        },
+        "claude_code-opus_5_5-high": {
+          "solved": 3,
+          "tests": 3
+        },
+        "antigravity_cli-gemini_4_argon-high": {
+          "solved": 1,
+          "tests": 3
+        },
+        "claude_code-kimi_3_1_pro-high": {
+          "solved": 1,
+          "tests": 3
+        },
+        "claude_code-qwen4_max-high": {
+          "solved": 1,
+          "tests": 3
+        },
+        "antigravity_cli-gemini_3_8_flash-high": {
+          "solved": 0,
+          "tests": 3
+        },
+        "dsh-deepseek_v4_1_flash-high": {
+          "solved": 0,
+          "tests": 3
+        },
+        "claude_code-glm_5_3_flash-high": {
+          "solved": 0,
+          "tests": 3
+        }
+      },
+      "robowits": {
+        "codex-gpt6_2_astra-high": {
+          "solved": 3,
+          "tests": 6
+        },
+        "claude_code-fable_5_2-high": {
+          "solved": 3,
+          "tests": 6
+        },
+        "codex-gpt6_astra-high": {
+          "solved": 2,
+          "tests": 6
+        },
+        "codex-gpt6_1_sol-high": {
+          "solved": 3,
+          "tests": 6
+        },
+        "claude_code-opus_5_5-high": {
+          "solved": 4,
+          "tests": 6
+        },
+        "antigravity_cli-gemini_4_argon-high": {
+          "solved": 2,
+          "tests": 6
+        },
+        "claude_code-kimi_3_1_pro-high": {
+          "solved": 2,
+          "tests": 6
+        },
+        "claude_code-qwen4_max-high": {
+          "solved": 2,
+          "tests": 6
+        },
+        "antigravity_cli-gemini_3_8_flash-high": {
+          "solved": 0,
+          "tests": 6
+        },
+        "dsh-deepseek_v4_1_flash-high": {
+          "solved": 0,
+          "tests": 6
+        },
+        "claude_code-glm_5_3_flash-high": {
+          "solved": 1,
+          "tests": 6
+        }
+      },
+      "vlabench": {
+        "codex-gpt6_2_astra-high": {
+          "solved": 1,
+          "tests": 2
+        },
+        "claude_code-fable_5_2-high": {
+          "solved": 1,
+          "tests": 2
+        },
+        "codex-gpt6_astra-high": {
+          "solved": 0,
+          "tests": 2
+        },
+        "codex-gpt6_1_sol-high": {
+          "solved": 1,
+          "tests": 2
+        },
+        "claude_code-opus_5_5-high": {
+          "solved": 1,
+          "tests": 2
+        },
+        "antigravity_cli-gemini_4_argon-high": {
+          "solved": 0,
+          "tests": 2
+        },
+        "claude_code-kimi_3_1_pro-high": {
+          "solved": 0,
+          "tests": 2
+        },
+        "claude_code-qwen4_max-high": {
+          "solved": 0,
+          "tests": 2
+        },
+        "antigravity_cli-gemini_3_8_flash-high": {
+          "solved": 0,
+          "tests": 2
+        },
+        "dsh-deepseek_v4_1_flash-high": {
+          "solved": 0,
+          "tests": 2
+        },
+        "claude_code-glm_5_3_flash-high": {
+          "solved": 0,
+          "tests": 2
+        }
+      },
+      "yamlab": {
+        "codex-gpt6_2_astra-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "claude_code-fable_5_2-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "codex-gpt6_astra-high": {
+          "solved": 1,
+          "tests": 2
+        },
+        "codex-gpt6_1_sol-high": {
+          "solved": 1,
+          "tests": 2
+        },
+        "claude_code-opus_5_5-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "antigravity_cli-gemini_4_argon-high": {
+          "solved": 1,
+          "tests": 2
+        },
+        "claude_code-kimi_3_1_pro-high": {
+          "solved": 0,
+          "tests": 2
+        },
+        "claude_code-qwen4_max-high": {
+          "solved": 0,
+          "tests": 2
+        },
+        "antigravity_cli-gemini_3_8_flash-high": {
+          "solved": 1,
+          "tests": 2
+        },
+        "dsh-deepseek_v4_1_flash-high": {
+          "solved": 0,
+          "tests": 2
+        },
+        "claude_code-glm_5_3_flash-high": {
+          "solved": 0,
+          "tests": 2
+        }
+      }
+    },
+    "privileged": {
+      "ambench": {
+        "codex-gpt6_2_astra-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "claude_code-fable_5_2-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "codex-gpt6_astra-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "codex-gpt6_1_sol-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "claude_code-opus_5_5-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "antigravity_cli-gemini_4_argon-high": {
+          "solved": 0,
+          "tests": 2
+        },
+        "claude_code-kimi_3_1_pro-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "claude_code-qwen4_max-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "antigravity_cli-gemini_3_8_flash-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "dsh-deepseek_v4_1_flash-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "claude_code-glm_5_3_flash-high": {
+          "solved": 2,
+          "tests": 2
+        }
+      },
+      "behavior-1k": {
+        "codex-gpt6_2_astra-high": {
+          "solved": 67,
+          "tests": 71
+        },
+        "claude_code-fable_5_2-high": {
+          "solved": 36,
+          "tests": 71
+        },
+        "codex-gpt6_astra-high": {
+          "solved": 36,
+          "tests": 71
+        },
+        "codex-gpt6_1_sol-high": {
+          "solved": 38,
+          "tests": 71
+        },
+        "claude_code-opus_5_5-high": {
+          "solved": 22,
+          "tests": 71
+        },
+        "antigravity_cli-gemini_4_argon-high": {
+          "solved": 6,
+          "tests": 71
+        },
+        "claude_code-kimi_3_1_pro-high": {
+          "solved": 13,
+          "tests": 71
+        },
+        "claude_code-qwen4_max-high": {
+          "solved": 6,
+          "tests": 71
+        },
+        "antigravity_cli-gemini_3_8_flash-high": {
+          "solved": 2,
+          "tests": 71
+        },
+        "dsh-deepseek_v4_1_flash-high": {
+          "solved": 3,
+          "tests": 71
+        },
+        "claude_code-glm_5_3_flash-high": {
+          "solved": 1,
+          "tests": 71
+        }
+      },
+      "bigym2": {
+        "codex-gpt6_2_astra-high": {
+          "solved": 10,
+          "tests": 10
+        },
+        "claude_code-fable_5_2-high": {
+          "solved": 10,
+          "tests": 10
+        },
+        "codex-gpt6_astra-high": {
+          "solved": 10,
+          "tests": 10
+        },
+        "codex-gpt6_1_sol-high": {
+          "solved": 9,
+          "tests": 10
+        },
+        "claude_code-opus_5_5-high": {
+          "solved": 5,
+          "tests": 10
+        },
+        "antigravity_cli-gemini_4_argon-high": {
+          "solved": 7,
+          "tests": 10
+        },
+        "claude_code-kimi_3_1_pro-high": {
+          "solved": 8,
+          "tests": 10
+        },
+        "claude_code-qwen4_max-high": {
+          "solved": 2,
+          "tests": 10
+        },
+        "antigravity_cli-gemini_3_8_flash-high": {
+          "solved": 6,
+          "tests": 10
+        },
+        "dsh-deepseek_v4_1_flash-high": {
+          "solved": 0,
+          "tests": 10
+        },
+        "claude_code-glm_5_3_flash-high": {
+          "solved": 0,
+          "tests": 10
+        }
+      },
+      "dexhand": {
+        "codex-gpt6_2_astra-high": {
+          "solved": 23,
+          "tests": 23
+        },
+        "claude_code-fable_5_2-high": {
+          "solved": 22,
+          "tests": 23
+        },
+        "codex-gpt6_astra-high": {
+          "solved": 22,
+          "tests": 23
+        },
+        "codex-gpt6_1_sol-high": {
+          "solved": 18,
+          "tests": 23
+        },
+        "claude_code-opus_5_5-high": {
+          "solved": 16,
+          "tests": 23
+        },
+        "antigravity_cli-gemini_4_argon-high": {
+          "solved": 8,
+          "tests": 23
+        },
+        "claude_code-kimi_3_1_pro-high": {
+          "solved": 10,
+          "tests": 23
+        },
+        "claude_code-qwen4_max-high": {
+          "solved": 5,
+          "tests": 23
+        },
+        "antigravity_cli-gemini_3_8_flash-high": {
+          "solved": 5,
+          "tests": 23
+        },
+        "dsh-deepseek_v4_1_flash-high": {
+          "solved": 0,
+          "tests": 23
+        },
+        "claude_code-glm_5_3_flash-high": {
+          "solved": 0,
+          "tests": 23
+        }
+      },
+      "dexjoco": {
+        "codex-gpt6_2_astra-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "claude_code-fable_5_2-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "codex-gpt6_astra-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "codex-gpt6_1_sol-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "claude_code-opus_5_5-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "antigravity_cli-gemini_4_argon-high": {
+          "solved": 1,
+          "tests": 2
+        },
+        "claude_code-kimi_3_1_pro-high": {
+          "solved": 1,
+          "tests": 2
+        },
+        "claude_code-qwen4_max-high": {
+          "solved": 1,
+          "tests": 2
+        },
+        "antigravity_cli-gemini_3_8_flash-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "dsh-deepseek_v4_1_flash-high": {
+          "solved": 1,
+          "tests": 2
+        },
+        "claude_code-glm_5_3_flash-high": {
+          "solved": 0,
+          "tests": 2
+        }
+      },
+      "dextoolbench": {
+        "codex-gpt6_2_astra-high": {
+          "solved": 17,
+          "tests": 20
+        },
+        "claude_code-fable_5_2-high": {
+          "solved": 10,
+          "tests": 20
+        },
+        "codex-gpt6_astra-high": {
+          "solved": 13,
+          "tests": 20
+        },
+        "codex-gpt6_1_sol-high": {
+          "solved": 10,
+          "tests": 20
+        },
+        "claude_code-opus_5_5-high": {
+          "solved": 0,
+          "tests": 20
+        },
+        "antigravity_cli-gemini_4_argon-high": {
+          "solved": 1,
+          "tests": 20
+        },
+        "claude_code-kimi_3_1_pro-high": {
+          "solved": 0,
+          "tests": 20
+        },
+        "claude_code-qwen4_max-high": {
+          "solved": 1,
+          "tests": 20
+        },
+        "antigravity_cli-gemini_3_8_flash-high": {
+          "solved": 2,
+          "tests": 20
+        },
+        "dsh-deepseek_v4_1_flash-high": {
+          "solved": 1,
+          "tests": 20
+        },
+        "claude_code-glm_5_3_flash-high": {
+          "solved": 0,
+          "tests": 20
+        }
+      },
+      "embodied-olympics-fun": {
+        "codex-gpt6_2_astra-high": {
+          "solved": 52,
+          "tests": 56
+        },
+        "claude_code-fable_5_2-high": {
+          "solved": 49,
+          "tests": 56
+        },
+        "codex-gpt6_astra-high": {
+          "solved": 49,
+          "tests": 56
+        },
+        "codex-gpt6_1_sol-high": {
+          "solved": 45,
+          "tests": 56
+        },
+        "claude_code-opus_5_5-high": {
+          "solved": 45,
+          "tests": 56
+        },
+        "antigravity_cli-gemini_4_argon-high": {
+          "solved": 32,
+          "tests": 56
+        },
+        "claude_code-kimi_3_1_pro-high": {
+          "solved": 29,
+          "tests": 56
+        },
+        "claude_code-qwen4_max-high": {
+          "solved": 30,
+          "tests": 56
+        },
+        "antigravity_cli-gemini_3_8_flash-high": {
+          "solved": 22,
+          "tests": 56
+        },
+        "dsh-deepseek_v4_1_flash-high": {
+          "solved": 18,
+          "tests": 56
+        },
+        "claude_code-glm_5_3_flash-high": {
+          "solved": 16,
+          "tests": 56
+        }
+      },
+      "embodied-olympics-match": {
+        "codex-gpt6_2_astra-high": {
+          "solved": 12,
+          "tests": 13
+        },
+        "claude_code-fable_5_2-high": {
+          "solved": 12,
+          "tests": 13
+        },
+        "codex-gpt6_astra-high": {
+          "solved": 11,
+          "tests": 13
+        },
+        "codex-gpt6_1_sol-high": {
+          "solved": 12,
+          "tests": 13
+        },
+        "claude_code-opus_5_5-high": {
+          "solved": 12,
+          "tests": 13
+        },
+        "antigravity_cli-gemini_4_argon-high": {
+          "solved": 12,
+          "tests": 13
+        },
+        "claude_code-kimi_3_1_pro-high": {
+          "solved": 8,
+          "tests": 13
+        },
+        "claude_code-qwen4_max-high": {
+          "solved": 8,
+          "tests": 13
+        },
+        "antigravity_cli-gemini_3_8_flash-high": {
+          "solved": 9,
+          "tests": 13
+        },
+        "dsh-deepseek_v4_1_flash-high": {
+          "solved": 8,
+          "tests": 13
+        },
+        "claude_code-glm_5_3_flash-high": {
+          "solved": 5,
+          "tests": 13
+        }
+      },
+      "embodiedswe": {
+        "codex-gpt6_2_astra-high": {
+          "solved": 12,
+          "tests": 12
+        },
+        "claude_code-fable_5_2-high": {
+          "solved": 12,
+          "tests": 12
+        },
+        "codex-gpt6_astra-high": {
+          "solved": 11,
+          "tests": 12
+        },
+        "codex-gpt6_1_sol-high": {
+          "solved": 11,
+          "tests": 12
+        },
+        "claude_code-opus_5_5-high": {
+          "solved": 10,
+          "tests": 12
+        },
+        "antigravity_cli-gemini_4_argon-high": {
+          "solved": 9,
+          "tests": 12
+        },
+        "claude_code-kimi_3_1_pro-high": {
+          "solved": 6,
+          "tests": 12
+        },
+        "claude_code-qwen4_max-high": {
+          "solved": 2,
+          "tests": 12
+        },
+        "antigravity_cli-gemini_3_8_flash-high": {
+          "solved": 5,
+          "tests": 12
+        },
+        "dsh-deepseek_v4_1_flash-high": {
+          "solved": 2,
+          "tests": 12
+        },
+        "claude_code-glm_5_3_flash-high": {
+          "solved": 2,
+          "tests": 12
+        }
+      },
+      "humanoidbench": {
+        "codex-gpt6_2_astra-high": {
+          "solved": 5,
+          "tests": 8
+        },
+        "claude_code-fable_5_2-high": {
+          "solved": 3,
+          "tests": 8
+        },
+        "codex-gpt6_astra-high": {
+          "solved": 3,
+          "tests": 8
+        },
+        "codex-gpt6_1_sol-high": {
+          "solved": 3,
+          "tests": 8
+        },
+        "claude_code-opus_5_5-high": {
+          "solved": 2,
+          "tests": 8
+        },
+        "antigravity_cli-gemini_4_argon-high": {
+          "solved": 2,
+          "tests": 8
+        },
+        "claude_code-kimi_3_1_pro-high": {
+          "solved": 1,
+          "tests": 8
+        },
+        "claude_code-qwen4_max-high": {
+          "solved": 1,
+          "tests": 8
+        },
+        "antigravity_cli-gemini_3_8_flash-high": {
+          "solved": 0,
+          "tests": 8
+        },
+        "dsh-deepseek_v4_1_flash-high": {
+          "solved": 0,
+          "tests": 8
+        },
+        "claude_code-glm_5_3_flash-high": {
+          "solved": 0,
+          "tests": 8
+        }
+      },
+      "ispatialgym": {
+        "codex-gpt6_2_astra-high": {
+          "solved": 8,
+          "tests": 8
+        },
+        "claude_code-fable_5_2-high": {
+          "solved": 7,
+          "tests": 8
+        },
+        "codex-gpt6_astra-high": {
+          "solved": 7,
+          "tests": 8
+        },
+        "codex-gpt6_1_sol-high": {
+          "solved": 7,
+          "tests": 8
+        },
+        "claude_code-opus_5_5-high": {
+          "solved": 5,
+          "tests": 8
+        },
+        "antigravity_cli-gemini_4_argon-high": {
+          "solved": 4,
+          "tests": 8
+        },
+        "claude_code-kimi_3_1_pro-high": {
+          "solved": 2,
+          "tests": 8
+        },
+        "claude_code-qwen4_max-high": {
+          "solved": 4,
+          "tests": 8
+        },
+        "antigravity_cli-gemini_3_8_flash-high": {
+          "solved": 3,
+          "tests": 8
+        },
+        "dsh-deepseek_v4_1_flash-high": {
+          "solved": 3,
+          "tests": 8
+        },
+        "claude_code-glm_5_3_flash-high": {
+          "solved": 0,
+          "tests": 8
+        }
+      },
+      "kinder": {
+        "codex-gpt6_2_astra-high": {
+          "solved": 3,
+          "tests": 4
+        },
+        "claude_code-fable_5_2-high": {
+          "solved": 2,
+          "tests": 4
+        },
+        "codex-gpt6_astra-high": {
+          "solved": 2,
+          "tests": 4
+        },
+        "codex-gpt6_1_sol-high": {
+          "solved": 2,
+          "tests": 4
+        },
+        "claude_code-opus_5_5-high": {
+          "solved": 1,
+          "tests": 4
+        },
+        "antigravity_cli-gemini_4_argon-high": {
+          "solved": 0,
+          "tests": 4
+        },
+        "claude_code-kimi_3_1_pro-high": {
+          "solved": 0,
+          "tests": 4
+        },
+        "claude_code-qwen4_max-high": {
+          "solved": 0,
+          "tests": 4
+        },
+        "antigravity_cli-gemini_3_8_flash-high": {
+          "solved": 0,
+          "tests": 4
+        },
+        "dsh-deepseek_v4_1_flash-high": {
+          "solved": 0,
+          "tests": 4
+        },
+        "claude_code-glm_5_3_flash-high": {
+          "solved": 1,
+          "tests": 4
+        }
+      },
+      "libero-max": {
+        "codex-gpt6_2_astra-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "claude_code-fable_5_2-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "codex-gpt6_astra-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "codex-gpt6_1_sol-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "claude_code-opus_5_5-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "antigravity_cli-gemini_4_argon-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "claude_code-kimi_3_1_pro-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "claude_code-qwen4_max-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "antigravity_cli-gemini_3_8_flash-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "dsh-deepseek_v4_1_flash-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "claude_code-glm_5_3_flash-high": {
+          "solved": 0,
+          "tests": 2
+        }
+      },
+      "maniguard": {
+        "codex-gpt6_2_astra-high": {
+          "solved": 7,
+          "tests": 7
+        },
+        "claude_code-fable_5_2-high": {
+          "solved": 7,
+          "tests": 7
+        },
+        "codex-gpt6_astra-high": {
+          "solved": 7,
+          "tests": 7
+        },
+        "codex-gpt6_1_sol-high": {
+          "solved": 7,
+          "tests": 7
+        },
+        "claude_code-opus_5_5-high": {
+          "solved": 7,
+          "tests": 7
+        },
+        "antigravity_cli-gemini_4_argon-high": {
+          "solved": 7,
+          "tests": 7
+        },
+        "claude_code-kimi_3_1_pro-high": {
+          "solved": 5,
+          "tests": 7
+        },
+        "claude_code-qwen4_max-high": {
+          "solved": 4,
+          "tests": 7
+        },
+        "antigravity_cli-gemini_3_8_flash-high": {
+          "solved": 3,
+          "tests": 7
+        },
+        "dsh-deepseek_v4_1_flash-high": {
+          "solved": 2,
+          "tests": 7
+        },
+        "claude_code-glm_5_3_flash-high": {
+          "solved": 0,
+          "tests": 7
+        }
+      },
+      "metaworldplus": {
+        "codex-gpt6_2_astra-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "claude_code-fable_5_2-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "codex-gpt6_astra-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "codex-gpt6_1_sol-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "claude_code-opus_5_5-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "antigravity_cli-gemini_4_argon-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "claude_code-kimi_3_1_pro-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "claude_code-qwen4_max-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "antigravity_cli-gemini_3_8_flash-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "dsh-deepseek_v4_1_flash-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "claude_code-glm_5_3_flash-high": {
+          "solved": 2,
+          "tests": 2
+        }
+      },
+      "molmospaces": {
+        "codex-gpt6_2_astra-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "claude_code-fable_5_2-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "codex-gpt6_astra-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "codex-gpt6_1_sol-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "claude_code-opus_5_5-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "antigravity_cli-gemini_4_argon-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "claude_code-kimi_3_1_pro-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "claude_code-qwen4_max-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "antigravity_cli-gemini_3_8_flash-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "dsh-deepseek_v4_1_flash-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "claude_code-glm_5_3_flash-high": {
+          "solved": 2,
+          "tests": 2
+        }
+      },
+      "mujoco-playground": {
+        "codex-gpt6_2_astra-high": {
+          "solved": 7,
+          "tests": 7
+        },
+        "claude_code-fable_5_2-high": {
+          "solved": 7,
+          "tests": 7
+        },
+        "codex-gpt6_astra-high": {
+          "solved": 7,
+          "tests": 7
+        },
+        "codex-gpt6_1_sol-high": {
+          "solved": 7,
+          "tests": 7
+        },
+        "claude_code-opus_5_5-high": {
+          "solved": 5,
+          "tests": 7
+        },
+        "antigravity_cli-gemini_4_argon-high": {
+          "solved": 4,
+          "tests": 7
+        },
+        "claude_code-kimi_3_1_pro-high": {
+          "solved": 5,
+          "tests": 7
+        },
+        "claude_code-qwen4_max-high": {
+          "solved": 3,
+          "tests": 7
+        },
+        "antigravity_cli-gemini_3_8_flash-high": {
+          "solved": 3,
+          "tests": 7
+        },
+        "dsh-deepseek_v4_1_flash-high": {
+          "solved": 3,
+          "tests": 7
+        },
+        "claude_code-glm_5_3_flash-high": {
+          "solved": 1,
+          "tests": 7
+        }
+      },
+      "myosuite": {
+        "codex-gpt6_2_astra-high": {
+          "solved": 8,
+          "tests": 13
+        },
+        "claude_code-fable_5_2-high": {
+          "solved": 6,
+          "tests": 13
+        },
+        "codex-gpt6_astra-high": {
+          "solved": 6,
+          "tests": 13
+        },
+        "codex-gpt6_1_sol-high": {
+          "solved": 7,
+          "tests": 13
+        },
+        "claude_code-opus_5_5-high": {
+          "solved": 5,
+          "tests": 13
+        },
+        "antigravity_cli-gemini_4_argon-high": {
+          "solved": 0,
+          "tests": 13
+        },
+        "claude_code-kimi_3_1_pro-high": {
+          "solved": 3,
+          "tests": 13
+        },
+        "claude_code-qwen4_max-high": {
+          "solved": 1,
+          "tests": 13
+        },
+        "antigravity_cli-gemini_3_8_flash-high": {
+          "solved": 2,
+          "tests": 13
+        },
+        "dsh-deepseek_v4_1_flash-high": {
+          "solved": 3,
+          "tests": 13
+        },
+        "claude_code-glm_5_3_flash-high": {
+          "solved": 0,
+          "tests": 13
+        }
+      },
+      "pandadyn": {
+        "codex-gpt6_2_astra-high": {
+          "solved": 10,
+          "tests": 10
+        },
+        "claude_code-fable_5_2-high": {
+          "solved": 10,
+          "tests": 10
+        },
+        "codex-gpt6_astra-high": {
+          "solved": 10,
+          "tests": 10
+        },
+        "codex-gpt6_1_sol-high": {
+          "solved": 10,
+          "tests": 10
+        },
+        "claude_code-opus_5_5-high": {
+          "solved": 10,
+          "tests": 10
+        },
+        "antigravity_cli-gemini_4_argon-high": {
+          "solved": 5,
+          "tests": 10
+        },
+        "claude_code-kimi_3_1_pro-high": {
+          "solved": 7,
+          "tests": 10
+        },
+        "claude_code-qwen4_max-high": {
+          "solved": 1,
+          "tests": 10
+        },
+        "antigravity_cli-gemini_3_8_flash-high": {
+          "solved": 2,
+          "tests": 10
+        },
+        "dsh-deepseek_v4_1_flash-high": {
+          "solved": 2,
+          "tests": 10
+        },
+        "claude_code-glm_5_3_flash-high": {
+          "solved": 1,
+          "tests": 10
+        }
+      },
+      "roboarc": {
+        "codex-gpt6_2_astra-high": {
+          "solved": 58,
+          "tests": 58
+        },
+        "claude_code-fable_5_2-high": {
+          "solved": 53,
+          "tests": 58
+        },
+        "codex-gpt6_astra-high": {
+          "solved": 47,
+          "tests": 58
+        },
+        "codex-gpt6_1_sol-high": {
+          "solved": 40,
+          "tests": 58
+        },
+        "claude_code-opus_5_5-high": {
+          "solved": 43,
+          "tests": 58
+        },
+        "antigravity_cli-gemini_4_argon-high": {
+          "solved": 27,
+          "tests": 58
+        },
+        "claude_code-kimi_3_1_pro-high": {
+          "solved": 13,
+          "tests": 58
+        },
+        "claude_code-qwen4_max-high": {
+          "solved": 7,
+          "tests": 58
+        },
+        "antigravity_cli-gemini_3_8_flash-high": {
+          "solved": 5,
+          "tests": 58
+        },
+        "dsh-deepseek_v4_1_flash-high": {
+          "solved": 5,
+          "tests": 58
+        },
+        "claude_code-glm_5_3_flash-high": {
+          "solved": 1,
+          "tests": 58
+        }
+      },
+      "robocasa": {
+        "codex-gpt6_2_astra-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "claude_code-fable_5_2-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "codex-gpt6_astra-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "codex-gpt6_1_sol-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "claude_code-opus_5_5-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "antigravity_cli-gemini_4_argon-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "claude_code-kimi_3_1_pro-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "claude_code-qwen4_max-high": {
+          "solved": 0,
+          "tests": 2
+        },
+        "antigravity_cli-gemini_3_8_flash-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "dsh-deepseek_v4_1_flash-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "claude_code-glm_5_3_flash-high": {
+          "solved": 2,
+          "tests": 2
+        }
+      },
+      "robocasa-gr1": {
+        "codex-gpt6_2_astra-high": {
+          "solved": 1,
+          "tests": 1
+        },
+        "claude_code-fable_5_2-high": {
+          "solved": 1,
+          "tests": 1
+        },
+        "codex-gpt6_astra-high": {
+          "solved": 1,
+          "tests": 1
+        },
+        "codex-gpt6_1_sol-high": {
+          "solved": 1,
+          "tests": 1
+        },
+        "claude_code-opus_5_5-high": {
+          "solved": 1,
+          "tests": 1
+        },
+        "antigravity_cli-gemini_4_argon-high": {
+          "solved": 1,
+          "tests": 1
+        },
+        "claude_code-kimi_3_1_pro-high": {
+          "solved": 0,
+          "tests": 1
+        },
+        "claude_code-qwen4_max-high": {
+          "solved": 0,
+          "tests": 1
+        },
+        "antigravity_cli-gemini_3_8_flash-high": {
+          "solved": 0,
+          "tests": 1
+        },
+        "dsh-deepseek_v4_1_flash-high": {
+          "solved": 0,
+          "tests": 1
+        },
+        "claude_code-glm_5_3_flash-high": {
+          "solved": 0,
+          "tests": 1
+        }
+      },
+      "robocasa365": {
+        "codex-gpt6_2_astra-high": {
+          "solved": 5,
+          "tests": 5
+        },
+        "claude_code-fable_5_2-high": {
+          "solved": 5,
+          "tests": 5
+        },
+        "codex-gpt6_astra-high": {
+          "solved": 5,
+          "tests": 5
+        },
+        "codex-gpt6_1_sol-high": {
+          "solved": 5,
+          "tests": 5
+        },
+        "claude_code-opus_5_5-high": {
+          "solved": 4,
+          "tests": 5
+        },
+        "antigravity_cli-gemini_4_argon-high": {
+          "solved": 3,
+          "tests": 5
+        },
+        "claude_code-kimi_3_1_pro-high": {
+          "solved": 0,
+          "tests": 5
+        },
+        "claude_code-qwen4_max-high": {
+          "solved": 0,
+          "tests": 5
+        },
+        "antigravity_cli-gemini_3_8_flash-high": {
+          "solved": 0,
+          "tests": 5
+        },
+        "dsh-deepseek_v4_1_flash-high": {
+          "solved": 0,
+          "tests": 5
+        },
+        "claude_code-glm_5_3_flash-high": {
+          "solved": 0,
+          "tests": 5
+        }
+      },
+      "robodojo": {
+        "codex-gpt6_2_astra-high": {
+          "solved": 37,
+          "tests": 37
+        },
+        "claude_code-fable_5_2-high": {
+          "solved": 36,
+          "tests": 37
+        },
+        "codex-gpt6_astra-high": {
+          "solved": 35,
+          "tests": 37
+        },
+        "codex-gpt6_1_sol-high": {
+          "solved": 29,
+          "tests": 37
+        },
+        "claude_code-opus_5_5-high": {
+          "solved": 27,
+          "tests": 37
+        },
+        "antigravity_cli-gemini_4_argon-high": {
+          "solved": 24,
+          "tests": 37
+        },
+        "claude_code-kimi_3_1_pro-high": {
+          "solved": 19,
+          "tests": 37
+        },
+        "claude_code-qwen4_max-high": {
+          "solved": 15,
+          "tests": 37
+        },
+        "antigravity_cli-gemini_3_8_flash-high": {
+          "solved": 9,
+          "tests": 37
+        },
+        "dsh-deepseek_v4_1_flash-high": {
+          "solved": 7,
+          "tests": 37
+        },
+        "claude_code-glm_5_3_flash-high": {
+          "solved": 6,
+          "tests": 37
+        }
+      },
+      "robolab": {
+        "codex-gpt6_2_astra-high": {
+          "solved": 6,
+          "tests": 6
+        },
+        "claude_code-fable_5_2-high": {
+          "solved": 5,
+          "tests": 6
+        },
+        "codex-gpt6_astra-high": {
+          "solved": 5,
+          "tests": 6
+        },
+        "codex-gpt6_1_sol-high": {
+          "solved": 4,
+          "tests": 6
+        },
+        "claude_code-opus_5_5-high": {
+          "solved": 3,
+          "tests": 6
+        },
+        "antigravity_cli-gemini_4_argon-high": {
+          "solved": 1,
+          "tests": 6
+        },
+        "claude_code-kimi_3_1_pro-high": {
+          "solved": 3,
+          "tests": 6
+        },
+        "claude_code-qwen4_max-high": {
+          "solved": 1,
+          "tests": 6
+        },
+        "antigravity_cli-gemini_3_8_flash-high": {
+          "solved": 2,
+          "tests": 6
+        },
+        "dsh-deepseek_v4_1_flash-high": {
+          "solved": 0,
+          "tests": 6
+        },
+        "claude_code-glm_5_3_flash-high": {
+          "solved": 1,
+          "tests": 6
+        }
+      },
+      "robopaint": {
+        "codex-gpt6_2_astra-high": {
+          "solved": 22,
+          "tests": 22
+        },
+        "claude_code-fable_5_2-high": {
+          "solved": 20,
+          "tests": 22
+        },
+        "codex-gpt6_astra-high": {
+          "solved": 22,
+          "tests": 22
+        },
+        "codex-gpt6_1_sol-high": {
+          "solved": 20,
+          "tests": 22
+        },
+        "claude_code-opus_5_5-high": {
+          "solved": 11,
+          "tests": 22
+        },
+        "antigravity_cli-gemini_4_argon-high": {
+          "solved": 15,
+          "tests": 22
+        },
+        "claude_code-kimi_3_1_pro-high": {
+          "solved": 14,
+          "tests": 22
+        },
+        "claude_code-qwen4_max-high": {
+          "solved": 2,
+          "tests": 22
+        },
+        "antigravity_cli-gemini_3_8_flash-high": {
+          "solved": 4,
+          "tests": 22
+        },
+        "dsh-deepseek_v4_1_flash-high": {
+          "solved": 1,
+          "tests": 22
+        },
+        "claude_code-glm_5_3_flash-high": {
+          "solved": 0,
+          "tests": 22
+        }
+      },
+      "robotwin-2": {
+        "codex-gpt6_2_astra-high": {
+          "solved": 3,
+          "tests": 3
+        },
+        "claude_code-fable_5_2-high": {
+          "solved": 3,
+          "tests": 3
+        },
+        "codex-gpt6_astra-high": {
+          "solved": 3,
+          "tests": 3
+        },
+        "codex-gpt6_1_sol-high": {
+          "solved": 3,
+          "tests": 3
+        },
+        "claude_code-opus_5_5-high": {
+          "solved": 3,
+          "tests": 3
+        },
+        "antigravity_cli-gemini_4_argon-high": {
+          "solved": 3,
+          "tests": 3
+        },
+        "claude_code-kimi_3_1_pro-high": {
+          "solved": 1,
+          "tests": 3
+        },
+        "claude_code-qwen4_max-high": {
+          "solved": 2,
+          "tests": 3
+        },
+        "antigravity_cli-gemini_3_8_flash-high": {
+          "solved": 1,
+          "tests": 3
+        },
+        "dsh-deepseek_v4_1_flash-high": {
+          "solved": 2,
+          "tests": 3
+        },
+        "claude_code-glm_5_3_flash-high": {
+          "solved": 0,
+          "tests": 3
+        }
+      },
+      "robowits": {
+        "codex-gpt6_2_astra-high": {
+          "solved": 6,
+          "tests": 6
+        },
+        "claude_code-fable_5_2-high": {
+          "solved": 5,
+          "tests": 6
+        },
+        "codex-gpt6_astra-high": {
+          "solved": 5,
+          "tests": 6
+        },
+        "codex-gpt6_1_sol-high": {
+          "solved": 5,
+          "tests": 6
+        },
+        "claude_code-opus_5_5-high": {
+          "solved": 5,
+          "tests": 6
+        },
+        "antigravity_cli-gemini_4_argon-high": {
+          "solved": 5,
+          "tests": 6
+        },
+        "claude_code-kimi_3_1_pro-high": {
+          "solved": 4,
+          "tests": 6
+        },
+        "claude_code-qwen4_max-high": {
+          "solved": 3,
+          "tests": 6
+        },
+        "antigravity_cli-gemini_3_8_flash-high": {
+          "solved": 4,
+          "tests": 6
+        },
+        "dsh-deepseek_v4_1_flash-high": {
+          "solved": 1,
+          "tests": 6
+        },
+        "claude_code-glm_5_3_flash-high": {
+          "solved": 1,
+          "tests": 6
+        }
+      },
+      "vlabench": {
+        "codex-gpt6_2_astra-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "claude_code-fable_5_2-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "codex-gpt6_astra-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "codex-gpt6_1_sol-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "claude_code-opus_5_5-high": {
+          "solved": 1,
+          "tests": 2
+        },
+        "antigravity_cli-gemini_4_argon-high": {
+          "solved": 1,
+          "tests": 2
+        },
+        "claude_code-kimi_3_1_pro-high": {
+          "solved": 1,
+          "tests": 2
+        },
+        "claude_code-qwen4_max-high": {
+          "solved": 0,
+          "tests": 2
+        },
+        "antigravity_cli-gemini_3_8_flash-high": {
+          "solved": 0,
+          "tests": 2
+        },
+        "dsh-deepseek_v4_1_flash-high": {
+          "solved": 1,
+          "tests": 2
+        },
+        "claude_code-glm_5_3_flash-high": {
+          "solved": 0,
+          "tests": 2
+        }
+      },
+      "yamlab": {
+        "codex-gpt6_2_astra-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "claude_code-fable_5_2-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "codex-gpt6_astra-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "codex-gpt6_1_sol-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "claude_code-opus_5_5-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "antigravity_cli-gemini_4_argon-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "claude_code-kimi_3_1_pro-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "claude_code-qwen4_max-high": {
+          "solved": 1,
+          "tests": 2
+        },
+        "antigravity_cli-gemini_3_8_flash-high": {
+          "solved": 1,
+          "tests": 2
+        },
+        "dsh-deepseek_v4_1_flash-high": {
+          "solved": 0,
+          "tests": 2
+        },
+        "claude_code-glm_5_3_flash-high": {
+          "solved": 0,
+          "tests": 2
+        }
+      }
+    },
+    "realtime": {
+      "bigym2": {
+        "codex-gpt6_2_astra-high": {
+          "solved": 1,
+          "tests": 10
+        },
+        "claude_code-fable_5_2-high": {
+          "solved": 1,
+          "tests": 10
+        },
+        "codex-gpt6_astra-high": {
+          "solved": 1,
+          "tests": 10
+        },
+        "codex-gpt6_1_sol-high": {
+          "solved": 0,
+          "tests": 10
+        },
+        "claude_code-opus_5_5-high": {
+          "solved": 1,
+          "tests": 10
+        },
+        "antigravity_cli-gemini_4_argon-high": {
+          "solved": 0,
+          "tests": 10
+        },
+        "claude_code-kimi_3_1_pro-high": {
+          "solved": 0,
+          "tests": 10
+        },
+        "claude_code-qwen4_max-high": {
+          "solved": 0,
+          "tests": 10
+        },
+        "antigravity_cli-gemini_3_8_flash-high": {
+          "solved": 0,
+          "tests": 10
+        },
+        "dsh-deepseek_v4_1_flash-high": {
+          "solved": 0,
+          "tests": 10
+        },
+        "claude_code-glm_5_3_flash-high": {
+          "solved": 0,
+          "tests": 10
+        }
+      },
+      "embodied-olympics-fun": {
+        "codex-gpt6_2_astra-high": {
+          "solved": 4,
+          "tests": 11
+        },
+        "claude_code-fable_5_2-high": {
+          "solved": 6,
+          "tests": 11
+        },
+        "codex-gpt6_astra-high": {
+          "solved": 6,
+          "tests": 11
+        },
+        "codex-gpt6_1_sol-high": {
+          "solved": 6,
+          "tests": 11
+        },
+        "claude_code-opus_5_5-high": {
+          "solved": 1,
+          "tests": 11
+        },
+        "antigravity_cli-gemini_4_argon-high": {
+          "solved": 0,
+          "tests": 11
+        },
+        "claude_code-kimi_3_1_pro-high": {
+          "solved": 2,
+          "tests": 11
+        },
+        "claude_code-qwen4_max-high": {
+          "solved": 2,
+          "tests": 11
+        },
+        "antigravity_cli-gemini_3_8_flash-high": {
+          "solved": 0,
+          "tests": 11
+        },
+        "dsh-deepseek_v4_1_flash-high": {
+          "solved": 1,
+          "tests": 11
+        },
+        "claude_code-glm_5_3_flash-high": {
+          "solved": 0,
+          "tests": 11
+        }
+      },
+      "embodied-olympics-match": {
+        "codex-gpt6_2_astra-high": {
+          "solved": 7,
+          "tests": 12
+        },
+        "claude_code-fable_5_2-high": {
+          "solved": 5,
+          "tests": 12
+        },
+        "codex-gpt6_astra-high": {
+          "solved": 4,
+          "tests": 12
+        },
+        "codex-gpt6_1_sol-high": {
+          "solved": 4,
+          "tests": 12
+        },
+        "claude_code-opus_5_5-high": {
+          "solved": 0,
+          "tests": 12
+        },
+        "antigravity_cli-gemini_4_argon-high": {
+          "solved": 2,
+          "tests": 12
+        },
+        "claude_code-kimi_3_1_pro-high": {
+          "solved": 2,
+          "tests": 12
+        },
+        "claude_code-qwen4_max-high": {
+          "solved": 0,
+          "tests": 12
+        },
+        "antigravity_cli-gemini_3_8_flash-high": {
+          "solved": 1,
+          "tests": 12
+        },
+        "dsh-deepseek_v4_1_flash-high": {
+          "solved": 0,
+          "tests": 12
+        },
+        "claude_code-glm_5_3_flash-high": {
+          "solved": 0,
+          "tests": 12
+        }
+      },
+      "embodied-safety-exam": {
+        "codex-gpt6_2_astra-high": {
+          "solved": 2,
+          "tests": 4
+        },
+        "claude_code-fable_5_2-high": {
+          "solved": 3,
+          "tests": 4
+        },
+        "codex-gpt6_astra-high": {
+          "solved": 2,
+          "tests": 4
+        },
+        "codex-gpt6_1_sol-high": {
+          "solved": 1,
+          "tests": 4
+        },
+        "claude_code-opus_5_5-high": {
+          "solved": 1,
+          "tests": 4
+        },
+        "antigravity_cli-gemini_4_argon-high": {
+          "solved": 3,
+          "tests": 4
+        },
+        "claude_code-kimi_3_1_pro-high": {
+          "solved": 0,
+          "tests": 4
+        },
+        "claude_code-qwen4_max-high": {
+          "solved": 1,
+          "tests": 4
+        },
+        "antigravity_cli-gemini_3_8_flash-high": {
+          "solved": 0,
+          "tests": 4
+        },
+        "dsh-deepseek_v4_1_flash-high": {
+          "solved": 0,
+          "tests": 4
+        },
+        "claude_code-glm_5_3_flash-high": {
+          "solved": 0,
+          "tests": 4
+        }
+      },
+      "humanoidbench": {
+        "codex-gpt6_2_astra-high": {
+          "solved": 1,
+          "tests": 8
+        },
+        "claude_code-fable_5_2-high": {
+          "solved": 1,
+          "tests": 8
+        },
+        "codex-gpt6_astra-high": {
+          "solved": 1,
+          "tests": 8
+        },
+        "codex-gpt6_1_sol-high": {
+          "solved": 0,
+          "tests": 8
+        },
+        "claude_code-opus_5_5-high": {
+          "solved": 0,
+          "tests": 8
+        },
+        "antigravity_cli-gemini_4_argon-high": {
+          "solved": 0,
+          "tests": 8
+        },
+        "claude_code-kimi_3_1_pro-high": {
+          "solved": 0,
+          "tests": 8
+        },
+        "claude_code-qwen4_max-high": {
+          "solved": 0,
+          "tests": 8
+        },
+        "antigravity_cli-gemini_3_8_flash-high": {
+          "solved": 0,
+          "tests": 8
+        },
+        "dsh-deepseek_v4_1_flash-high": {
+          "solved": 0,
+          "tests": 8
+        },
+        "claude_code-glm_5_3_flash-high": {
+          "solved": 0,
+          "tests": 8
+        }
+      },
+      "mujoco-playground": {
+        "codex-gpt6_2_astra-high": {
+          "solved": 1,
+          "tests": 1
+        },
+        "claude_code-fable_5_2-high": {
+          "solved": 0,
+          "tests": 1
+        },
+        "codex-gpt6_astra-high": {
+          "solved": 1,
+          "tests": 1
+        },
+        "codex-gpt6_1_sol-high": {
+          "solved": 1,
+          "tests": 1
+        },
+        "claude_code-opus_5_5-high": {
+          "solved": 0,
+          "tests": 1
+        },
+        "antigravity_cli-gemini_4_argon-high": {
+          "solved": 0,
+          "tests": 1
+        },
+        "claude_code-kimi_3_1_pro-high": {
+          "solved": 0,
+          "tests": 1
+        },
+        "claude_code-qwen4_max-high": {
+          "solved": 0,
+          "tests": 1
+        },
+        "antigravity_cli-gemini_3_8_flash-high": {
+          "solved": 0,
+          "tests": 1
+        },
+        "dsh-deepseek_v4_1_flash-high": {
+          "solved": 0,
+          "tests": 1
+        },
+        "claude_code-glm_5_3_flash-high": {
+          "solved": 0,
+          "tests": 1
+        }
+      },
+      "pandadyn": {
+        "codex-gpt6_2_astra-high": {
+          "solved": 6,
+          "tests": 8
+        },
+        "claude_code-fable_5_2-high": {
+          "solved": 6,
+          "tests": 8
+        },
+        "codex-gpt6_astra-high": {
+          "solved": 2,
+          "tests": 8
+        },
+        "codex-gpt6_1_sol-high": {
+          "solved": 1,
+          "tests": 8
+        },
+        "claude_code-opus_5_5-high": {
+          "solved": 1,
+          "tests": 8
+        },
+        "antigravity_cli-gemini_4_argon-high": {
+          "solved": 0,
+          "tests": 8
+        },
+        "claude_code-kimi_3_1_pro-high": {
+          "solved": 0,
+          "tests": 8
+        },
+        "claude_code-qwen4_max-high": {
+          "solved": 0,
+          "tests": 8
+        },
+        "antigravity_cli-gemini_3_8_flash-high": {
+          "solved": 0,
+          "tests": 8
+        },
+        "dsh-deepseek_v4_1_flash-high": {
+          "solved": 0,
+          "tests": 8
+        },
+        "claude_code-glm_5_3_flash-high": {
+          "solved": 0,
+          "tests": 8
+        }
+      }
+    },
+    "overall": {
+      "ambench": {
+        "codex-gpt6_2_astra-high": {
+          "solved": 1,
+          "tests": 2
+        },
+        "claude_code-fable_5_2-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "codex-gpt6_astra-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "codex-gpt6_1_sol-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "claude_code-opus_5_5-high": {
+          "solved": 1,
+          "tests": 2
+        },
+        "antigravity_cli-gemini_4_argon-high": {
+          "solved": 0,
+          "tests": 2
+        },
+        "claude_code-kimi_3_1_pro-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "claude_code-qwen4_max-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "antigravity_cli-gemini_3_8_flash-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "dsh-deepseek_v4_1_flash-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "claude_code-glm_5_3_flash-high": {
+          "solved": 0,
+          "tests": 2
+        }
+      },
+      "behavior-1k": {
+        "codex-gpt6_2_astra-high": {
+          "solved": 38,
+          "tests": 71
+        },
+        "claude_code-fable_5_2-high": {
+          "solved": 19,
+          "tests": 71
+        },
+        "codex-gpt6_astra-high": {
+          "solved": 11,
+          "tests": 71
+        },
+        "codex-gpt6_1_sol-high": {
+          "solved": 10,
+          "tests": 71
+        },
+        "claude_code-opus_5_5-high": {
+          "solved": 4,
+          "tests": 71
+        },
+        "antigravity_cli-gemini_4_argon-high": {
+          "solved": 3,
+          "tests": 71
+        },
+        "claude_code-kimi_3_1_pro-high": {
+          "solved": 0,
+          "tests": 71
+        },
+        "claude_code-qwen4_max-high": {
+          "solved": 1,
+          "tests": 71
+        },
+        "antigravity_cli-gemini_3_8_flash-high": {
+          "solved": 0,
+          "tests": 71
+        },
+        "dsh-deepseek_v4_1_flash-high": {
+          "solved": 0,
+          "tests": 71
+        },
+        "claude_code-glm_5_3_flash-high": {
+          "solved": 0,
+          "tests": 71
+        }
+      },
+      "bigym2": {
+        "codex-gpt6_2_astra-high": {
+          "solved": 1,
+          "tests": 10
+        },
+        "claude_code-fable_5_2-high": {
+          "solved": 1,
+          "tests": 10
+        },
+        "codex-gpt6_astra-high": {
+          "solved": 1,
+          "tests": 10
+        },
+        "codex-gpt6_1_sol-high": {
+          "solved": 0,
+          "tests": 10
+        },
+        "claude_code-opus_5_5-high": {
+          "solved": 0,
+          "tests": 10
+        },
+        "antigravity_cli-gemini_4_argon-high": {
+          "solved": 0,
+          "tests": 10
+        },
+        "claude_code-kimi_3_1_pro-high": {
+          "solved": 0,
+          "tests": 10
+        },
+        "claude_code-qwen4_max-high": {
+          "solved": 0,
+          "tests": 10
+        },
+        "antigravity_cli-gemini_3_8_flash-high": {
+          "solved": 0,
+          "tests": 10
+        },
+        "dsh-deepseek_v4_1_flash-high": {
+          "solved": 0,
+          "tests": 10
+        },
+        "claude_code-glm_5_3_flash-high": {
+          "solved": 0,
+          "tests": 10
+        }
+      },
+      "dexhand": {
+        "codex-gpt6_2_astra-high": {
+          "solved": 20,
+          "tests": 23
+        },
+        "claude_code-fable_5_2-high": {
+          "solved": 15,
+          "tests": 23
+        },
+        "codex-gpt6_astra-high": {
+          "solved": 13,
+          "tests": 23
+        },
+        "codex-gpt6_1_sol-high": {
+          "solved": 9,
+          "tests": 23
+        },
+        "claude_code-opus_5_5-high": {
+          "solved": 2,
+          "tests": 23
+        },
+        "antigravity_cli-gemini_4_argon-high": {
+          "solved": 4,
+          "tests": 23
+        },
+        "claude_code-kimi_3_1_pro-high": {
+          "solved": 2,
+          "tests": 23
+        },
+        "claude_code-qwen4_max-high": {
+          "solved": 1,
+          "tests": 23
+        },
+        "antigravity_cli-gemini_3_8_flash-high": {
+          "solved": 1,
+          "tests": 23
+        },
+        "dsh-deepseek_v4_1_flash-high": {
+          "solved": 0,
+          "tests": 23
+        },
+        "claude_code-glm_5_3_flash-high": {
+          "solved": 0,
+          "tests": 23
+        }
+      },
+      "dexjoco": {
+        "codex-gpt6_2_astra-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "claude_code-fable_5_2-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "codex-gpt6_astra-high": {
+          "solved": 1,
+          "tests": 2
+        },
+        "codex-gpt6_1_sol-high": {
+          "solved": 0,
+          "tests": 2
+        },
+        "claude_code-opus_5_5-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "antigravity_cli-gemini_4_argon-high": {
+          "solved": 1,
+          "tests": 2
+        },
+        "claude_code-kimi_3_1_pro-high": {
+          "solved": 0,
+          "tests": 2
+        },
+        "claude_code-qwen4_max-high": {
+          "solved": 0,
+          "tests": 2
+        },
+        "antigravity_cli-gemini_3_8_flash-high": {
+          "solved": 1,
+          "tests": 2
+        },
+        "dsh-deepseek_v4_1_flash-high": {
+          "solved": 0,
+          "tests": 2
+        },
+        "claude_code-glm_5_3_flash-high": {
+          "solved": 0,
+          "tests": 2
+        }
+      },
+      "dextoolbench": {
+        "codex-gpt6_2_astra-high": {
+          "solved": 3,
+          "tests": 20
+        },
+        "claude_code-fable_5_2-high": {
+          "solved": 1,
+          "tests": 20
+        },
+        "codex-gpt6_astra-high": {
+          "solved": 2,
+          "tests": 20
+        },
+        "codex-gpt6_1_sol-high": {
+          "solved": 0,
+          "tests": 20
+        },
+        "claude_code-opus_5_5-high": {
+          "solved": 0,
+          "tests": 20
+        },
+        "antigravity_cli-gemini_4_argon-high": {
+          "solved": 0,
+          "tests": 20
+        },
+        "claude_code-kimi_3_1_pro-high": {
+          "solved": 0,
+          "tests": 20
+        },
+        "claude_code-qwen4_max-high": {
+          "solved": 0,
+          "tests": 20
+        },
+        "antigravity_cli-gemini_3_8_flash-high": {
+          "solved": 0,
+          "tests": 20
+        },
+        "dsh-deepseek_v4_1_flash-high": {
+          "solved": 0,
+          "tests": 20
+        },
+        "claude_code-glm_5_3_flash-high": {
+          "solved": 0,
+          "tests": 20
+        }
+      },
+      "embodied-olympics-fun": {
+        "codex-gpt6_2_astra-high": {
+          "solved": 23,
+          "tests": 56
+        },
+        "claude_code-fable_5_2-high": {
+          "solved": 25,
+          "tests": 56
+        },
+        "codex-gpt6_astra-high": {
+          "solved": 20,
+          "tests": 56
+        },
+        "codex-gpt6_1_sol-high": {
+          "solved": 19,
+          "tests": 56
+        },
+        "claude_code-opus_5_5-high": {
+          "solved": 13,
+          "tests": 56
+        },
+        "antigravity_cli-gemini_4_argon-high": {
+          "solved": 8,
+          "tests": 56
+        },
+        "claude_code-kimi_3_1_pro-high": {
+          "solved": 6,
+          "tests": 56
+        },
+        "claude_code-qwen4_max-high": {
+          "solved": 6,
+          "tests": 56
+        },
+        "antigravity_cli-gemini_3_8_flash-high": {
+          "solved": 1,
+          "tests": 56
+        },
+        "dsh-deepseek_v4_1_flash-high": {
+          "solved": 2,
+          "tests": 56
+        },
+        "claude_code-glm_5_3_flash-high": {
+          "solved": 0,
+          "tests": 56
+        }
+      },
+      "embodied-olympics-match": {
+        "codex-gpt6_2_astra-high": {
+          "solved": 7,
+          "tests": 13
+        },
+        "claude_code-fable_5_2-high": {
+          "solved": 5,
+          "tests": 13
+        },
+        "codex-gpt6_astra-high": {
+          "solved": 3,
+          "tests": 13
+        },
+        "codex-gpt6_1_sol-high": {
+          "solved": 4,
+          "tests": 13
+        },
+        "claude_code-opus_5_5-high": {
+          "solved": 0,
+          "tests": 13
+        },
+        "antigravity_cli-gemini_4_argon-high": {
+          "solved": 3,
+          "tests": 13
+        },
+        "claude_code-kimi_3_1_pro-high": {
+          "solved": 2,
+          "tests": 13
+        },
+        "claude_code-qwen4_max-high": {
+          "solved": 0,
+          "tests": 13
+        },
+        "antigravity_cli-gemini_3_8_flash-high": {
+          "solved": 0,
+          "tests": 13
+        },
+        "dsh-deepseek_v4_1_flash-high": {
+          "solved": 0,
+          "tests": 13
+        },
+        "claude_code-glm_5_3_flash-high": {
+          "solved": 1,
+          "tests": 13
+        }
+      },
+      "embodied-safety-exam": {
+        "codex-gpt6_2_astra-high": {
+          "solved": 26,
+          "tests": 50
+        },
+        "claude_code-fable_5_2-high": {
+          "solved": 34,
+          "tests": 50
+        },
+        "codex-gpt6_astra-high": {
+          "solved": 31,
+          "tests": 50
+        },
+        "codex-gpt6_1_sol-high": {
+          "solved": 29,
+          "tests": 50
+        },
+        "claude_code-opus_5_5-high": {
+          "solved": 19,
+          "tests": 50
+        },
+        "antigravity_cli-gemini_4_argon-high": {
+          "solved": 27,
+          "tests": 50
+        },
+        "claude_code-kimi_3_1_pro-high": {
+          "solved": 9,
+          "tests": 50
+        },
+        "claude_code-qwen4_max-high": {
+          "solved": 8,
+          "tests": 50
+        },
+        "antigravity_cli-gemini_3_8_flash-high": {
+          "solved": 10,
+          "tests": 50
+        },
+        "dsh-deepseek_v4_1_flash-high": {
+          "solved": 2,
+          "tests": 50
+        },
+        "claude_code-glm_5_3_flash-high": {
+          "solved": 5,
+          "tests": 50
+        }
+      },
+      "embodiedswe": {
+        "codex-gpt6_2_astra-high": {
+          "solved": 8,
+          "tests": 12
+        },
+        "claude_code-fable_5_2-high": {
+          "solved": 8,
+          "tests": 12
+        },
+        "codex-gpt6_astra-high": {
+          "solved": 5,
+          "tests": 12
+        },
+        "codex-gpt6_1_sol-high": {
+          "solved": 5,
+          "tests": 12
+        },
+        "claude_code-opus_5_5-high": {
+          "solved": 5,
+          "tests": 12
+        },
+        "antigravity_cli-gemini_4_argon-high": {
+          "solved": 4,
+          "tests": 12
+        },
+        "claude_code-kimi_3_1_pro-high": {
+          "solved": 0,
+          "tests": 12
+        },
+        "claude_code-qwen4_max-high": {
+          "solved": 0,
+          "tests": 12
+        },
+        "antigravity_cli-gemini_3_8_flash-high": {
+          "solved": 2,
+          "tests": 12
+        },
+        "dsh-deepseek_v4_1_flash-high": {
+          "solved": 0,
+          "tests": 12
+        },
+        "claude_code-glm_5_3_flash-high": {
+          "solved": 0,
+          "tests": 12
+        }
+      },
+      "humanoidbench": {
+        "codex-gpt6_2_astra-high": {
+          "solved": 0,
+          "tests": 8
+        },
+        "claude_code-fable_5_2-high": {
+          "solved": 0,
+          "tests": 8
+        },
+        "codex-gpt6_astra-high": {
+          "solved": 1,
+          "tests": 8
+        },
+        "codex-gpt6_1_sol-high": {
+          "solved": 0,
+          "tests": 8
+        },
+        "claude_code-opus_5_5-high": {
+          "solved": 0,
+          "tests": 8
+        },
+        "antigravity_cli-gemini_4_argon-high": {
+          "solved": 0,
+          "tests": 8
+        },
+        "claude_code-kimi_3_1_pro-high": {
+          "solved": 0,
+          "tests": 8
+        },
+        "claude_code-qwen4_max-high": {
+          "solved": 0,
+          "tests": 8
+        },
+        "antigravity_cli-gemini_3_8_flash-high": {
+          "solved": 0,
+          "tests": 8
+        },
+        "dsh-deepseek_v4_1_flash-high": {
+          "solved": 0,
+          "tests": 8
+        },
+        "claude_code-glm_5_3_flash-high": {
+          "solved": 0,
+          "tests": 8
+        }
+      },
+      "ispatialgym": {
+        "codex-gpt6_2_astra-high": {
+          "solved": 7,
+          "tests": 8
+        },
+        "claude_code-fable_5_2-high": {
+          "solved": 6,
+          "tests": 8
+        },
+        "codex-gpt6_astra-high": {
+          "solved": 4,
+          "tests": 8
+        },
+        "codex-gpt6_1_sol-high": {
+          "solved": 4,
+          "tests": 8
+        },
+        "claude_code-opus_5_5-high": {
+          "solved": 3,
+          "tests": 8
+        },
+        "antigravity_cli-gemini_4_argon-high": {
+          "solved": 2,
+          "tests": 8
+        },
+        "claude_code-kimi_3_1_pro-high": {
+          "solved": 1,
+          "tests": 8
+        },
+        "claude_code-qwen4_max-high": {
+          "solved": 0,
+          "tests": 8
+        },
+        "antigravity_cli-gemini_3_8_flash-high": {
+          "solved": 1,
+          "tests": 8
+        },
+        "dsh-deepseek_v4_1_flash-high": {
+          "solved": 0,
+          "tests": 8
+        },
+        "claude_code-glm_5_3_flash-high": {
+          "solved": 0,
+          "tests": 8
+        }
+      },
+      "kinder": {
+        "codex-gpt6_2_astra-high": {
+          "solved": 2,
+          "tests": 4
+        },
+        "claude_code-fable_5_2-high": {
+          "solved": 1,
+          "tests": 4
+        },
+        "codex-gpt6_astra-high": {
+          "solved": 0,
+          "tests": 4
+        },
+        "codex-gpt6_1_sol-high": {
+          "solved": 1,
+          "tests": 4
+        },
+        "claude_code-opus_5_5-high": {
+          "solved": 0,
+          "tests": 4
+        },
+        "antigravity_cli-gemini_4_argon-high": {
+          "solved": 0,
+          "tests": 4
+        },
+        "claude_code-kimi_3_1_pro-high": {
+          "solved": 0,
+          "tests": 4
+        },
+        "claude_code-qwen4_max-high": {
+          "solved": 0,
+          "tests": 4
+        },
+        "antigravity_cli-gemini_3_8_flash-high": {
+          "solved": 0,
+          "tests": 4
+        },
+        "dsh-deepseek_v4_1_flash-high": {
+          "solved": 0,
+          "tests": 4
+        },
+        "claude_code-glm_5_3_flash-high": {
+          "solved": 0,
+          "tests": 4
+        }
+      },
+      "libero-max": {
+        "codex-gpt6_2_astra-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "claude_code-fable_5_2-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "codex-gpt6_astra-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "codex-gpt6_1_sol-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "claude_code-opus_5_5-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "antigravity_cli-gemini_4_argon-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "claude_code-kimi_3_1_pro-high": {
+          "solved": 1,
+          "tests": 2
+        },
+        "claude_code-qwen4_max-high": {
+          "solved": 0,
+          "tests": 2
+        },
+        "antigravity_cli-gemini_3_8_flash-high": {
+          "solved": 1,
+          "tests": 2
+        },
+        "dsh-deepseek_v4_1_flash-high": {
+          "solved": 0,
+          "tests": 2
+        },
+        "claude_code-glm_5_3_flash-high": {
+          "solved": 0,
+          "tests": 2
+        }
+      },
+      "maniguard": {
+        "codex-gpt6_2_astra-high": {
+          "solved": 4,
+          "tests": 7
+        },
+        "claude_code-fable_5_2-high": {
+          "solved": 6,
+          "tests": 7
+        },
+        "codex-gpt6_astra-high": {
+          "solved": 3,
+          "tests": 7
+        },
+        "codex-gpt6_1_sol-high": {
+          "solved": 5,
+          "tests": 7
+        },
+        "claude_code-opus_5_5-high": {
+          "solved": 7,
+          "tests": 7
+        },
+        "antigravity_cli-gemini_4_argon-high": {
+          "solved": 4,
+          "tests": 7
+        },
+        "claude_code-kimi_3_1_pro-high": {
+          "solved": 3,
+          "tests": 7
+        },
+        "claude_code-qwen4_max-high": {
+          "solved": 0,
+          "tests": 7
+        },
+        "antigravity_cli-gemini_3_8_flash-high": {
+          "solved": 0,
+          "tests": 7
+        },
+        "dsh-deepseek_v4_1_flash-high": {
+          "solved": 0,
+          "tests": 7
+        },
+        "claude_code-glm_5_3_flash-high": {
+          "solved": 0,
+          "tests": 7
+        }
+      },
+      "metaworldplus": {
+        "codex-gpt6_2_astra-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "claude_code-fable_5_2-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "codex-gpt6_astra-high": {
+          "solved": 1,
+          "tests": 2
+        },
+        "codex-gpt6_1_sol-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "claude_code-opus_5_5-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "antigravity_cli-gemini_4_argon-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "claude_code-kimi_3_1_pro-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "claude_code-qwen4_max-high": {
+          "solved": 1,
+          "tests": 2
+        },
+        "antigravity_cli-gemini_3_8_flash-high": {
+          "solved": 1,
+          "tests": 2
+        },
+        "dsh-deepseek_v4_1_flash-high": {
+          "solved": 1,
+          "tests": 2
+        },
+        "claude_code-glm_5_3_flash-high": {
+          "solved": 1,
+          "tests": 2
+        }
+      },
+      "molmospaces": {
+        "codex-gpt6_2_astra-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "claude_code-fable_5_2-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "codex-gpt6_astra-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "codex-gpt6_1_sol-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "claude_code-opus_5_5-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "antigravity_cli-gemini_4_argon-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "claude_code-kimi_3_1_pro-high": {
+          "solved": 1,
+          "tests": 2
+        },
+        "claude_code-qwen4_max-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "antigravity_cli-gemini_3_8_flash-high": {
+          "solved": 0,
+          "tests": 2
+        },
+        "dsh-deepseek_v4_1_flash-high": {
+          "solved": 1,
+          "tests": 2
+        },
+        "claude_code-glm_5_3_flash-high": {
+          "solved": 1,
+          "tests": 2
+        }
+      },
+      "mujoco-playground": {
+        "codex-gpt6_2_astra-high": {
+          "solved": 7,
+          "tests": 7
+        },
+        "claude_code-fable_5_2-high": {
+          "solved": 3,
+          "tests": 7
+        },
+        "codex-gpt6_astra-high": {
+          "solved": 4,
+          "tests": 7
+        },
+        "codex-gpt6_1_sol-high": {
+          "solved": 3,
+          "tests": 7
+        },
+        "claude_code-opus_5_5-high": {
+          "solved": 0,
+          "tests": 7
+        },
+        "antigravity_cli-gemini_4_argon-high": {
+          "solved": 2,
+          "tests": 7
+        },
+        "claude_code-kimi_3_1_pro-high": {
+          "solved": 0,
+          "tests": 7
+        },
+        "claude_code-qwen4_max-high": {
+          "solved": 0,
+          "tests": 7
+        },
+        "antigravity_cli-gemini_3_8_flash-high": {
+          "solved": 0,
+          "tests": 7
+        },
+        "dsh-deepseek_v4_1_flash-high": {
+          "solved": 0,
+          "tests": 7
+        },
+        "claude_code-glm_5_3_flash-high": {
+          "solved": 0,
+          "tests": 7
+        }
+      },
+      "myosuite": {
+        "codex-gpt6_2_astra-high": {
+          "solved": 7,
+          "tests": 13
+        },
+        "claude_code-fable_5_2-high": {
+          "solved": 5,
+          "tests": 13
+        },
+        "codex-gpt6_astra-high": {
+          "solved": 3,
+          "tests": 13
+        },
+        "codex-gpt6_1_sol-high": {
+          "solved": 3,
+          "tests": 13
+        },
+        "claude_code-opus_5_5-high": {
+          "solved": 3,
+          "tests": 13
+        },
+        "antigravity_cli-gemini_4_argon-high": {
+          "solved": 0,
+          "tests": 13
+        },
+        "claude_code-kimi_3_1_pro-high": {
+          "solved": 0,
+          "tests": 13
+        },
+        "claude_code-qwen4_max-high": {
+          "solved": 0,
+          "tests": 13
+        },
+        "antigravity_cli-gemini_3_8_flash-high": {
+          "solved": 0,
+          "tests": 13
+        },
+        "dsh-deepseek_v4_1_flash-high": {
+          "solved": 0,
+          "tests": 13
+        },
+        "claude_code-glm_5_3_flash-high": {
+          "solved": 0,
+          "tests": 13
+        }
+      },
+      "pandadyn": {
+        "codex-gpt6_2_astra-high": {
+          "solved": 3,
+          "tests": 10
+        },
+        "claude_code-fable_5_2-high": {
+          "solved": 3,
+          "tests": 10
+        },
+        "codex-gpt6_astra-high": {
+          "solved": 1,
+          "tests": 10
+        },
+        "codex-gpt6_1_sol-high": {
+          "solved": 0,
+          "tests": 10
+        },
+        "claude_code-opus_5_5-high": {
+          "solved": 1,
+          "tests": 10
+        },
+        "antigravity_cli-gemini_4_argon-high": {
+          "solved": 0,
+          "tests": 10
+        },
+        "claude_code-kimi_3_1_pro-high": {
+          "solved": 0,
+          "tests": 10
+        },
+        "claude_code-qwen4_max-high": {
+          "solved": 0,
+          "tests": 10
+        },
+        "antigravity_cli-gemini_3_8_flash-high": {
+          "solved": 0,
+          "tests": 10
+        },
+        "dsh-deepseek_v4_1_flash-high": {
+          "solved": 0,
+          "tests": 10
+        },
+        "claude_code-glm_5_3_flash-high": {
+          "solved": 0,
+          "tests": 10
+        }
+      },
+      "roboarc": {
+        "codex-gpt6_2_astra-high": {
+          "solved": 32,
+          "tests": 58
+        },
+        "claude_code-fable_5_2-high": {
+          "solved": 33,
+          "tests": 58
+        },
+        "codex-gpt6_astra-high": {
+          "solved": 14,
+          "tests": 58
+        },
+        "codex-gpt6_1_sol-high": {
+          "solved": 14,
+          "tests": 58
+        },
+        "claude_code-opus_5_5-high": {
+          "solved": 15,
+          "tests": 58
+        },
+        "antigravity_cli-gemini_4_argon-high": {
+          "solved": 6,
+          "tests": 58
+        },
+        "claude_code-kimi_3_1_pro-high": {
+          "solved": 0,
+          "tests": 58
+        },
+        "claude_code-qwen4_max-high": {
+          "solved": 0,
+          "tests": 58
+        },
+        "antigravity_cli-gemini_3_8_flash-high": {
+          "solved": 2,
+          "tests": 58
+        },
+        "dsh-deepseek_v4_1_flash-high": {
+          "solved": 0,
+          "tests": 58
+        },
+        "claude_code-glm_5_3_flash-high": {
+          "solved": 0,
+          "tests": 58
+        }
+      },
+      "robocasa": {
+        "codex-gpt6_2_astra-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "claude_code-fable_5_2-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "codex-gpt6_astra-high": {
+          "solved": 0,
+          "tests": 2
+        },
+        "codex-gpt6_1_sol-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "claude_code-opus_5_5-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "antigravity_cli-gemini_4_argon-high": {
+          "solved": 1,
+          "tests": 2
+        },
+        "claude_code-kimi_3_1_pro-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "claude_code-qwen4_max-high": {
+          "solved": 0,
+          "tests": 2
+        },
+        "antigravity_cli-gemini_3_8_flash-high": {
+          "solved": 0,
+          "tests": 2
+        },
+        "dsh-deepseek_v4_1_flash-high": {
+          "solved": 1,
+          "tests": 2
+        },
+        "claude_code-glm_5_3_flash-high": {
+          "solved": 0,
+          "tests": 2
+        }
+      },
+      "robocasa-gr1": {
+        "codex-gpt6_2_astra-high": {
+          "solved": 1,
+          "tests": 1
+        },
+        "claude_code-fable_5_2-high": {
+          "solved": 1,
+          "tests": 1
+        },
+        "codex-gpt6_astra-high": {
+          "solved": 0,
+          "tests": 1
+        },
+        "codex-gpt6_1_sol-high": {
+          "solved": 0,
+          "tests": 1
+        },
+        "claude_code-opus_5_5-high": {
+          "solved": 1,
+          "tests": 1
+        },
+        "antigravity_cli-gemini_4_argon-high": {
+          "solved": 0,
+          "tests": 1
+        },
+        "claude_code-kimi_3_1_pro-high": {
+          "solved": 0,
+          "tests": 1
+        },
+        "claude_code-qwen4_max-high": {
+          "solved": 0,
+          "tests": 1
+        },
+        "antigravity_cli-gemini_3_8_flash-high": {
+          "solved": 0,
+          "tests": 1
+        },
+        "dsh-deepseek_v4_1_flash-high": {
+          "solved": 0,
+          "tests": 1
+        },
+        "claude_code-glm_5_3_flash-high": {
+          "solved": 0,
+          "tests": 1
+        }
+      },
+      "robocasa365": {
+        "codex-gpt6_2_astra-high": {
+          "solved": 3,
+          "tests": 5
+        },
+        "claude_code-fable_5_2-high": {
+          "solved": 2,
+          "tests": 5
+        },
+        "codex-gpt6_astra-high": {
+          "solved": 1,
+          "tests": 5
+        },
+        "codex-gpt6_1_sol-high": {
+          "solved": 1,
+          "tests": 5
+        },
+        "claude_code-opus_5_5-high": {
+          "solved": 0,
+          "tests": 5
+        },
+        "antigravity_cli-gemini_4_argon-high": {
+          "solved": 0,
+          "tests": 5
+        },
+        "claude_code-kimi_3_1_pro-high": {
+          "solved": 0,
+          "tests": 5
+        },
+        "claude_code-qwen4_max-high": {
+          "solved": 0,
+          "tests": 5
+        },
+        "antigravity_cli-gemini_3_8_flash-high": {
+          "solved": 0,
+          "tests": 5
+        },
+        "dsh-deepseek_v4_1_flash-high": {
+          "solved": 0,
+          "tests": 5
+        },
+        "claude_code-glm_5_3_flash-high": {
+          "solved": 0,
+          "tests": 5
+        }
+      },
+      "robodojo": {
+        "codex-gpt6_2_astra-high": {
+          "solved": 22,
+          "tests": 37
+        },
+        "claude_code-fable_5_2-high": {
+          "solved": 28,
+          "tests": 37
+        },
+        "codex-gpt6_astra-high": {
+          "solved": 21,
+          "tests": 37
+        },
+        "codex-gpt6_1_sol-high": {
+          "solved": 16,
+          "tests": 37
+        },
+        "claude_code-opus_5_5-high": {
+          "solved": 18,
+          "tests": 37
+        },
+        "antigravity_cli-gemini_4_argon-high": {
+          "solved": 17,
+          "tests": 37
+        },
+        "claude_code-kimi_3_1_pro-high": {
+          "solved": 9,
+          "tests": 37
+        },
+        "claude_code-qwen4_max-high": {
+          "solved": 5,
+          "tests": 37
+        },
+        "antigravity_cli-gemini_3_8_flash-high": {
+          "solved": 2,
+          "tests": 37
+        },
+        "dsh-deepseek_v4_1_flash-high": {
+          "solved": 3,
+          "tests": 37
+        },
+        "claude_code-glm_5_3_flash-high": {
+          "solved": 1,
+          "tests": 37
+        }
+      },
+      "roboengineer": {
+        "codex-gpt6_2_astra-high": {
+          "solved": 3,
+          "tests": 15
+        },
+        "claude_code-fable_5_2-high": {
+          "solved": 7,
+          "tests": 15
+        },
+        "codex-gpt6_astra-high": {
+          "solved": 5,
+          "tests": 15
+        },
+        "codex-gpt6_1_sol-high": {
+          "solved": 3,
+          "tests": 15
+        },
+        "claude_code-opus_5_5-high": {
+          "solved": 4,
+          "tests": 15
+        },
+        "antigravity_cli-gemini_4_argon-high": {
+          "solved": 4,
+          "tests": 15
+        },
+        "claude_code-kimi_3_1_pro-high": {
+          "solved": 2,
+          "tests": 15
+        },
+        "claude_code-qwen4_max-high": {
+          "solved": 3,
+          "tests": 15
+        },
+        "antigravity_cli-gemini_3_8_flash-high": {
+          "solved": 0,
+          "tests": 15
+        },
+        "dsh-deepseek_v4_1_flash-high": {
+          "solved": 2,
+          "tests": 15
+        },
+        "claude_code-glm_5_3_flash-high": {
+          "solved": 2,
+          "tests": 15
+        }
+      },
+      "robolab": {
+        "codex-gpt6_2_astra-high": {
+          "solved": 2,
+          "tests": 6
+        },
+        "claude_code-fable_5_2-high": {
+          "solved": 2,
+          "tests": 6
+        },
+        "codex-gpt6_astra-high": {
+          "solved": 0,
+          "tests": 6
+        },
+        "codex-gpt6_1_sol-high": {
+          "solved": 2,
+          "tests": 6
+        },
+        "claude_code-opus_5_5-high": {
+          "solved": 1,
+          "tests": 6
+        },
+        "antigravity_cli-gemini_4_argon-high": {
+          "solved": 0,
+          "tests": 6
+        },
+        "claude_code-kimi_3_1_pro-high": {
+          "solved": 0,
+          "tests": 6
+        },
+        "claude_code-qwen4_max-high": {
+          "solved": 0,
+          "tests": 6
+        },
+        "antigravity_cli-gemini_3_8_flash-high": {
+          "solved": 1,
+          "tests": 6
+        },
+        "dsh-deepseek_v4_1_flash-high": {
+          "solved": 0,
+          "tests": 6
+        },
+        "claude_code-glm_5_3_flash-high": {
+          "solved": 0,
+          "tests": 6
+        }
+      },
+      "robopaint": {
+        "codex-gpt6_2_astra-high": {
+          "solved": 21,
+          "tests": 22
+        },
+        "claude_code-fable_5_2-high": {
+          "solved": 2,
+          "tests": 22
+        },
+        "codex-gpt6_astra-high": {
+          "solved": 7,
+          "tests": 22
+        },
+        "codex-gpt6_1_sol-high": {
+          "solved": 6,
+          "tests": 22
+        },
+        "claude_code-opus_5_5-high": {
+          "solved": 1,
+          "tests": 22
+        },
+        "antigravity_cli-gemini_4_argon-high": {
+          "solved": 1,
+          "tests": 22
+        },
+        "claude_code-kimi_3_1_pro-high": {
+          "solved": 0,
+          "tests": 22
+        },
+        "claude_code-qwen4_max-high": {
+          "solved": 0,
+          "tests": 22
+        },
+        "antigravity_cli-gemini_3_8_flash-high": {
+          "solved": 0,
+          "tests": 22
+        },
+        "dsh-deepseek_v4_1_flash-high": {
+          "solved": 0,
+          "tests": 22
+        },
+        "claude_code-glm_5_3_flash-high": {
+          "solved": 0,
+          "tests": 22
+        }
+      },
+      "robotwin-2": {
+        "codex-gpt6_2_astra-high": {
+          "solved": 3,
+          "tests": 3
+        },
+        "claude_code-fable_5_2-high": {
+          "solved": 1,
+          "tests": 3
+        },
+        "codex-gpt6_astra-high": {
+          "solved": 1,
+          "tests": 3
+        },
+        "codex-gpt6_1_sol-high": {
+          "solved": 2,
+          "tests": 3
+        },
+        "claude_code-opus_5_5-high": {
+          "solved": 3,
+          "tests": 3
+        },
+        "antigravity_cli-gemini_4_argon-high": {
+          "solved": 1,
+          "tests": 3
+        },
+        "claude_code-kimi_3_1_pro-high": {
+          "solved": 0,
+          "tests": 3
+        },
+        "claude_code-qwen4_max-high": {
+          "solved": 1,
+          "tests": 3
+        },
+        "antigravity_cli-gemini_3_8_flash-high": {
+          "solved": 0,
+          "tests": 3
+        },
+        "dsh-deepseek_v4_1_flash-high": {
+          "solved": 0,
+          "tests": 3
+        },
+        "claude_code-glm_5_3_flash-high": {
+          "solved": 0,
+          "tests": 3
+        }
+      },
+      "robowits": {
+        "codex-gpt6_2_astra-high": {
+          "solved": 3,
+          "tests": 6
+        },
+        "claude_code-fable_5_2-high": {
+          "solved": 2,
+          "tests": 6
+        },
+        "codex-gpt6_astra-high": {
+          "solved": 2,
+          "tests": 6
+        },
+        "codex-gpt6_1_sol-high": {
+          "solved": 3,
+          "tests": 6
+        },
+        "claude_code-opus_5_5-high": {
+          "solved": 3,
+          "tests": 6
+        },
+        "antigravity_cli-gemini_4_argon-high": {
+          "solved": 2,
+          "tests": 6
+        },
+        "claude_code-kimi_3_1_pro-high": {
+          "solved": 2,
+          "tests": 6
+        },
+        "claude_code-qwen4_max-high": {
+          "solved": 2,
+          "tests": 6
+        },
+        "antigravity_cli-gemini_3_8_flash-high": {
+          "solved": 0,
+          "tests": 6
+        },
+        "dsh-deepseek_v4_1_flash-high": {
+          "solved": 0,
+          "tests": 6
+        },
+        "claude_code-glm_5_3_flash-high": {
+          "solved": 0,
+          "tests": 6
+        }
+      },
+      "vlabench": {
+        "codex-gpt6_2_astra-high": {
+          "solved": 1,
+          "tests": 2
+        },
+        "claude_code-fable_5_2-high": {
+          "solved": 1,
+          "tests": 2
+        },
+        "codex-gpt6_astra-high": {
+          "solved": 0,
+          "tests": 2
+        },
+        "codex-gpt6_1_sol-high": {
+          "solved": 1,
+          "tests": 2
+        },
+        "claude_code-opus_5_5-high": {
+          "solved": 1,
+          "tests": 2
+        },
+        "antigravity_cli-gemini_4_argon-high": {
+          "solved": 0,
+          "tests": 2
+        },
+        "claude_code-kimi_3_1_pro-high": {
+          "solved": 0,
+          "tests": 2
+        },
+        "claude_code-qwen4_max-high": {
+          "solved": 0,
+          "tests": 2
+        },
+        "antigravity_cli-gemini_3_8_flash-high": {
+          "solved": 0,
+          "tests": 2
+        },
+        "dsh-deepseek_v4_1_flash-high": {
+          "solved": 0,
+          "tests": 2
+        },
+        "claude_code-glm_5_3_flash-high": {
+          "solved": 0,
+          "tests": 2
+        }
+      },
+      "yamlab": {
+        "codex-gpt6_2_astra-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "claude_code-fable_5_2-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "codex-gpt6_astra-high": {
+          "solved": 1,
+          "tests": 2
+        },
+        "codex-gpt6_1_sol-high": {
+          "solved": 1,
+          "tests": 2
+        },
+        "claude_code-opus_5_5-high": {
+          "solved": 2,
+          "tests": 2
+        },
+        "antigravity_cli-gemini_4_argon-high": {
+          "solved": 1,
+          "tests": 2
+        },
+        "claude_code-kimi_3_1_pro-high": {
+          "solved": 0,
+          "tests": 2
+        },
+        "claude_code-qwen4_max-high": {
+          "solved": 0,
+          "tests": 2
+        },
+        "antigravity_cli-gemini_3_8_flash-high": {
+          "solved": 0,
+          "tests": 2
+        },
+        "dsh-deepseek_v4_1_flash-high": {
+          "solved": 0,
+          "tests": 2
+        },
+        "claude_code-glm_5_3_flash-high": {
+          "solved": 0,
+          "tests": 2
+        }
+      }
+    }
+  },
+  "default_pair": {
+    "a": "codex-gpt6_2_astra-high",
+    "b": "claude_code-fable_5_2-high",
+    "counts": {
+      "standard": {
+        "n": 481,
+        "only_gpt6_2_astra": 96,
+        "only_fable_5_2": 65,
+        "both": 183,
+        "neither": 137
+      },
+      "privileged": {
+        "n": 416,
+        "only_gpt6_2_astra": 63,
+        "only_fable_5_2": 5,
+        "both": 332,
+        "neither": 16
+      },
+      "realtime": {
+        "n": 54,
+        "only_gpt6_2_astra": 6,
+        "only_fable_5_2": 6,
+        "both": 16,
+        "neither": 26
+      },
+      "overall": {
+        "n": 481,
+        "only_gpt6_2_astra": 94,
+        "only_fable_5_2": 59,
+        "both": 166,
+        "neither": 162
+      }
+    },
+    "source_for_headline_match": "The Standard and Privileged pair counts match the failure-analysis post (Astra 96 vs Fable 65 of 481 Standard; Astra 63 vs Fable 5 of 416 Privileged). Source: https://www.embodied-first-exam.ai/blogs/failure-analysis/ as fetched 2026-11-25. Those pair counts were recomputed from this snapshot's matrix and match exactly.",
+    "unsolved_standard_all_11": 111,
+    "unsolved_standard_without_gpt6_2_astra": 169,
+    "note_on_unsolved": "The failure-analysis post, written against ten agents, said 112 Standard tests were solved by no agent and 170 if Astra was removed. This 11-agent snapshot gives 111 and 169. Qwen4 Max is the 11th ranked agent. Do not silently overwrite the post with these counts; show the matrix counts as the live board and mention the post used ten agents."
+  },
+  "robodojo_prompt_ablation": {
+    "source": "https://www.embodied-first-exam.ai/suite/robodojo/ as fetched 2026-11-25 around 9:22 AM PT",
+    "also_in_report": "https://www.embodied-first-exam.ai/blogs/agentic-robotics-benchmark/ reports the GPT-6 Astra column only (12/54, 33/54, 37/54).",
+    "scope": "All 54 RoboDojo tasks in the Standard Setting, not only the 37 core tasks on the leaderboard. Only GPT-6 Astra and Claude Fable 5.2 are published. GPT-6.2 Astra is not in this table. The official page says scenes, step limits and success checkers stayed the same, and that the leaderboard uses the fully specified prompt. Per-task marks for the three prompts and the RoboDojo harness are not published; show this table as aggregates only and do not invent a per-task prompt matrix.",
+    "columns": [
+      "gpt6_astra",
+      "fable_5_2"
+    ],
+    "rows": [
+      {
+        "id": "vla_prompt",
+        "label": "VLA prompt: RoboDojo's one-sentence task description.",
+        "gpt6_astra": {
+          "solved": 12,
+          "tests": 54,
+          "percent_label": "22%"
+        },
+        "fable_5_2": {
+          "solved": 34,
+          "tests": 54,
+          "percent_label": "63%"
+        }
+      },
+      {
+        "id": "robodojo_agent_prompt",
+        "label": "RoboDojo agent prompt for GPT-6 Astra: the same sentence plus the task recipe and the return-to-start note from RoboDojo's GPT-6 Astra evaluation.",
+        "gpt6_astra": {
+          "solved": 33,
+          "tests": 54,
+          "percent_label": "61%"
+        },
+        "fable_5_2": {
+          "solved": 40,
+          "tests": 54,
+          "percent_label": "74%"
+        }
+      },
+      {
+        "id": "fully_specified_efe",
+        "label": "Fully specified prompt (EFE): the task stated together with every condition RoboDojo's success checker tests, including that both arms end near their start pose. The leaderboard uses this prompt.",
+        "gpt6_astra": {
+          "solved": 37,
+          "tests": 54,
+          "percent_label": "69%"
+        },
+        "fable_5_2": {
+          "solved": 44,
+          "tests": 54,
+          "percent_label": "81%"
+        }
+      },
+      {
+        "id": "robodojo_agent_harness",
+        "label": "RoboDojo agent harness: the agent prompt in RoboDojo's own agent harness instead of Codex or Claude Code; the model sets end-effector targets and RoboDojo's motion planner moves the arms.",
+        "gpt6_astra": {
+          "solved": 13,
+          "tests": 54,
+          "percent_label": "24%"
+        },
+        "fable_5_2": {
+          "solved": 15,
+          "tests": 54,
+          "percent_label": "28%"
+        }
+      }
+    ]
+  }
+}
